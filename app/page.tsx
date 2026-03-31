@@ -6,6 +6,7 @@ import {
 
 import { BmButton } from "@/components/bm-button";
 import { Navbar1 } from "@/components/navbar1";
+import { ScrollNavbar } from "@/components/scroll-navbar";
 import { HeroSection } from "@/components/hero-section";
 import { Footer2 } from "@/components/footer2";
 import { TestimonialsCarousel } from "@/components/testimonials-carousel";
@@ -25,36 +26,14 @@ export default function Home() {
   return (
     <main className="flex flex-col w-full">
 
-      {/* ── 1. NAVBAR ─────────────────────────────────────────────────── */}
-      <div className="sticky top-0 z-50 bg-white shadow-sm">
-        <Navbar1
-          logo={{
-            url: "/",
-            src: "/brandmakers-logo.svg",
-            mobileSrc: "/brandmakers-logo2.svg",
-            alt: "Brand Makers",
-            title: "",
-          }}
-          menu={[]}
-          auth={{
-            login: {
-              title: "Log In",
-              url: "https://catalog.brandmakers.com/auth/login",
-            },
-            signup: {
-              title: "Let's Connect",
-              url: "/lets-connect",
-            },
-          }}
-          className="bg-white"
-        />
-      </div>
+      {/* ── 1. NAVBAR (fixed over hero, transitions to sticky white on scroll) ── */}
+      <ScrollNavbar />
+
+      {/* ── 2. HERO ──────────────────────────────────────────────────── */}
+      <HeroSection />
 
       {/* ── Content (overflow hidden only on the scrolling content, not navbar) ── */}
       <div className="flex flex-col w-full overflow-x-hidden">
-
-      {/* ── 2. HERO ───────────────────────────────────────────────────── */}
-      <HeroSection />
 
       {/* ── 3. SERVICES GRID ──────────────────────────────────────────── */}
       <ServicesGrid />
