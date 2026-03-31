@@ -15,14 +15,27 @@ export function HeroSection() {
 
   return (
     <section
-      className="relative w-full"
+      className="relative w-full overflow-hidden"
       style={{
         backgroundColor: "#F5F5F5",
         minHeight: `calc(100svh - ${navH}px)`,
       }}
     >
+      {/* Full-cover hero image */}
+      <img
+        src="/hero-img.jpg"
+        alt=""
+        className="absolute inset-0 h-full w-full object-contain object-right"
+      />
+      {/* Left-to-right gradient for text readability */}
       <div
-        className="max-w-[1200px] mx-auto px-6 flex flex-col justify-between"
+        className="absolute inset-0"
+        style={{
+          background: "linear-gradient(to right, #F5F5F5 0%, #F5F5F5 20%, transparent 45%)",
+        }}
+      />
+      <div
+        className="relative z-10 max-w-[1200px] mx-auto px-6 flex flex-col justify-between"
         style={{
           minHeight: `calc(100svh - ${navH}px)`,
           paddingTop: "clamp(32px, 5vw, 64px)",
