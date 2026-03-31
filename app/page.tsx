@@ -1,65 +1,342 @@
-import Image from "next/image";
+import {
+  Search,
+  Layers,
+  Play,
+} from "lucide-react";
+
+import { BmButton } from "@/components/bm-button";
+import { Navbar1 } from "@/components/navbar1";
+import { HeroSection } from "@/components/hero-section";
+import { Footer2 } from "@/components/footer2";
+import { TestimonialsCarousel } from "@/components/testimonials-carousel";
+import { ServicesGrid } from "@/components/services-grid";
+
+// ─── Brand colour tokens ───────────────────────────────────────────────────
+const BLUE = "#00A1E1";
+const DARK = "#323E48";
+const GREY = "#F0F0F0";
+
+// ─── Shared section-padding classes ───────────────────────────────────────
+const SEC = "py-20 md:py-[80px]";
+const CONTAINER = "max-w-[1200px] mx-auto px-6";
+
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <main className="flex flex-col w-full">
+
+      {/* ── 1. NAVBAR ─────────────────────────────────────────────────── */}
+      <div className="sticky top-0 z-50 bg-white shadow-sm">
+        <Navbar1
+          logo={{
+            url: "/",
+            src: "/brandmakers-logo.svg",
+            alt: "Brand Makers",
+            title: "",
+          }}
+          menu={[]}
+          auth={{
+            login: {
+              title: "Log In",
+              url: "https://catalog.brandmakers.com/auth/login",
+            },
+            signup: {
+              title: "Let's Connect",
+              url: "/lets-connect",
+            },
+          }}
+          className="bg-white"
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+      </div>
+
+      {/* ── Content (overflow hidden only on the scrolling content, not navbar) ── */}
+      <div className="flex flex-col w-full overflow-x-hidden">
+
+      {/* ── 2. HERO ───────────────────────────────────────────────────── */}
+      <HeroSection />
+
+      {/* ── 3. SERVICES GRID ──────────────────────────────────────────── */}
+      <ServicesGrid />
+
+      {/* ── 4. SEARCH FOR MERCH ───────────────────────────────────────── */}
+      <section className={SEC} style={{ backgroundColor: BLUE }}>
+        <div className={CONTAINER}>
+          {/* Caption */}
+          <p className="mb-4 text-xs font-medium uppercase tracking-[2px] text-white/70">
+            Search for Merch
           </p>
+          {/* Headline */}
+          <h2
+            className="mb-4 text-[36px] leading-[1.1] tracking-[-3px] text-white md:text-[60px]"
+          >
+            Find Your Perfect Swag
+          </h2>
+          <p className="mb-12 max-w-xl text-lg text-white/80">
+            Browse thousands of customizable products — or flip through our
+            curated look books for instant inspiration.
+          </p>
+
+          {/* Two CTA cards */}
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+            {/* Full Swag Catalog */}
+            <a
+              href="https://catalog.brandmakers.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex flex-col justify-between rounded-2xl bg-white p-8 shadow-lg transition-transform duration-200 hover:-translate-y-1"
+            >
+              <div>
+                <div
+                  className="mb-4 flex h-12 w-12 items-center justify-center rounded-full"
+                  style={{ backgroundColor: BLUE }}
+                >
+                  <Search className="h-5 w-5 text-white" />
+                </div>
+                <h3
+                  className="mb-2 text-2xl font-medium leading-[1.2] tracking-[-1px] md:text-[32px]"
+                  style={{ color: DARK }}
+                >
+                  Full Swag Catalog
+                </h3>
+                <p className="text-base" style={{ color: "rgba(50,62,72,0.7)" }}>
+                  Search the full catalog of customizable promotional products,
+                  apparel, headwear, and gifts.
+                </p>
+              </div>
+              <div className="mt-6 flex items-center gap-2 font-medium" style={{ color: BLUE }}>
+                Browse Catalog
+              </div>
+            </a>
+
+            {/* Look Books */}
+            <a
+              href="/look-books"
+              className="group flex flex-col justify-between rounded-2xl bg-white p-8 shadow-lg transition-transform duration-200 hover:-translate-y-1"
+            >
+              <div>
+                <div
+                  className="mb-4 flex h-12 w-12 items-center justify-center rounded-full"
+                  style={{ backgroundColor: DARK }}
+                >
+                  <Layers className="h-5 w-5 text-white" />
+                </div>
+                <h3
+                  className="mb-2 text-2xl font-medium leading-[1.2] tracking-[-1px] md:text-[32px]"
+                  style={{ color: DARK }}
+                >
+                  Look Books
+                </h3>
+                <p className="text-base" style={{ color: "rgba(50,62,72,0.7)" }}>
+                  Flip through our seasonal look books for curated collections
+                  and fresh brand inspiration.
+                </p>
+              </div>
+              <div className="mt-6 flex items-center gap-2 font-medium" style={{ color: DARK }}>
+                View Look Books
+              </div>
+            </a>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+      </section>
+
+      {/* ── 5. CUSTOM MERCH ───────────────────────────────────────────── */}
+      <section className={SEC} style={{ backgroundColor: GREY }}>
+        <div className={CONTAINER}>
+          <p
+            className="mb-4 text-xs font-medium uppercase tracking-[2px]"
+            style={{ color: BLUE }}
+          >
+            Custom Merch
+          </p>
+          <h2
+            className="mb-4 text-[36px] leading-[1.1] tracking-[-3px] md:text-[60px]"
+            style={{ color: DARK }}
+          >
+            Create Something Truly Unique
+          </h2>
+          <p className="mb-12 max-w-2xl text-lg leading-relaxed" style={{ color: "rgba(50,62,72,0.75)" }}>
+            From wearables to products, we turn ideas into reality. Every detail matters, and we&apos;re here to ensure your vision comes to life.
+          </p>
+
+          {/* 6-tile image grid */}
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <div
+                key={i}
+                className="aspect-square rounded-xl"
+                style={{ backgroundColor: "rgba(50,62,72,0.1)" }}
+              />
+            ))}
+          </div>
+
+          <div className="mt-10 text-center">
+            <BmButton href="/custom-products" variant="primary">
+              See Custom Merch
+            </BmButton>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 9. ABOUT / TEAM ───────────────────────────────────────────── */}
+      <section className={SEC} style={{ backgroundColor: "#FFFFFF" }}>
+        <div className={CONTAINER}>
+          <p
+            className="mb-4 text-xs font-medium uppercase tracking-[2px]"
+            style={{ color: BLUE }}
+          >
+            Our Team
+          </p>
+          <h2
+            className="mb-6 text-[36px] leading-[1.1] tracking-[-3px] md:text-[60px]"
+            style={{ color: DARK, maxWidth: 700 }}
+          >
+            From our Creative Services Team
+          </h2>
+          <p
+            className="mb-12 max-w-2xl text-lg leading-relaxed"
+            style={{ color: "rgba(50,62,72,0.7)" }}
+          >
+            Thank you for trusting us with your brand. We strive to offer lightning-fast turnaround time and creative designs that impress. We ask that you give us as much direction as possible and we will work our magic. That is all. Please enjoy these samples of our work.
+          </p>
+
+          {/* Group photo placeholder */}
+          <div
+            className="w-full rounded-2xl"
+            style={{
+              aspectRatio: "16 / 7",
+              backgroundColor: "#E8EFF4",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <div className="text-center">
+              <div
+                className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-full"
+                style={{ backgroundColor: "rgba(0,161,225,0.1)" }}
+              >
+                <svg
+                  width="26"
+                  height="26"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke={BLUE}
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <polyline points="21 15 16 10 5 21" />
+                </svg>
+              </div>
+              <p
+                className="text-sm font-medium"
+                style={{ color: "rgba(50,62,72,0.35)" }}
+              >
+                Team photo
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 10. ON-SITE EXPERIENCES ───────────────────────────────────── */}
+      <section className={SEC} style={{ backgroundColor: GREY }}>
+        <div className={CONTAINER}>
+          <div className="flex flex-col gap-12 lg:flex-row lg:items-center lg:gap-16">
+
+            {/* ── Left: copy ── */}
+            <div className="lg:w-[45%] lg:shrink-0">
+              <p
+                className="mb-4 text-xs font-medium uppercase tracking-[2px]"
+                style={{ color: BLUE }}
+              >
+                On-Site Experiences
+              </p>
+
+              <h2
+                className="mb-6 text-[36px] leading-[1.1] tracking-[-3px] md:text-[60px]"
+                style={{ color: DARK }}
+              >
+                Merch That Moves People
+              </h2>
+              <p className="mb-10 text-lg leading-relaxed" style={{ color: "rgba(50,62,72,0.7)" }}>
+                Our on-site branding activations allow guests to create branded merchandise in real time — transforming ordinary giveaways into unforgettable brand moments.
+              </p>
+
+              <BmButton href="/on-site-experiences" variant="primary">
+                Explore Experiences
+              </BmButton>
+            </div>
+
+            {/* ── Right: 2×3 video clip grid ── */}
+            <div className="grid flex-1 grid-cols-2 gap-3">
+              {Array.from({ length: 6 }).map((_, i) => (
+                <div
+                  key={i}
+                  className="group relative overflow-hidden rounded-2xl"
+                  style={{
+                    aspectRatio: "4 / 3",
+                    backgroundColor: "rgba(50,62,72,0.08)",
+                  }}
+                >
+                  {/* Play button */}
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div
+                      className="flex h-11 w-11 items-center justify-center rounded-full transition-transform duration-200 group-hover:scale-110"
+                      style={{ backgroundColor: "rgba(0,161,225,0.85)" }}
+                    >
+                      <Play className="h-4 w-4 translate-x-0.5 text-white" />
+                    </div>
+                  </div>
+                  {/* Clip label */}
+                  <span
+                    className="absolute bottom-3 left-3 text-xs font-medium"
+                    style={{ color: "rgba(50,62,72,0.35)" }}
+                  >
+                    Clip {i + 1}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* ── 12. TESTIMONIALS ──────────────────────────────────────────── */}
+      <section className={SEC} style={{ backgroundColor: "#FFFFFF" }}>
+        <div className="max-w-[1200px] mx-auto px-6 mb-12">
+          <p
+            className="mb-4 text-xs font-medium uppercase tracking-[2px]"
+            style={{ color: BLUE }}
+          >
+            Testimonials
+          </p>
+          <h2
+            className="text-[36px] leading-[1.1] tracking-[-3px] md:text-[60px]"
+            style={{ color: DARK }}
+          >
+            What Our Clients Say
+          </h2>
+        </div>
+        <TestimonialsCarousel />
+        <div className="max-w-[1200px] mx-auto px-6 mt-12 text-center">
+          <BmButton
+            href="https://www.google.com/maps/place/Brand+Makers/@40.0977,-111.6559,17z/"
             target="_blank"
             rel="noopener noreferrer"
+            variant="primary"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+            See More Reviews
+          </BmButton>
         </div>
-      </main>
-    </div>
+      </section>
+
+      {/* ── 13. FOOTER ────────────────────────────────────────────────── */}
+      <Footer2 />
+      </div>{/* end overflow-x-hidden content wrapper */}
+    </main>
   );
 }
