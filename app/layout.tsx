@@ -11,13 +11,18 @@ export const metadata: Metadata = {
   title: "Brand Makers — We Make Your Brand Look Good",
   description:
     "Brand Makers is your full-service promotional products partner. Custom headwear, company stores, kitting & fulfillment, on-site experiences, and more.",
-  icons: {
-    icon: [
-      { url: "/brandmakers-logo-fav.svg", media: "(prefers-color-scheme: light)" },
-      { url: "/brandmakers-logo-fav-dark.svg", media: "(prefers-color-scheme: dark)" },
-    ],
-    shortcut: "/brandmakers-logo-fav.svg",
-    apple: "/brandmakers-logo-fav.svg",
+  openGraph: {
+    title: "Brand Makers — We Make Your Brand Look Good",
+    description:
+      "Full-service promotional products, custom headwear, company stores, kitting & fulfillment, and on-site experiences.",
+    siteName: "Brand Makers",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Brand Makers — We Make Your Brand Look Good",
+    description:
+      "Full-service promotional products, custom headwear, company stores, kitting & fulfillment, and on-site experiences.",
   },
 };
 
