@@ -14,6 +14,7 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
           logo={{
             url: "/",
             src: "/brandmakers-logo.svg",
+            mobileSrc: "/brandmakers-logo2.svg",
             alt: "Brand Makers",
             title: "",
           }}

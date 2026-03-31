@@ -41,7 +41,7 @@ export default function CompanyStoresPage() {
       </section>
 
       {/* Full comparison table (starts expanded on this page) */}
-      <CompanyStoresSection defaultExpanded />
+      <CompanyStoresSection />
     </SiteShell>
   );
 }

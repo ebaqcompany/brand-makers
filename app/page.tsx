@@ -31,6 +31,7 @@ export default function Home() {
           logo={{
             url: "/",
             src: "/brandmakers-logo.svg",
+            mobileSrc: "/brandmakers-logo2.svg",
             alt: "Brand Makers",
             title: "",
           }}
@@ -331,6 +332,29 @@ export default function Home() {
           >
             See More Reviews
           </BmButton>
+        </div>
+      </section>
+
+      {/* ── CTA ─────────────────────────────────────────────────────── */}
+      <section className={SEC} style={{ backgroundColor: BLUE }}>
+        <div className={`${CONTAINER} grid w-full grid-cols-1 items-center justify-between gap-8 md:grid-cols-[1fr_max-content] md:gap-x-12 lg:gap-x-20`}>
+          <div>
+            <h2 className="mb-3 text-[36px] leading-[1.1] tracking-[-3px] text-white md:mb-4 md:text-[60px]">
+              Let&apos;s Work Together
+            </h2>
+            <p className="text-lg leading-relaxed text-white/80">
+              Ready to elevate your brand? Tell us about your project and
+              we&apos;ll make it happen.
+            </p>
+          </div>
+          <div className="flex flex-col gap-4">
+            <BmButton href="/lets-connect" variant="dark">
+              Let&apos;s Connect
+            </BmButton>
+            <BmButton href="https://catalog.brandmakers.com/" target="_blank" rel="noopener noreferrer" variant="outline-light">
+              View Catalog
+            </BmButton>
+          </div>
         </div>
       </section>
 

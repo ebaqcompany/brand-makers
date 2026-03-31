@@ -40,6 +40,7 @@ interface Navbar1Props {
   logo?: {
     url: string;
     src: string;
+    mobileSrc?: string;
     alt: string;
     title: string;
     className?: string;
@@ -73,27 +74,30 @@ const Navbar1 = ({
 }: Navbar1Props) => {
   return (
     <section className={cn("py-4", className)}>
-      {/* Explicit padding — bypasses any Tailwind container utility conflicts */}
       <div className="max-w-[1200px] mx-auto px-6">
-        {/* Desktop Menu */}
-        <nav className="hidden items-center justify-between lg:flex">
-          {/* Logo */}
+        <nav className="flex items-center justify-between">
+          {/* Logo — wide version on md+, stacked on small */}
           <a href={logo.url} className="flex items-center gap-2 shrink-0">
             <img
               src={logo.src}
-              className="max-h-8"
+              className="hidden md:block max-h-8"
+              alt={logo.alt}
+            />
+            <img
+              src={logo.mobileSrc || logo.src}
+              className="block md:hidden max-h-10"
               alt={logo.alt}
             />
             {logo.title && (
-              <span className="text-lg font-semibold tracking-tighter">
+              <span className="text-lg font-semibold tracking-tighter hidden lg:inline">
                 {logo.title}
               </span>
             )}
           </a>
 
-          {/* Center nav links (empty by default) */}
+          {/* Center nav links — desktop only */}
           {menu.length > 0 && (
-            <div className="flex items-center">
+            <div className="hidden lg:flex items-center">
               <NavigationMenu>
                 <NavigationMenuList>
                   {menu.map((item) => renderMenuItem(item))}
@@ -102,48 +106,56 @@ const Navbar1 = ({
             </div>
           )}
 
-          {/* CTA — only signup button, no login */}
-          <BmButton href={auth.signup.url} variant="primary" size="md">
-            {auth.signup.title}
-          </BmButton>
-        </nav>
+          {/* Right side */}
+          <div className="flex items-center gap-4 md:gap-6">
+            {/* About Us + Log In — desktop only (lg+) */}
+            <a href="/about" className="hidden lg:block text-sm font-medium transition-colors hover:opacity-70" style={{ color: "#323E48" }}>
+              About Us
+            </a>
+            <a href={auth.login.url} className="hidden lg:block text-sm font-medium transition-colors hover:opacity-70" style={{ color: "#323E48" }}>
+              Log In
+            </a>
 
-        {/* Mobile Menu */}
-        <div className="flex items-center justify-between lg:hidden">
-          {/* Logo */}
-          <a href={logo.url} className="flex items-center gap-2">
-            <img src={logo.src} className="max-h-8" alt={logo.alt} />
-          </a>
+            {/* CTA button — tablet+ (md+), hidden on small mobile */}
+            <div className="hidden md:block">
+              <BmButton href={auth.signup.url} variant="primary" size="md">
+                {auth.signup.title}
+              </BmButton>
+            </div>
 
-          <div className="flex items-center gap-3">
-            <BmButton href={auth.signup.url} variant="primary" size="md">
-              {auth.signup.title}
-            </BmButton>
-
-            <Sheet>
-              <SheetTrigger render={<Button variant="outline" size="icon" />}>
-                <Menu className="size-4" />
-              </SheetTrigger>
-              <SheetContent className="overflow-y-auto">
-                <SheetHeader>
-                  <SheetTitle>
-                    <a href={logo.url} className="flex items-center gap-2">
-                      <img src={logo.src} className="max-h-8" alt={logo.alt} />
+            {/* Hamburger — visible below lg */}
+            <div className="lg:hidden">
+              <Sheet>
+                <SheetTrigger render={<Button variant="outline" size="icon" />}>
+                  <Menu className="size-4" />
+                </SheetTrigger>
+                <SheetContent className="overflow-y-auto">
+                  <SheetHeader>
+                    <SheetTitle>
+                      <a href={logo.url} className="flex items-center gap-2">
+                        <img src={logo.src} className="max-h-8" alt={logo.alt} />
+                      </a>
+                    </SheetTitle>
+                  </SheetHeader>
+                  <div className="flex flex-col gap-6 p-4">
+                    <Accordion className="flex w-full flex-col gap-4">
+                      {menu.map((item) => renderMobileMenuItem(item))}
+                    </Accordion>
+                    <a href="/about" className="text-md font-semibold" style={{ color: "#323E48" }}>
+                      About Us
                     </a>
-                  </SheetTitle>
-                </SheetHeader>
-                <div className="flex flex-col gap-6 p-4">
-                  <Accordion className="flex w-full flex-col gap-4">
-                    {menu.map((item) => renderMobileMenuItem(item))}
-                  </Accordion>
-                  <BmButton href={auth.signup.url} variant="primary">
-                    {auth.signup.title}
-                  </BmButton>
-                </div>
-              </SheetContent>
-            </Sheet>
+                    <a href={auth.login.url} className="text-md font-semibold" style={{ color: "#323E48" }}>
+                      Log In
+                    </a>
+                    <BmButton href={auth.signup.url} variant="primary">
+                      {auth.signup.title}
+                    </BmButton>
+                  </div>
+                </SheetContent>
+              </Sheet>
+            </div>
           </div>
-        </div>
+        </nav>
       </div>
     </section>
   );

@@ -58,11 +58,11 @@ export function HeroSection() {
         <div
           aria-label="Scroll down"
           className="animate-bounce"
-          style={{ color: "#323E48", opacity: 0.55 }}
+          style={{ color: "#323E48" }}
         >
           <ArrowDown
-            strokeWidth={1.5}
-            style={{ width: "clamp(24px, 3vw, 36px)", height: "clamp(24px, 3vw, 36px)" }}
+            strokeWidth={2}
+            style={{ width: "clamp(32px, 4vw, 48px)", height: "clamp(32px, 4vw, 48px)" }}
           />
         </div>
       </div>
