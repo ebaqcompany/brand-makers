@@ -156,16 +156,17 @@ export function HeroSection() {
               Brand Look Good
             </h1>
 
-            <div
+            <a
+              href="#services"
               aria-label="Scroll down"
-              className="animate-bounce shrink-0"
+              className="animate-bounce shrink-0 cursor-pointer"
               style={{ color: "#323E48" }}
             >
               <ArrowDown
                 strokeWidth={2}
                 style={{ width: "clamp(32px, 4vw, 48px)", height: "clamp(32px, 4vw, 48px)" }}
               />
-            </div>
+            </a>
           </div>
         </div>
       </section>
