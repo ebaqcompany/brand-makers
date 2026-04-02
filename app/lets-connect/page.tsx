@@ -89,28 +89,43 @@ export default function LetsConnectPage() {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setSending(true);
     setError("");
+
+    // Client-side validation
+    const missing: string[] = [];
+    if (!firstName.trim()) missing.push("First Name");
+    if (!lastName.trim()) missing.push("Last Name");
+    if (!email.trim()) missing.push("Email");
+    if (!message.trim()) missing.push("Tell us about your project");
+
+    if (missing.length > 0) {
+      setError(`Please fill in: ${missing.join(", ")}`);
+      return;
+    }
+
+    setSending(true);
 
     try {
       const body = new FormData();
-      body.append("firstName", firstName);
-      body.append("lastName", lastName);
-      body.append("phone", phone);
-      body.append("email", email);
-      body.append("company", company);
+      body.append("firstName", firstName.trim());
+      body.append("lastName", lastName.trim());
+      body.append("phone", phone.trim());
+      body.append("email", email.trim());
+      body.append("company", company.trim());
       body.append("helpWith", helpWith);
-      body.append("heardAbout", heardAbout);
-      body.append("message", message);
+      body.append("heardAbout", heardAbout.trim());
+      body.append("message", message.trim());
       files.forEach((f) => body.append("files", f));
 
       const res = await fetch("/api/contact", { method: "POST", body });
+      const data = await res.json();
 
-      if (!res.ok) throw new Error("Failed to send");
+      if (!res.ok) throw new Error(data.error || "Failed to send");
 
       setSent(true);
-    } catch {
-      setError("Something went wrong. Please try again or email us directly at contact@brandmakers.com");
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : "Something went wrong";
+      setError(`${msg}. Please try again or email us directly at contact@brandmakers.com`);
     } finally {
       setSending(false);
     }
@@ -144,13 +159,14 @@ export default function LetsConnectPage() {
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                 <div className="grid w-full items-center">
                   <Label htmlFor="first-name" className="mb-2 text-sm font-medium" style={{ color: DARK }}>
-                    First Name
+                    First Name <span style={{ color: "#00A1E1" }}>*</span>
                   </Label>
                   <Input
                     type="text"
                     id="first-name"
                     name="given-name"
                     autoComplete="given-name"
+                    required
                     placeholder="First Name"
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
@@ -159,13 +175,14 @@ export default function LetsConnectPage() {
                 </div>
                 <div className="grid w-full items-center">
                   <Label htmlFor="last-name" className="mb-2 text-sm font-medium" style={{ color: DARK }}>
-                    Last Name
+                    Last Name <span style={{ color: "#00A1E1" }}>*</span>
                   </Label>
                   <Input
                     type="text"
                     id="last-name"
                     name="family-name"
                     autoComplete="family-name"
+                    required
                     placeholder="Last Name"
                     value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
@@ -193,13 +210,14 @@ export default function LetsConnectPage() {
                 </div>
                 <div className="grid w-full items-center">
                   <Label htmlFor="email" className="mb-2 text-sm font-medium" style={{ color: DARK }}>
-                    Email
+                    Email <span style={{ color: "#00A1E1" }}>*</span>
                   </Label>
                   <Input
                     type="email"
                     id="email"
                     name="email"
                     autoComplete="email"
+                    required
                     placeholder="Email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -231,7 +249,7 @@ export default function LetsConnectPage() {
                   I want help with:
                 </Label>
                 <Select value={helpWith} onValueChange={(v) => setHelpWith(v ?? "")}>
-                  <SelectTrigger className={INPUT_CLASS}>
+                  <SelectTrigger id="help-with" className={INPUT_CLASS}>
                     <SelectValue placeholder="Choose an option" />
                   </SelectTrigger>
                   <SelectContent>
@@ -262,10 +280,11 @@ export default function LetsConnectPage() {
               {/* Tell us about your project */}
               <div className="grid w-full items-center">
                 <Label htmlFor="message" className="mb-2 text-sm font-medium" style={{ color: DARK }}>
-                  Tell us about your project
+                  Tell us about your project <span style={{ color: "#00A1E1" }}>*</span>
                 </Label>
                 <Textarea
                   id="message"
+                  required
                   placeholder="Type your message..."
                   className={`${INPUT_CLASS} min-h-[180px] py-3`}
                   value={message}
