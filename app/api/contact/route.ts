@@ -30,15 +30,16 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Collect file attachments
-    const attachments: { filename: string; content: Buffer }[] = [];
+    // Collect file attachments as base64 for Resend
+    const attachments: { filename: string; content: string }[] = [];
     const files = formData.getAll("files");
     for (const file of files) {
       if (file instanceof File && file.size > 0) {
         const bytes = await file.arrayBuffer();
+        const base64 = Buffer.from(bytes).toString("base64");
         attachments.push({
           filename: file.name,
-          content: Buffer.from(bytes),
+          content: base64,
         });
       }
     }
@@ -57,7 +58,7 @@ export async function POST(req: NextRequest) {
     ].join("\n");
 
     const { data, error } = await resend.emails.send({
-      from: "Brand Makers <noreply@brandmakers.com>",
+      from: "Brand Makers <hello@brandmakers.com>",
       to: "contact@brandmakers.com",
       replyTo: email,
       subject: `New Contact Form: ${firstName} ${lastName} — ${helpWith || "General Inquiry"}`,
@@ -66,7 +67,7 @@ export async function POST(req: NextRequest) {
         <h2>New Contact Form Submission</h2>
         <table style="border-collapse:collapse;width:100%;max-width:600px;">
           <tr><td style="padding:8px;font-weight:bold;">Name</td><td style="padding:8px;">${firstName} ${lastName}</td></tr>
-          <tr><td style="padding:8px;font-weight:bold;">Email</td><td style="padding:8px;"><a href="mailto:${email}">${email}</a></td></tr>
+          <tr><td style="padding:8px;font-weight:bold;">Email</td><td style="padding:8px;">${email}</td></tr>
           <tr><td style="padding:8px;font-weight:bold;">Phone</td><td style="padding:8px;">${phone || "—"}</td></tr>
           <tr><td style="padding:8px;font-weight:bold;">Company</td><td style="padding:8px;">${company || "—"}</td></tr>
           <tr><td style="padding:8px;font-weight:bold;">Help With</td><td style="padding:8px;">${helpWith || "—"}</td></tr>
