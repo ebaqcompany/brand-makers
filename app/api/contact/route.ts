@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
     }
 
     await resend.emails.send({
-      from: "Brand Makers <onboarding@resend.dev>",
+      from: "Brand Makers <noreply@brandmakers.com>",
       to: "contact@brandmakers.com",
       replyTo: email,
       subject: `New Contact Form: ${firstName} ${lastName} — ${helpWith || "General Inquiry"}`,
