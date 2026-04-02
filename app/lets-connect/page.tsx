@@ -294,10 +294,11 @@ export default function LetsConnectPage() {
 
               {/* Upload File — drag & drop zone */}
               <div className="grid w-full items-center">
-                <Label className="mb-2 text-sm font-medium" style={{ color: DARK }}>
+                <Label htmlFor="file-upload" className="mb-2 text-sm font-medium" style={{ color: DARK }}>
                   Upload File
                 </Label>
                 <input
+                  id="file-upload"
                   ref={fileInputRef}
                   type="file"
                   multiple
