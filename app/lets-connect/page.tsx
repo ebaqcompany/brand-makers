@@ -282,7 +282,10 @@ export default function LetsConnectPage() {
                   ref={fileInputRef}
                   type="file"
                   multiple
+                  accept="*/*"
                   className="sr-only"
+                  tabIndex={-1}
+                  aria-hidden="true"
                   onChange={(e) => {
                     addFiles(e.target.files);
                     e.target.value = "";
@@ -327,7 +330,7 @@ export default function LetsConnectPage() {
                     <span style={{ color: BLUE }}>browse</span>
                   </span>
                   <span className="text-xs" style={{ color: "rgba(50,62,72,0.5)" }}>
-                    Attach multiple files
+                    PDF, AI, EPS, SVG, PNG, JPEG, ZIP, and more
                   </span>
                 </button>
 
