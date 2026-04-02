@@ -52,7 +52,7 @@ const contacts = [
     icon: <BiMap className="size-6" style={{ color: BLUE }} />,
     title: "Address",
     value: "464 South Main Street, Spanish Fork, UT 84660",
-    href: "https://www.google.com/maps/place/Brand+Makers/@40.0977,-111.6559,17z/",
+    href: "https://www.google.com/maps/place/Brand+Makers/@40.1031763,-111.6585648,17z/data=!3m1!4b1!4m6!3m5!1s0x874dbcc896860f83:0xb8d7e7a36c4e2362!8m2!3d40.1031722!4d-111.6559899!16s%2Fg%2F1tj4z5j2",
   },
 ];
 
@@ -454,7 +454,7 @@ export default function LetsConnectPage() {
 
           {/* Map / image placeholder */}
           <a
-            href="https://www.google.com/maps/place/Brand+Makers/@40.0977,-111.6559,17z/"
+            href="https://www.google.com/maps/place/Brand+Makers/@40.1031763,-111.6585648,17z/data=!3m1!4b1!4m6!3m5!1s0x874dbcc896860f83:0xb8d7e7a36c4e2362!8m2!3d40.1031722!4d-111.6559899!16s%2Fg%2F1tj4z5j2"
             target="_blank"
             rel="noopener noreferrer"
             className="mt-16 block overflow-hidden rounded-2xl md:mt-20"
