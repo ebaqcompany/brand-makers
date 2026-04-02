@@ -70,6 +70,7 @@ interface BmButtonProps {
   /** Pass any extra inline styles (e.g. hover overrides via JS) */
   style?: React.CSSProperties;
   disabled?: boolean;
+  type?: "button" | "submit" | "reset";
 }
 
 export function BmButton({
@@ -83,6 +84,7 @@ export function BmButton({
   children,
   style,
   disabled,
+  type = "button",
 }: BmButtonProps) {
   const combined: React.CSSProperties = {
     ...BASE,
@@ -108,7 +110,7 @@ export function BmButton({
   }
 
   return (
-    <button type="button" onClick={onClick} disabled={disabled} {...sharedProps}>
+    <button type={type} onClick={onClick} disabled={disabled} {...sharedProps}>
       {children}
     </button>
   );

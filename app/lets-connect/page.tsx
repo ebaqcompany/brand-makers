@@ -392,7 +392,7 @@ export default function LetsConnectPage() {
 
               {/* Submit */}
               <div className="mt-2">
-                <BmButton variant="primary" disabled={sending || sent}>
+                <BmButton type="submit" variant="primary" disabled={sending || sent}>
                   {sending ? "Sending..." : sent ? "Sent!" : "Send"}
                 </BmButton>
               </div>
