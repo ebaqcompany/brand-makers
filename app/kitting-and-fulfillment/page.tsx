@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { ChevronRight } from "lucide-react";
 import { SiteShell } from "@/components/site-shell";
 import { BmButton } from "@/components/bm-button";
+import { KittingTimeline } from "@/components/kitting-timeline";
 
 export const metadata: Metadata = {
   title: "Kitting & Fulfillment — Brand Makers",
@@ -13,14 +13,13 @@ const BLUE = "#00A1E1";
 const DARK = "#323E48";
 const GREY = "#F0F0F0";
 
-const steps = ["Ideas", "Customized", "Packed", "Shipped", "Fan For Life!"];
 
 export default function KittingPage() {
   return (
     <SiteShell>
 
       {/* ── Page hero ── */}
-      <section className="py-20" style={{ backgroundColor: "#F5F5F5" }}>
+      <section className="py-20" style={{ backgroundColor: "#F0F0F0" }}>
         <div className="max-w-[1200px] mx-auto px-6">
           <p
             className="mb-4 text-xs font-medium uppercase tracking-[2px]"
@@ -51,7 +50,7 @@ export default function KittingPage() {
       </section>
 
       {/* ── Body ── */}
-      <section className="py-20" style={{ backgroundColor: GREY }}>
+      <section className="py-20" style={{ backgroundColor: "#FFFFFF" }}>
         <div className="max-w-[1200px] mx-auto px-6">
           <p
             className="mb-4 text-xs font-medium uppercase tracking-[2px]"
@@ -75,38 +74,83 @@ export default function KittingPage() {
             mail.
           </p>
 
-          {/* Process steps */}
-          <div className="mb-16 flex flex-wrap items-center justify-center gap-2">
-            {steps.map((step, i) => (
-              <div key={step} className="flex items-center gap-2">
-                <div
-                  className="flex items-center justify-center rounded-full px-5 py-2.5 text-sm font-medium text-white shadow-sm"
-                  style={{ backgroundColor: i === steps.length - 1 ? DARK : BLUE }}
-                >
-                  {step}
-                </div>
-                {i < steps.length - 1 && (
-                  <ChevronRight className="h-5 w-5 shrink-0" style={{ color: DARK }} />
-                )}
-              </div>
-            ))}
-          </div>
+          {/* Animated Timeline */}
+          <KittingTimeline />
 
-          {/* Image gallery placeholder */}
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
-            {Array.from({ length: 6 }).map((_, i) => (
-              <div
-                key={i}
-                className="aspect-square rounded-xl"
-                style={{ backgroundColor: "rgba(50,62,72,0.1)" }}
-              />
-            ))}
+          {/* Bento grid */}
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 auto-rows-[200px] md:auto-rows-[260px]">
+            {/* Graphic 1 — landscape */}
+            <div className="overflow-hidden rounded-2xl">
+              <img src="/kitting/kitting-graphic-1.jpg" alt="Branded swag collection" className="h-full w-full object-cover" />
+            </div>
+            {/* Graphic 2 — landscape */}
+            <div className="overflow-hidden rounded-2xl">
+              <img src="/kitting/kitting-graphic-2.jpg" alt="Branded merchandise set" className="h-full w-full object-cover" />
+            </div>
+            {/* Graphic 3 — portrait, spans 2 rows */}
+            <div className="row-span-2 overflow-hidden rounded-2xl">
+              <img src="/kitting/kitting-graphic-3.jpg" alt="Custom branded box" className="h-full w-full object-cover" />
+            </div>
+            {/* Graphic 4 — portrait */}
+            <div className="overflow-hidden rounded-2xl">
+              <img src="/kitting/kitting-graphic-4.jpg" alt="Shipping fulfillment" className="h-full w-full object-cover" />
+            </div>
+            {/* Graphic 5 — portrait */}
+            <div className="overflow-hidden rounded-2xl">
+              <img src="/kitting/kitting-graphic-5.jpg" alt="Unboxing experience" className="h-full w-full object-cover" />
+            </div>
           </div>
 
           <div className="mt-12 text-center">
             <BmButton href="/lets-connect" variant="primary" size="md">
               Let&apos;s Connect
             </BmButton>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Examples ── */}
+      <section className="py-20 md:py-[80px]" style={{ backgroundColor: GREY }}>
+        <div className="max-w-[1200px] mx-auto px-6">
+          <p
+            className="mb-4 text-xs font-medium uppercase tracking-[2px]"
+            style={{ color: BLUE }}
+          >
+            Client Work
+          </p>
+          <h2
+            className="mb-12 text-[36px] leading-[1.1] tracking-[-3px] md:text-[60px]"
+            style={{ color: DARK }}
+          >
+            Kitting Examples
+          </h2>
+
+          {/* Bento grid */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[200px] md:auto-rows-[240px]">
+            {/* Taco Viva — square */}
+            <div className="overflow-hidden rounded-2xl">
+              <img src="/kitting/examples/kitting---taco-viva.jpg" alt="Taco Viva kitting" className="h-full w-full object-cover" />
+            </div>
+            {/* BFF — square */}
+            <div className="overflow-hidden rounded-2xl">
+              <img src="/kitting/examples/kitting-bff.jpg" alt="BFF kitting" className="h-full w-full object-cover" />
+            </div>
+            {/* Cyberdine — landscape, spans 2 cols */}
+            <div className="col-span-2 overflow-hidden rounded-2xl">
+              <img src="/kitting/examples/kitting-cyberdine.jpg" alt="Cyberdine kitting" className="h-full w-full object-cover" />
+            </div>
+            {/* G2 Capital — landscape, spans 2 cols */}
+            <div className="col-span-2 overflow-hidden rounded-2xl">
+              <img src="/kitting/examples/kitting-g2-capital.jpg" alt="G2 Capital kitting" className="h-full w-full object-cover" />
+            </div>
+            {/* Last Mile — square */}
+            <div className="overflow-hidden rounded-2xl">
+              <img src="/kitting/examples/kitting-last-mile.jpg" alt="Last Mile kitting" className="h-full w-full object-cover" />
+            </div>
+            {/* Instat — square, same size as Last Mile */}
+            <div className="overflow-hidden rounded-2xl">
+              <img src="/kitting/examples/kitting-instat.jpg" alt="Instat kitting" className="h-full w-full object-cover" />
+            </div>
           </div>
         </div>
       </section>

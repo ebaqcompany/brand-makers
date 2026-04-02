@@ -14,7 +14,7 @@ export default function CompanyStoresPage() {
       {/* Page hero */}
       <section
         className="py-20"
-        style={{ backgroundColor: "#F5F5F5" }}
+        style={{ backgroundColor: "#F0F0F0" }}
       >
         <div className="max-w-[1200px] mx-auto px-6">
           <p

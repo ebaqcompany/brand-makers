@@ -110,7 +110,7 @@ export function HeroSection() {
       <section
         className="sticky top-0 w-full overflow-hidden"
         style={{
-          backgroundColor: "#F5F5F5",
+          backgroundColor: "#F0F0F0",
           height: "100svh",
         }}
       >
@@ -123,13 +123,13 @@ export function HeroSection() {
         {/* Top gradient to separate navbar from image */}
         <div
           className="absolute inset-x-0 top-0"
-          style={{ height: "18%", background: "linear-gradient(to bottom, #F5F5F5 0%, transparent 100%)" }}
+          style={{ height: "18%", background: "linear-gradient(to bottom, #F0F0F0 0%, transparent 100%)" }}
         />
 
         {/* Bottom gradient for text readability */}
         <div
           className="absolute inset-x-0 bottom-0"
-          style={{ height: "35%", background: "linear-gradient(to top, #F5F5F5 0%, #F5F5F5 15%, transparent 100%)" }}
+          style={{ height: "35%", background: "linear-gradient(to top, #F0F0F0 0%, #F0F0F0 15%, transparent 100%)" }}
         />
 
         {/* Bottom bar: headline left, arrow right */}

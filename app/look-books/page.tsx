@@ -13,7 +13,7 @@ export const metadata = {
 export default function LookBooksPage() {
   return (
     <SiteShell>
-      <section className="py-20 md:py-[80px]">
+      <section className="py-20 md:py-[80px]" style={{ backgroundColor: "#F0F0F0" }}>
         <div className="max-w-[1200px] mx-auto px-6">
           <p
             className="mb-4 text-xs font-medium uppercase tracking-[2px]"

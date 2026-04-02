@@ -34,7 +34,7 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
       </div>
 
       {/* Page content */}
-      <main className="flex flex-col w-full overflow-x-hidden flex-1">
+      <main className="flex flex-col w-full flex-1">
         {children}
       </main>
 

@@ -1,7 +1,7 @@
 "use client";
 
 import type { Metadata } from "next";
-import { useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { BiEnvelope, BiMap, BiPhone, BiShareAlt } from "react-icons/bi";
 import { BiLogoFacebookCircle, BiLogoInstagram, BiLogoLinkedinSquare } from "react-icons/bi";
 import { SiteShell } from "@/components/site-shell";
@@ -19,6 +19,10 @@ import {
 
 const BLUE = "#00A1E1";
 const DARK = "#323E48";
+
+/** Shared styles for all form inputs */
+const INPUT_CLASS =
+  "h-12 rounded-md border-gray-300 bg-white px-4 text-base focus:border-[#00A1E1] focus:ring-[#00A1E1]";
 
 const HELP_OPTIONS = [
   "Search for Merch",
@@ -59,21 +63,62 @@ const socialLinks = [
 ];
 
 export default function LetsConnectPage() {
-  const [name, setName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [company, setCompany] = useState("");
   const [helpWith, setHelpWith] = useState("");
+  const [heardAbout, setHeardAbout] = useState("");
   const [message, setMessage] = useState("");
+  const [files, setFiles] = useState<File[]>([]);
+  const [dragging, setDragging] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [sent, setSent] = useState(false);
+  const [error, setError] = useState("");
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const addFiles = useCallback((incoming: FileList | null) => {
+    if (!incoming) return;
+    setFiles((prev) => [...prev, ...Array.from(incoming)]);
+  }, []);
+
+  const removeFile = useCallback((index: number) => {
+    setFiles((prev) => prev.filter((_, i) => i !== index));
+  }, []);
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log({ name, phone, email, company, helpWith, message });
+    setSending(true);
+    setError("");
+
+    try {
+      const body = new FormData();
+      body.append("firstName", firstName);
+      body.append("lastName", lastName);
+      body.append("phone", phone);
+      body.append("email", email);
+      body.append("company", company);
+      body.append("helpWith", helpWith);
+      body.append("heardAbout", heardAbout);
+      body.append("message", message);
+      files.forEach((f) => body.append("files", f));
+
+      const res = await fetch("/api/contact", { method: "POST", body });
+
+      if (!res.ok) throw new Error("Failed to send");
+
+      setSent(true);
+    } catch {
+      setError("Something went wrong. Please try again or email us directly at contact@brandmakers.com");
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
     <SiteShell>
-      <section className="py-20 md:py-[80px]">
+      <section className="py-20 md:py-[80px]" style={{ backgroundColor: "#F0F0F0" }}>
         <div className="max-w-[1200px] mx-auto px-6">
           {/* Heading */}
           <div className="mb-12 md:mb-16">
@@ -95,21 +140,42 @@ export default function LetsConnectPage() {
           <div className="grid grid-cols-1 gap-x-20 gap-y-12 md:grid-cols-[1fr_1fr]">
             {/* Left: form */}
             <form className="grid grid-cols-1 gap-5" onSubmit={handleSubmit}>
-              {/* Name + Phone row */}
+              {/* First Name + Last Name row */}
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                 <div className="grid w-full items-center">
-                  <Label htmlFor="name" className="mb-2 text-sm font-medium" style={{ color: DARK }}>
-                    Name
+                  <Label htmlFor="first-name" className="mb-2 text-sm font-medium" style={{ color: DARK }}>
+                    First Name
                   </Label>
                   <Input
                     type="text"
-                    id="name"
-                    placeholder="Name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    className="rounded-md border-gray-300 focus:border-[#00A1E1] focus:ring-[#00A1E1]"
+                    id="first-name"
+                    name="given-name"
+                    autoComplete="given-name"
+                    placeholder="First Name"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    className={INPUT_CLASS}
                   />
                 </div>
+                <div className="grid w-full items-center">
+                  <Label htmlFor="last-name" className="mb-2 text-sm font-medium" style={{ color: DARK }}>
+                    Last Name
+                  </Label>
+                  <Input
+                    type="text"
+                    id="last-name"
+                    name="family-name"
+                    autoComplete="family-name"
+                    placeholder="Last Name"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                    className={INPUT_CLASS}
+                  />
+                </div>
+              </div>
+
+              {/* Phone + Email row */}
+              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                 <div className="grid w-full items-center">
                   <Label htmlFor="phone" className="mb-2 text-sm font-medium" style={{ color: DARK }}>
                     Phone
@@ -117,27 +183,29 @@ export default function LetsConnectPage() {
                   <Input
                     type="tel"
                     id="phone"
+                    name="tel"
+                    autoComplete="tel"
                     placeholder="Phone"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    className="rounded-md border-gray-300 focus:border-[#00A1E1] focus:ring-[#00A1E1]"
+                    className={INPUT_CLASS}
                   />
                 </div>
-              </div>
-
-              {/* Email */}
-              <div className="grid w-full items-center">
-                <Label htmlFor="email" className="mb-2 text-sm font-medium" style={{ color: DARK }}>
-                  Email
-                </Label>
-                <Input
-                  type="email"
-                  id="email"
-                  placeholder="Email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="rounded-md border-gray-300 focus:border-[#00A1E1] focus:ring-[#00A1E1]"
-                />
+                <div className="grid w-full items-center">
+                  <Label htmlFor="email" className="mb-2 text-sm font-medium" style={{ color: DARK }}>
+                    Email
+                  </Label>
+                  <Input
+                    type="email"
+                    id="email"
+                    name="email"
+                    autoComplete="email"
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className={INPUT_CLASS}
+                  />
+                </div>
               </div>
 
               {/* Company */}
@@ -148,10 +216,12 @@ export default function LetsConnectPage() {
                 <Input
                   type="text"
                   id="company"
+                  name="organization"
+                  autoComplete="organization"
                   placeholder="Company"
                   value={company}
                   onChange={(e) => setCompany(e.target.value)}
-                  className="rounded-md border-gray-300 focus:border-[#00A1E1] focus:ring-[#00A1E1]"
+                  className={INPUT_CLASS}
                 />
               </div>
 
@@ -161,7 +231,7 @@ export default function LetsConnectPage() {
                   I want help with:
                 </Label>
                 <Select value={helpWith} onValueChange={(v) => setHelpWith(v ?? "")}>
-                  <SelectTrigger className="rounded-md border-gray-300 focus:border-[#00A1E1] focus:ring-[#00A1E1]">
+                  <SelectTrigger className={INPUT_CLASS}>
                     <SelectValue placeholder="Choose an option" />
                   </SelectTrigger>
                   <SelectContent>
@@ -174,24 +244,133 @@ export default function LetsConnectPage() {
                 </Select>
               </div>
 
-              {/* Message */}
+              {/* How did you hear about us? */}
+              <div className="grid w-full items-center">
+                <Label htmlFor="heard-about" className="mb-2 text-sm font-medium" style={{ color: DARK }}>
+                  How did you hear about us?
+                </Label>
+                <Input
+                  type="text"
+                  id="heard-about"
+                  placeholder="e.g. Google, referral, social media..."
+                  value={heardAbout}
+                  onChange={(e) => setHeardAbout(e.target.value)}
+                  className={INPUT_CLASS}
+                />
+              </div>
+
+              {/* Tell us about your project */}
               <div className="grid w-full items-center">
                 <Label htmlFor="message" className="mb-2 text-sm font-medium" style={{ color: DARK }}>
-                  Message
+                  Tell us about your project
                 </Label>
                 <Textarea
                   id="message"
                   placeholder="Type your message..."
-                  className="min-h-[180px] rounded-md border-gray-300 focus:border-[#00A1E1] focus:ring-[#00A1E1]"
+                  className={`${INPUT_CLASS} min-h-[180px] py-3`}
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                 />
               </div>
 
+              {/* Upload File — drag & drop zone */}
+              <div className="grid w-full items-center">
+                <Label className="mb-2 text-sm font-medium" style={{ color: DARK }}>
+                  Upload File
+                </Label>
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  multiple
+                  className="sr-only"
+                  onChange={(e) => {
+                    addFiles(e.target.files);
+                    e.target.value = "";
+                  }}
+                />
+                <button
+                  type="button"
+                  onClick={() => fileInputRef.current?.click()}
+                  onDragOver={(e) => {
+                    e.preventDefault();
+                    setDragging(true);
+                  }}
+                  onDragLeave={() => setDragging(false)}
+                  onDrop={(e) => {
+                    e.preventDefault();
+                    setDragging(false);
+                    addFiles(e.dataTransfer.files);
+                  }}
+                  className={`flex min-h-[140px] flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed bg-white px-6 py-8 text-center transition-colors ${
+                    dragging
+                      ? "border-[#00A1E1] bg-[#00A1E1]/5"
+                      : "border-gray-300 hover:border-[#00A1E1]"
+                  }`}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="size-8"
+                    style={{ color: BLUE }}
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={1.5}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M12 16V4m0 0l-4 4m4-4l4 4M4 20h16"
+                    />
+                  </svg>
+                  <span className="text-sm font-medium" style={{ color: DARK }}>
+                    Drag &amp; drop files here, or{" "}
+                    <span style={{ color: BLUE }}>browse</span>
+                  </span>
+                  <span className="text-xs" style={{ color: "rgba(50,62,72,0.5)" }}>
+                    Attach multiple files
+                  </span>
+                </button>
+
+                {/* File list */}
+                {files.length > 0 && (
+                  <ul className="mt-3 space-y-1.5">
+                    {files.map((f, i) => (
+                      <li
+                        key={`${f.name}-${i}`}
+                        className="flex items-center justify-between rounded-md bg-white px-3 py-2 text-sm"
+                        style={{ color: DARK }}
+                      >
+                        <span className="truncate">{f.name}</span>
+                        <button
+                          type="button"
+                          onClick={() => removeFile(i)}
+                          className="ml-3 shrink-0 text-xs font-medium transition-colors hover:opacity-70"
+                          style={{ color: BLUE }}
+                        >
+                          Remove
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+
+              {/* Error message */}
+              {error && (
+                <p className="text-sm text-red-600">{error}</p>
+              )}
+
+              {/* Success message */}
+              {sent && (
+                <div className="rounded-lg bg-green-50 px-4 py-3 text-sm font-medium text-green-800">
+                  Thank you! Your message has been sent. We&apos;ll be in touch soon.
+                </div>
+              )}
+
               {/* Submit */}
               <div className="mt-2">
-                <BmButton variant="primary">
-                  Send
+                <BmButton variant="primary" disabled={sending || sent}>
+                  {sending ? "Sending..." : sent ? "Sent!" : "Send"}
                 </BmButton>
               </div>
             </form>

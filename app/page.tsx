@@ -1,4 +1,3 @@
-import { Play } from "lucide-react";
 
 import { BmButton } from "@/components/bm-button";
 import { Navbar1 } from "@/components/navbar1";
@@ -136,12 +135,22 @@ export default function Home() {
 
           {/* 6-tile image grid */}
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
-            {Array.from({ length: 6 }).map((_, i) => (
-              <div
-                key={i}
-                className="aspect-square rounded-xl"
-                style={{ backgroundColor: "rgba(50,62,72,0.1)" }}
-              />
+            {[
+              "badge.jpg",
+              "coca-cola-basket-mini.jpg",
+              "coca-cola-mini-book.jpg",
+              "empower.jpg",
+              "mini-skate.jpg",
+              "optiv.jpg",
+            ].map((img) => (
+              <div key={img} className="aspect-square overflow-hidden rounded-xl">
+                <img
+                  src={`/custom-merch/${img}`}
+                  alt={img.replace(/\.jpg$/, "").replace(/-/g, " ")}
+                  className="h-full w-full object-cover"
+                  loading="lazy"
+                />
+              </div>
             ))}
           </div>
 
@@ -251,28 +260,17 @@ export default function Home() {
               {Array.from({ length: 6 }).map((_, i) => (
                 <div
                   key={i}
-                  className="group relative overflow-hidden rounded-2xl"
-                  style={{
-                    aspectRatio: "4 / 3",
-                    backgroundColor: "rgba(50,62,72,0.08)",
-                  }}
+                  className="overflow-hidden rounded-2xl"
+                  style={{ aspectRatio: "16 / 9" }}
                 >
-                  {/* Play button */}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div
-                      className="flex h-11 w-11 items-center justify-center rounded-full transition-transform duration-200 group-hover:scale-110"
-                      style={{ backgroundColor: "rgba(0,161,225,0.85)" }}
-                    >
-                      <Play className="h-4 w-4 translate-x-0.5 text-white" />
-                    </div>
-                  </div>
-                  {/* Clip label */}
-                  <span
-                    className="absolute bottom-3 left-3 text-xs font-medium"
-                    style={{ color: "rgba(50,62,72,0.35)" }}
-                  >
-                    Clip {i + 1}
-                  </span>
+                  <video
+                    src={`/experiences/clips/clip-${String(i + 1).padStart(2, "0")}.mp4`}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    className="h-full w-full object-cover"
+                  />
                 </div>
               ))}
             </div>
