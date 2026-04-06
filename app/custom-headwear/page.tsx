@@ -78,38 +78,38 @@ export default function CustomHeadwearPage() {
     <SiteShell>
 
       {/* ── Hero — full width ── */}
-      <section className="overflow-hidden pt-20 pb-0" style={{ backgroundColor: GREY }}>
-        <div className="max-w-[1200px] mx-auto px-6 flex items-end justify-between gap-10">
-          {/* Left: text content */}
-          <div className="pb-20">
-            <p className="mb-4 text-xs font-medium uppercase tracking-[2px]" style={{ color: BLUE }}>
-              Custom Headwear
-            </p>
-            <h1
-              className="text-[clamp(40px,6vw,80px)] font-normal leading-[1.05] tracking-[-4px]"
-              style={{ color: DARK, maxWidth: 700 }}
-            >
-              Designed To Perfection
-            </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-relaxed" style={{ color: "rgba(50,62,72,0.7)" }}>
-              From structured 6-panel caps to relaxed dad hats, we craft every
-              detail — materials, colours, closures, and logo placements — exactly
-              the way you envisioned.
-            </p>
-            <div className="mt-10">
-              <BmButton href="/lets-connect" variant="primary" size="md">
-                Get a Quote
-              </BmButton>
-            </div>
-          </div>
+      <section className="relative overflow-hidden py-20" style={{ backgroundColor: GREY }}>
+        {/* Illustration — absolute, outside content flow */}
+        <video
+          src="/headwear2-loop.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute bottom-0 right-[max(1.5rem,calc((100%-1200px)/2+1.5rem))] hidden object-contain md:block pointer-events-none"
+          style={{ width: 500 }}
+        />
 
-          {/* Right: image */}
-          <img
-            src="/headwear.svg"
-            alt="Custom headwear"
-            className="hidden shrink-0 self-end object-contain md:block mb-0"
-            style={{ width: 550, height: 550, marginBottom: -1 }}
-          />
+        <div className="max-w-[1200px] mx-auto px-6">
+          <p className="mb-4 text-xs font-medium uppercase tracking-[2px]" style={{ color: BLUE }}>
+            Custom Headwear
+          </p>
+          <h1
+            className="text-[clamp(40px,6vw,80px)] font-normal leading-[1.05] tracking-[-4px]"
+            style={{ color: DARK, maxWidth: 700 }}
+          >
+            Designed To Perfection
+          </h1>
+          <p className="mt-6 max-w-2xl text-lg leading-relaxed" style={{ color: "rgba(50,62,72,0.7)" }}>
+            From structured 6-panel caps to relaxed dad hats, we craft every
+            detail — materials, colours, closures, and logo placements — exactly
+            the way you envisioned.
+          </p>
+          <div className="mt-10">
+            <BmButton href="/lets-connect" variant="primary" size="md">
+              Get a Quote
+            </BmButton>
+          </div>
           {/* Cap icon — hidden, kept for future use
           <svg
             xmlns="http://www.w3.org/2000/svg"
