@@ -78,57 +78,40 @@ export default function CustomHeadwearPage() {
     <SiteShell>
 
       {/* ── Hero — full width ── */}
-      <section className="relative overflow-hidden py-20" style={{ backgroundColor: GREY }}>
-        {/* Illustration — absolute, outside content flow */}
-        <video
-          src="/headwear2-loop.mp4"
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="absolute bottom-0 right-[max(1.5rem,calc((100%-1200px)/2+1.5rem))] hidden object-contain md:block pointer-events-none"
-          style={{ width: 500 }}
-        />
-
-        <div className="max-w-[1200px] mx-auto px-6">
-          <p className="mb-4 text-xs font-medium uppercase tracking-[2px]" style={{ color: BLUE }}>
-            Custom Headwear
-          </p>
-          <h1
-            className="text-[clamp(40px,6vw,80px)] font-normal leading-[1.05] tracking-[-4px]"
-            style={{ color: DARK, maxWidth: 700 }}
-          >
-            Designed To Perfection
-          </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed" style={{ color: "rgba(50,62,72,0.7)" }}>
-            From structured 6-panel caps to relaxed dad hats, we craft every
-            detail — materials, colours, closures, and logo placements — exactly
-            the way you envisioned.
-          </p>
-          <div className="mt-10">
-            <BmButton href="/lets-connect" variant="primary" size="md">
-              Get a Quote
-            </BmButton>
+      <section className="overflow-hidden pt-16 pb-0 md:pt-20" style={{ backgroundColor: GREY }}>
+        <div className="max-w-[1200px] mx-auto px-6 grid grid-cols-1 md:grid-cols-2 items-end gap-6 md:gap-10">
+          {/* Left: text content */}
+          <div className="pb-10 md:pb-20">
+            <p className="mb-4 text-xs font-medium uppercase tracking-[2px]" style={{ color: BLUE }}>
+              Custom Headwear
+            </p>
+            <h1
+              className="text-[clamp(40px,6vw,80px)] font-normal leading-[1.05] tracking-[-4px]"
+              style={{ color: DARK }}
+            >
+              Designed To Perfection
+            </h1>
+            <p className="mt-6 max-w-2xl text-lg leading-relaxed" style={{ color: "rgba(50,62,72,0.7)" }}>
+              From structured 6-panel caps to relaxed dad hats, we craft every
+              detail — materials, colours, closures, and logo placements — exactly
+              the way you envisioned.
+            </p>
+            <div className="mt-10">
+              <BmButton href="/lets-connect" variant="primary" size="md">
+                Get a Quote
+              </BmButton>
+            </div>
           </div>
-          {/* Cap icon — hidden, kept for future use
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            className="hidden shrink-0 md:block"
-            style={{ width: 175, height: 175 }}
-            fill="none"
-            stroke={BLUE}
-            strokeWidth={0.75}
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M2.5 16.9999L2.05801 14.5261C1.4248 8.63642 6.05622 3.49994 12 3.49994C17.9438 3.49994 22.5752 8.63642 21.942 14.5261L21.5 16.9999" />
-            <path d="M8.0157 10.4999C7.81291 7.295 9.59813 3.49994 12 3.49994" />
-            <path d="M16 10.4999C16.2028 7.295 14.4176 3.49994 12.0157 3.49994" />
-            <path d="M12 2.99994V1.99994" />
-            <path d="M2.5 17.0093C10.5 14.1427 13.5 14.5243 21.5 17.0093C21.2236 18.1308 21.0732 21.2995 19.851 21.8966C19.265 22.1829 18.4247 21.7988 17.821 21.6546C14.9252 20.9629 13.4773 20.617 12 20.617C10.5227 20.617 9.07482 20.9629 6.17904 21.6546C5.57535 21.7988 4.73502 22.1829 4.14904 21.8966C2.92684 21.2995 2.77642 18.1308 2.5 17.0093Z" />
-          </svg>
-          */}
+
+          {/* Right: video — aligned to bottom */}
+          <video
+            src="/headwear2-loop.mp4"
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full object-contain pointer-events-none self-end"
+          />
         </div>
       </section>
 
