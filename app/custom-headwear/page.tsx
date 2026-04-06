@@ -97,7 +97,7 @@ export default function CustomHeadwearPage() {
               style={{ width: 175, height: 175 }}
               fill="none"
               stroke={BLUE}
-              strokeWidth={1}
+              strokeWidth={0.75}
               strokeLinecap="round"
               strokeLinejoin="round"
             >
