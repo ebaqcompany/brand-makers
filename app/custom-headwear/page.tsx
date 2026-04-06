@@ -94,7 +94,7 @@ export default function CustomHeadwearPage() {
               src="/hatwear.jpg"
               alt="Custom headwear"
               className="hidden shrink-0 rounded-xl object-cover md:block"
-              style={{ width: 175, height: 175 }}
+              style={{ width: 300, height: 300 }}
             />
             {/* Cap icon — hidden, kept for future use
             <svg
