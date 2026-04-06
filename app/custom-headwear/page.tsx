@@ -90,6 +90,13 @@ export default function CustomHeadwearPage() {
             >
               Designed To Perfection
             </h1>
+            <img
+              src="/hatwear.jpg"
+              alt="Custom headwear"
+              className="hidden shrink-0 rounded-xl object-cover md:block"
+              style={{ width: 175, height: 175 }}
+            />
+            {/* Cap icon — hidden, kept for future use
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -107,6 +114,7 @@ export default function CustomHeadwearPage() {
               <path d="M12 2.99994V1.99994" />
               <path d="M2.5 17.0093C10.5 14.1427 13.5 14.5243 21.5 17.0093C21.2236 18.1308 21.0732 21.2995 19.851 21.8966C19.265 22.1829 18.4247 21.7988 17.821 21.6546C14.9252 20.9629 13.4773 20.617 12 20.617C10.5227 20.617 9.07482 20.9629 6.17904 21.6546C5.57535 21.7988 4.73502 22.1829 4.14904 21.8966C2.92684 21.2995 2.77642 18.1308 2.5 17.0093Z" />
             </svg>
+            */}
           </div>
           <p className="mt-6 max-w-2xl text-lg leading-relaxed" style={{ color: "rgba(50,62,72,0.7)" }}>
             From structured 6-panel caps to relaxed dad hats, we craft every
