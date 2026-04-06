@@ -75,11 +75,11 @@ function Section({
 
 export default function CustomHeadwearPage() {
   return (
-    <SiteShell>
+    <SiteShell transparentNavbar>
 
       {/* ── Hero — full width ── */}
       <section
-        className="relative overflow-hidden pt-16 pb-0 md:pt-20 min-h-[calc(100svh-72px)] md:min-h-0"
+        className="relative overflow-hidden pt-8 pb-0 md:pt-10 min-h-[100svh] md:min-h-0"
         style={{ backgroundColor: GREY }}
       >
         <div className="max-w-[1200px] mx-auto px-6 grid grid-cols-1 md:grid-cols-2 items-end gap-6 md:gap-10">

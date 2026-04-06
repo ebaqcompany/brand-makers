@@ -5,11 +5,23 @@ import { Footer2 } from "@/components/footer2";
 // Wraps any inner page with the shared sticky navbar and dark footer.
 // Usage: wrap the page content in <SiteShell>…</SiteShell>
 
-export function SiteShell({ children }: { children: React.ReactNode }) {
+export function SiteShell({
+  children,
+  transparentNavbar = false,
+}: {
+  children: React.ReactNode;
+  transparentNavbar?: boolean;
+}) {
   return (
     <div className="flex flex-col w-full">
       {/* Sticky navbar */}
-      <div className="sticky top-0 z-50 bg-white shadow-sm">
+      <div
+        className={`sticky top-0 z-50 ${
+          transparentNavbar
+            ? "bg-transparent"
+            : "bg-white shadow-sm"
+        }`}
+      >
         <Navbar1
           logo={{
             url: "/",
@@ -29,7 +41,7 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
               url: "/lets-connect",
             },
           }}
-          className="bg-white"
+          className={transparentNavbar ? "bg-transparent" : "bg-white"}
         />
       </div>
 
