@@ -18,7 +18,7 @@ export function SiteShell({
       <div
         className={`sticky top-0 z-50 ${
           transparentNavbar
-            ? "bg-transparent"
+            ? "bg-[#F0F0F0]"
             : "bg-white shadow-sm"
         }`}
       >
@@ -41,7 +41,7 @@ export function SiteShell({
               url: "/lets-connect",
             },
           }}
-          className={transparentNavbar ? "bg-transparent" : "bg-white"}
+          className={transparentNavbar ? "bg-[#F0F0F0]" : "bg-white"}
         />
       </div>
 
