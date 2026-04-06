@@ -78,10 +78,13 @@ export default function CustomHeadwearPage() {
     <SiteShell>
 
       {/* ── Hero — full width ── */}
-      <section className="overflow-hidden pt-16 pb-0 md:pt-20" style={{ backgroundColor: GREY }}>
+      <section
+        className="relative overflow-hidden pt-16 pb-0 md:pt-20 min-h-[calc(100svh-72px)] md:min-h-0"
+        style={{ backgroundColor: GREY }}
+      >
         <div className="max-w-[1200px] mx-auto px-6 grid grid-cols-1 md:grid-cols-2 items-end gap-6 md:gap-10">
           {/* Left: text content */}
-          <div className="pb-10 md:pb-20">
+          <div className="relative z-10 pb-10 md:pb-20">
             <p className="mb-4 text-xs font-medium uppercase tracking-[2px]" style={{ color: BLUE }}>
               Custom Headwear
             </p>
@@ -103,16 +106,26 @@ export default function CustomHeadwearPage() {
             </div>
           </div>
 
-          {/* Right: video — aligned to bottom */}
+          {/* Desktop: video in grid flow */}
           <video
             src="/headwear2-loop.mp4"
             autoPlay
             loop
             muted
             playsInline
-            className="w-full object-contain pointer-events-none self-end"
+            className="hidden w-full object-contain pointer-events-none self-end md:block"
           />
         </div>
+
+        {/* Mobile: video absolute at bottom */}
+        <video
+          src="/headwear2-loop.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute bottom-0 right-0 w-[75%] object-contain pointer-events-none md:hidden"
+        />
       </section>
 
       {/* ── Sidebar + Sections ── */}
