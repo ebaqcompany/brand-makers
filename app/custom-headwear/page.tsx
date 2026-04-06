@@ -112,7 +112,7 @@ export default function CustomHeadwearPage() {
           loop
           muted
           playsInline
-          className="absolute bottom-0 right-[max(1.5rem,calc((100%-1200px)/2))] w-[60%] max-w-[550px] object-contain pointer-events-none md:w-[45%]"
+          className="absolute bottom-0 right-0 w-full object-contain pointer-events-none md:w-[45%] md:right-[max(1.5rem,calc((100%-1200px)/2))] md:max-w-[550px]"
         />
       </section>
 
