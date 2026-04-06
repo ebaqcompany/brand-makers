@@ -94,7 +94,7 @@ export default function CustomHeadwearPage() {
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               className="hidden shrink-0 md:block"
-              style={{ width: 150, height: 150 }}
+              style={{ width: 200, height: 200 }}
               fill="none"
               stroke={BLUE}
               strokeWidth={1}
