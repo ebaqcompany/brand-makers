@@ -82,7 +82,7 @@ export default function CustomHeadwearPage() {
         className="relative overflow-hidden pt-8 pb-0 md:pt-10 h-[calc(100svh-72px)] max-h-[1128px]"
         style={{ backgroundColor: GREY }}
       >
-        <div className="max-w-[1200px] mx-auto px-6 grid grid-cols-1 md:grid-cols-2 items-end gap-6 md:gap-10">
+        <div className="max-w-[1200px] mx-auto px-6 grid grid-cols-1 md:grid-cols-2 items-end gap-6 md:gap-10 h-full">
           {/* Left: text content */}
           <div className="relative z-10 pb-10 md:pb-20">
             <p className="mb-4 text-xs font-medium uppercase tracking-[2px]" style={{ color: BLUE }}>
