@@ -16,7 +16,7 @@ export function AboutHero() {
           About Us
         </p>
         <h1
-          className="mb-6 text-[clamp(40px,6vw,80px)] font-normal leading-[1.05] tracking-[-4px]"
+          className="mb-6 text-[clamp(40px,7vw,80px)] font-normal leading-[1.05] tracking-[-4px]"
           style={{ color: DARK, maxWidth: 700 }}
         >
           Welcome to Brand Makers

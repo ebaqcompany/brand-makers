@@ -143,21 +143,10 @@
 }
 
 /* ── Mobile: loosen tight letter spacing on smaller headings ── */
-/* ── Mobile: keep headings bigger, don't shrink them so much ── */
 @media (max-width: 767px) {
   /* Letter spacing — loosen on mobile */
   .tracking-\[-6px\] { letter-spacing: -2px; }
   .tracking-\[-4px\] { letter-spacing: -1.5px; }
   .tracking-\[-3px\] { letter-spacing: -1px; }
   .tracking-\[-2px\] { letter-spacing: -0.5px; }
-
-  /* H1 — bump mobile sizes */
-  .text-\[52px\] { font-size: 64px; }
-  .text-\[clamp\(40px\,6vw\,80px\)\] { font-size: clamp(56px, 10vw, 80px); }
-
-  /* H2 — bump mobile sizes */
-  .text-\[36px\] { font-size: 44px; }
-
-  /* H3 section headings */
-  .text-\[32px\] { font-size: 36px; }
 }

@@ -24,7 +24,7 @@ export default function CompanyStoresPage() {
             Our Solutions
           </p>
           <h1
-            className="text-[clamp(40px,6vw,80px)] font-normal leading-[1.05] tracking-[-4px]"
+            className="text-[clamp(40px,7vw,80px)] font-normal leading-[1.05] tracking-[-4px]"
             style={{ color: "#323E48", maxWidth: 700 }}
           >
             Company Stores Built for Your Brand
