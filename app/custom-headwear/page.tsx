@@ -82,49 +82,37 @@ export default function CustomHeadwearPage() {
         className="relative overflow-hidden pt-8 pb-0 md:pt-10 h-[calc(100svh-72px)] max-h-[1128px]"
         style={{ backgroundColor: GREY }}
       >
-        <div className="max-w-[1200px] mx-auto px-6 grid grid-cols-1 md:grid-cols-2 items-end gap-6 md:gap-10 h-full">
-          {/* Left: text content */}
-          <div className="relative z-10 pb-10 md:pb-20">
-            <p className="mb-4 text-xs font-medium uppercase tracking-[2px]" style={{ color: BLUE }}>
-              Custom Headwear
-            </p>
-            <h1
-              className="text-[clamp(40px,6vw,80px)] font-normal leading-[1.05] tracking-[-4px]"
-              style={{ color: DARK }}
-            >
-              Designed To Perfection
-            </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-relaxed" style={{ color: "rgba(50,62,72,0.7)" }}>
-              From structured 6-panel caps to relaxed dad hats, we craft every
-              detail — materials, colours, closures, and logo placements — exactly
-              the way you envisioned.
-            </p>
-            <div className="mt-10">
-              <BmButton href="/lets-connect" variant="primary" size="md">
-                Get a Quote
-              </BmButton>
-            </div>
+        {/* Text content — stays in place */}
+        <div className="relative z-10 max-w-[1200px] mx-auto px-6">
+          <p className="mb-4 text-xs font-medium uppercase tracking-[2px]" style={{ color: BLUE }}>
+            Custom Headwear
+          </p>
+          <h1
+            className="text-[clamp(40px,6vw,80px)] font-normal leading-[1.05] tracking-[-4px]"
+            style={{ color: DARK, maxWidth: 600 }}
+          >
+            Designed To Perfection
+          </h1>
+          <p className="mt-6 max-w-xl text-lg leading-relaxed" style={{ color: "rgba(50,62,72,0.7)" }}>
+            From structured 6-panel caps to relaxed dad hats, we craft every
+            detail — materials, colours, closures, and logo placements — exactly
+            the way you envisioned.
+          </p>
+          <div className="mt-10">
+            <BmButton href="/lets-connect" variant="primary" size="md">
+              Get a Quote
+            </BmButton>
           </div>
-
-          {/* Desktop: video in grid flow */}
-          <video
-            src="/headwear2-loop.mp4"
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="hidden w-full object-contain pointer-events-none self-end md:block"
-          />
         </div>
 
-        {/* Mobile: video absolute at bottom */}
+        {/* Video — absolute, always sticks to the bottom right */}
         <video
           src="/headwear2-loop.mp4"
           autoPlay
           loop
           muted
           playsInline
-          className="absolute bottom-0 right-0 w-[75%] object-contain pointer-events-none md:hidden"
+          className="absolute bottom-0 right-[max(1.5rem,calc((100%-1200px)/2))] w-[60%] max-w-[550px] object-contain pointer-events-none md:w-[45%]"
         />
       </section>
 
