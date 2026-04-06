@@ -79,7 +79,7 @@ export default function CustomHeadwearPage() {
 
       {/* ── Hero — full width ── */}
       <section
-        className="relative overflow-hidden pt-8 pb-0 md:pt-10 h-[calc(100svh-72px)] max-h-[1128px]"
+        className="relative overflow-hidden py-20 h-[calc(100svh-72px)] max-h-[1128px]"
         style={{ backgroundColor: GREY }}
       >
         {/* Text content — stays in place */}
