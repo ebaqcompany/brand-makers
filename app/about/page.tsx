@@ -84,7 +84,7 @@ const RESPONSIBILITY_SECTIONS = [
 
 export default function AboutPage() {
   return (
-    <SiteShell>
+    <SiteShell transparentNavbar>
 
       {/* ── Hero ── */}
       <AboutHero />
