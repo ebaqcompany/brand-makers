@@ -36,7 +36,7 @@ export default function LookBooksPage() {
           </p>
 
           {/* 3-column grid of covers */}
-          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-4">
             {LOOK_BOOKS.map((book) => (
               <a
                 key={book.slug}
