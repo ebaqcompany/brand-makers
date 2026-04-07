@@ -68,14 +68,14 @@ const ICON_CAP = [
 
 // ── Services data ─────────────────────────────────────────────────────────────
 const SERVICES = [
-  { label: "Search for Merch",      href: "/search-for-merch",        paths: ICON_SEARCH_FOR_MERCH },
-  { label: "Company Stores",        href: "/company-stores",          paths: ICON_COMPANY_STORES },
-  { label: "Kitting & Fulfillment", href: "/kitting-and-fulfillment", paths: ICON_KITTING },
-  { label: "Custom Headwear",       href: "/custom-headwear",         paths: ICON_CAP },
-  { label: "Custom Merch",          href: "/custom-products",         paths: ICON_CUSTOM_MERCH },
-  { label: "On-Site Experiences",   href: "/on-site-experiences",     paths: ICON_ONSITE },
-  { label: "Retail Brand Partners", href: "/retail-brand-partners",   paths: ICON_PARTNERS },
-  { label: "Our Responsibility",    href: "/our-responsibility",      paths: ICON_RESPONSIBILITY },
+  { label: "Search for Merch",      href: "https://catalog.brandmakers.com/", paths: ICON_SEARCH_FOR_MERCH },
+  { label: "Company Stores",        href: "/company-stores",                  paths: ICON_COMPANY_STORES },
+  { label: "Kitting & Fulfillment", href: "/kitting-and-fulfillment",         paths: ICON_KITTING },
+  { label: "Custom Headwear",       href: "/custom-headwear",                 paths: ICON_CAP },
+  { label: "Custom Merch",          href: "/custom-products",                 paths: ICON_CUSTOM_MERCH },
+  { label: "On-Site Experiences",   href: "/on-site-experiences",             paths: ICON_ONSITE },
+  { label: "Retail Brand Partners", href: "/about#retail-brand-partners",     paths: ICON_PARTNERS },
+  { label: "Our Responsibility",    href: "/about#our-responsibility",        paths: ICON_RESPONSIBILITY },
 ];
 
 // ── Animated stroke icon ──────────────────────────────────────────────────────

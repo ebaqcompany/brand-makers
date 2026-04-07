@@ -93,7 +93,7 @@ export default function AboutPage() {
       <ServicesGrid />
 
       {/* ── Retail Brand Partners ── */}
-      <section className="py-20 md:py-[80px]" style={{ backgroundColor: GREY }}>
+      <section id="retail-brand-partners" className="py-20 md:py-[80px]" style={{ backgroundColor: GREY }}>
         <div className="max-w-[1200px] mx-auto px-6">
           <p className="mb-4 text-xs font-medium uppercase tracking-[2px]" style={{ color: BLUE }}>
             Retail Brand Partners
@@ -125,7 +125,7 @@ export default function AboutPage() {
       </section>
 
       {/* ── Our Responsibility ── */}
-      <section className="py-20 md:py-[80px]" style={{ backgroundColor: "#FFFFFF" }}>
+      <section id="our-responsibility" className="py-20 md:py-[80px]" style={{ backgroundColor: "#FFFFFF" }}>
         <div className="max-w-[1200px] mx-auto px-6">
           <p className="mb-4 text-xs font-medium uppercase tracking-[2px]" style={{ color: BLUE }}>
             Our Responsibility

@@ -3,15 +3,15 @@ import Link from "next/link";
 const DARK = "#323E48";
 
 const navLinks = [
-  { title: "Search for Merch", url: "/search-for-merch" },
+  { title: "Search for Merch", url: "https://catalog.brandmakers.com/", external: true },
   { title: "Company Stores", url: "/company-stores" },
   { title: "Kitting & Fulfillment", url: "/kitting-and-fulfillment" },
   { title: "Custom Headwear", url: "/custom-headwear" },
-  { title: "About Us", url: "/about" },
-  { title: "On-Site Experiences", url: "/on-site-experiences" },
-  { title: "Creative Services", url: "/creative-services" },
-  { title: "Our Responsibility", url: "/our-responsibility" },
   { title: "Custom Merch", url: "/custom-products" },
+  { title: "On-Site Experiences", url: "/on-site-experiences" },
+  { title: "Retail Brand Partners", url: "/about#retail-brand-partners" },
+  { title: "Our Responsibility", url: "/about#our-responsibility" },
+  { title: "About Us", url: "/about" },
   { title: "Let's Connect", url: "/lets-connect" },
 ];
 
@@ -40,12 +40,23 @@ const Footer2 = () => {
           <ul className="w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-y-4 text-center">
             {navLinks.map((link) => (
               <li key={link.title}>
-                <Link
-                  href={link.url}
-                  className="text-sm font-medium text-white/70 transition-colors hover:text-white whitespace-nowrap"
-                >
-                  {link.title}
-                </Link>
+                {link.external ? (
+                  <a
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm font-medium text-white/70 transition-colors hover:text-white whitespace-nowrap"
+                  >
+                    {link.title}
+                  </a>
+                ) : (
+                  <Link
+                    href={link.url}
+                    className="text-sm font-medium text-white/70 transition-colors hover:text-white whitespace-nowrap"
+                  >
+                    {link.title}
+                  </Link>
+                )}
               </li>
             ))}
           </ul>
