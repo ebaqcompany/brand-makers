@@ -28,15 +28,15 @@ export function AboutHero() {
             Since 2008, Brand Makers has had one goal &mdash; to give our clients
             (and team) a better experience than they have had from any business in
             any industry that they have ever worked with. We are often told that we
-            have achieved our goal.
+            have achieved our goal. From our humble roots of just putting your logo
+            on stuff, we&apos;ve grown to excel at each of the brand building
+            services listed below.
           </p>
           <p
             className="text-lg leading-relaxed"
             style={{ color: "rgba(50,62,72,0.7)" }}
           >
-            From our humble roots of just putting your logo on stuff, we&apos;ve
-            grown to excel at each of the brand building services listed below. We
-            remember where we came from. We&apos;re small enough to care and big
+            We remember where we came from. We&apos;re small enough to care and big
             enough to cover all of your needs. We thank our current clients, and we
             invite those that we have not yet worked with to come and see for
             yourself. We want to turn you into a raving fan!
