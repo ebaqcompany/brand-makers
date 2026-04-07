@@ -20,7 +20,7 @@ export default function KittingPage() {
 
       {/* ── Page hero ── */}
       <section
-        className="relative overflow-hidden py-20 h-[calc(100svh-72px)] max-h-[1128px]"
+        className="relative overflow-hidden py-20 "
         style={{ backgroundColor: GREY }}
       >
         {/* Text content — stays in place */}
