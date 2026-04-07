@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { Suspense } from "react";
 import { ScrollToTop } from "@/components/scroll-to-top";
 import "./globals.css";
 
@@ -52,7 +53,7 @@ export default function RootLayout({
       className={`${inter.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <ScrollToTop />
+        <Suspense><ScrollToTop /></Suspense>
         {children}
       </body>
     </html>
