@@ -71,11 +71,15 @@ const OUR_WORK_COUNT = 35;
 
 export default function OnSiteExperiencesPage() {
   return (
-    <SiteShell>
+    <SiteShell transparentNavbar>
 
       {/* ── Hero ── */}
-      <section className="py-20 md:py-[100px]" style={{ backgroundColor: GREY }}>
-        <div className="max-w-[1200px] mx-auto px-6">
+      <section
+        className="relative overflow-hidden py-20"
+        style={{ backgroundColor: GREY }}
+      >
+        {/* Text content */}
+        <div className="relative z-10 max-w-[1200px] mx-auto px-6">
           <p
             className="mb-4 text-xs font-medium uppercase tracking-[2px]"
             style={{ color: BLUE }}
@@ -84,12 +88,12 @@ export default function OnSiteExperiencesPage() {
           </p>
           <h1
             className="text-[clamp(40px,7vw,80px)] font-normal leading-[1.05] tracking-[-4px]"
-            style={{ color: DARK, maxWidth: 700 }}
+            style={{ color: DARK, maxWidth: 600 }}
           >
             Merch That Moves People
           </h1>
           <p
-            className="mt-6 max-w-2xl text-lg leading-relaxed"
+            className="mt-6 max-w-xl text-lg leading-relaxed"
             style={{ color: "rgba(50,62,72,0.7)" }}
           >
             Our on-site branding activations allow guests to create branded
@@ -102,6 +106,13 @@ export default function OnSiteExperiencesPage() {
             </BmButton>
           </div>
         </div>
+
+        {/* Illustration — sticks to bottom right */}
+        <img
+          src="/experiences.png"
+          alt="On-site experiences"
+          className="absolute bottom-0 right-0 w-[80%] object-contain pointer-events-none md:w-[45%] md:right-[max(1.5rem,calc((100%-1200px)/2))] md:max-w-[550px]"
+        />
       </section>
 
       {/* ── How It Works ── */}
