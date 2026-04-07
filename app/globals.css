@@ -141,6 +141,16 @@
   }
 }
 
+/* ── Marquee animations for auto-scrolling rows ── */
+@keyframes marquee-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes marquee-right {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
 /* ── Mobile: loosen tight letter spacing on smaller headings ── */
 @media (max-width: 767px) {
   /* Letter spacing — loosen on mobile */

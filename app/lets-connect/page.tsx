@@ -136,7 +136,7 @@ export default function LetsConnectPage() {
       <section className="py-20 md:py-[80px]" style={{ backgroundColor: "#F0F0F0" }}>
         <div className="max-w-[1200px] mx-auto px-6">
           {/* Heading */}
-          <div className="mb-12 md:mb-16">
+          <div className="mb-8 md:mb-10">
             <p
               className="mb-4 text-xs font-medium uppercase tracking-[2px]"
               style={{ color: BLUE }}
@@ -152,9 +152,9 @@ export default function LetsConnectPage() {
           </div>
 
           {/* Two-column layout */}
-          <div className="grid grid-cols-1 gap-x-20 gap-y-12 md:grid-cols-[1fr_1fr]">
+          <div className="grid grid-cols-1 gap-x-12 gap-y-10 md:grid-cols-[1fr_1fr]">
             {/* Left: form */}
-            <form className="grid grid-cols-1 gap-5" onSubmit={handleSubmit}>
+            <form className="grid grid-cols-1 gap-4" onSubmit={handleSubmit}>
               {/* First Name + Last Name row */}
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                 <div className="grid w-full items-center">
@@ -286,7 +286,7 @@ export default function LetsConnectPage() {
                   id="message"
                   required
                   placeholder="Type your message..."
-                  className={`${INPUT_CLASS} min-h-[180px] py-3`}
+                  className={`${INPUT_CLASS} min-h-[90px] py-3`}
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                 />
@@ -324,7 +324,7 @@ export default function LetsConnectPage() {
                     setDragging(false);
                     addFiles(e.dataTransfer.files);
                   }}
-                  className={`flex min-h-[140px] flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed bg-white px-6 py-8 text-center transition-colors ${
+                  className={`flex min-h-[70px] flex-col items-center justify-center gap-1.5 rounded-lg border-2 border-dashed bg-white px-4 py-4 text-center transition-colors ${
                     dragging
                       ? "border-[#00A1E1] bg-[#00A1E1]/5"
                       : "border-gray-300 hover:border-[#00A1E1]"
@@ -332,7 +332,7 @@ export default function LetsConnectPage() {
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="size-8"
+                    className="size-5"
                     style={{ color: BLUE }}
                     fill="none"
                     viewBox="0 0 24 24"

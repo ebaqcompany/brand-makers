@@ -1,5 +1,6 @@
 
 import { BmButton } from "@/components/bm-button";
+import { CtaSection } from "@/components/cta-section";
 import { Navbar1 } from "@/components/navbar1";
 import { ScrollNavbar } from "@/components/scroll-navbar";
 import { HeroSection } from "@/components/hero-section";
@@ -162,174 +163,53 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── 9. ABOUT / TEAM ───────────────────────────────────────────── */}
-      <section className={SEC} style={{ backgroundColor: "#FFFFFF" }}>
-        <div className={CONTAINER}>
-          <p
-            className="mb-4 text-xs font-medium uppercase tracking-[2px]"
-            style={{ color: BLUE }}
-          >
-            Our Team
-          </p>
-          <h2
-            className="mb-6 text-[36px] leading-[1.1] tracking-[-3px] md:text-[60px]"
-            style={{ color: DARK, maxWidth: 700 }}
-          >
-            From our Creative Services Team
-          </h2>
-          <p
-            className="mb-12 max-w-2xl text-lg leading-relaxed"
-            style={{ color: "rgba(50,62,72,0.7)" }}
-          >
-            Thank you for trusting us with your brand. We strive to offer lightning-fast turnaround time and creative designs that impress. We ask that you give us as much direction as possible and we will work our magic. That is all. Please enjoy these samples of our work.
-          </p>
-
-          {/* Group photo placeholder */}
-          <div
-            className="w-full rounded-2xl"
-            style={{
-              aspectRatio: "16 / 7",
-              backgroundColor: "#E8EFF4",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <div className="text-center">
-              <div
-                className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-full"
-                style={{ backgroundColor: "rgba(0,161,225,0.1)" }}
-              >
-                <svg
-                  width="26"
-                  height="26"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke={BLUE}
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <rect x="3" y="3" width="18" height="18" rx="2" />
-                  <circle cx="8.5" cy="8.5" r="1.5" />
-                  <polyline points="21 15 16 10 5 21" />
-                </svg>
-              </div>
-              <p
-                className="text-sm font-medium"
-                style={{ color: "rgba(50,62,72,0.35)" }}
-              >
-                Team photo
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* ── 9. ABOUT / TEAM (hidden — waiting for team photo) ── */}
 
       {/* ── 10. ON-SITE EXPERIENCES ───────────────────────────────────── */}
-      <section className={SEC} style={{ backgroundColor: GREY }}>
-        <div className={CONTAINER}>
-          <div className="flex flex-col gap-12 lg:flex-row lg:items-center lg:gap-16">
-
-            {/* ── Left: copy ── */}
-            <div className="lg:w-[45%] lg:shrink-0">
-              <p
-                className="mb-4 text-xs font-medium uppercase tracking-[2px]"
-                style={{ color: BLUE }}
-              >
-                On-Site Experiences
-              </p>
-
-              <h2
-                className="mb-6 text-[36px] leading-[1.1] tracking-[-3px] md:text-[60px]"
-                style={{ color: DARK }}
-              >
-                Merch That Moves People
-              </h2>
-              <p className="mb-10 text-lg leading-relaxed" style={{ color: "rgba(50,62,72,0.7)" }}>
-                Our on-site branding activations allow guests to create branded merchandise in real time — transforming ordinary giveaways into unforgettable brand moments.
-              </p>
-
-              <BmButton href="/on-site-experiences" variant="primary">
-                Explore Experiences
-              </BmButton>
-            </div>
-
-            {/* ── Right: 2×3 video clip grid ── */}
-            <div className="grid flex-1 grid-cols-2 gap-3">
-              {Array.from({ length: 6 }).map((_, i) => (
-                <div
-                  key={i}
-                  className="overflow-hidden rounded-2xl"
-                  style={{ aspectRatio: "16 / 9" }}
-                >
-                  <video
-                    src={`/experiences/clips/clip-${String(i + 1).padStart(2, "0")}.mp4`}
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    className="h-full w-full object-cover"
-                  />
-                </div>
-              ))}
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* ── 12. TESTIMONIALS ──────────────────────────────────────────── */}
-      <section className={SEC} style={{ backgroundColor: "#FFFFFF" }}>
-        <div className="max-w-[1200px] mx-auto px-6 mb-12">
+      <section className={SEC} style={{ backgroundColor: DARK }}>
+        <div className={CONTAINER} style={{ textAlign: "center" }}>
           <p
             className="mb-4 text-xs font-medium uppercase tracking-[2px]"
             style={{ color: BLUE }}
           >
-            Testimonials
+            On-Site Experiences
           </p>
-          <h2
-            className="text-[36px] leading-[1.1] tracking-[-3px] md:text-[60px]"
-            style={{ color: DARK }}
-          >
-            What Our Clients Say
+          <h2 className="mb-6 text-[36px] leading-[1.1] tracking-[-3px] text-white md:text-[60px]">
+            Merch That Moves People
           </h2>
-        </div>
-        <TestimonialsCarousel />
-        <div className="max-w-[1200px] mx-auto px-6 mt-12 text-center">
-          <BmButton
-            href="https://www.google.com/maps/place/Brand+Makers/@40.1031763,-111.6585648,17z/data=!3m1!4b1!4m6!3m5!1s0x874dbcc896860f83:0xb8d7e7a36c4e2362!8m2!3d40.1031722!4d-111.6559899!16s%2Fg%2F1tj4z5j2"
-            target="_blank"
-            rel="noopener noreferrer"
-            variant="primary"
-          >
-            See More Reviews
-          </BmButton>
+          <p className="mx-auto mb-10 max-w-2xl text-lg leading-relaxed text-white/70">
+            Our on-site branding activations allow guests to create branded merchandise in real time — transforming ordinary giveaways into unforgettable brand moments.
+          </p>
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <div
+                key={i}
+                className="overflow-hidden rounded-2xl"
+                style={{ aspectRatio: "16/9" }}
+              >
+                <video
+                  src={`/experiences/clips/clip-${String(i + 1).padStart(2, "0")}.mp4`}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  className="h-full w-full object-cover"
+                />
+              </div>
+            ))}
+          </div>
+          <div className="mt-10">
+            <BmButton href="/on-site-experiences" variant="primary">
+              Explore Experiences
+            </BmButton>
+          </div>
         </div>
       </section>
 
+      {/* ── 12. TESTIMONIALS (hidden — waiting for real client testimonials) ── */}
+
       {/* ── CTA ─────────────────────────────────────────────────────── */}
-      <section className={SEC} style={{ backgroundColor: BLUE }}>
-        <div className={`${CONTAINER} grid w-full grid-cols-1 items-center justify-between gap-8 md:grid-cols-[1fr_max-content] md:gap-x-12 lg:gap-x-20`}>
-          <div>
-            <h2 className="mb-3 text-[36px] leading-[1.1] tracking-[-3px] text-white md:mb-4 md:text-[60px]">
-              Let&apos;s Work Together
-            </h2>
-            <p className="text-lg leading-relaxed text-white/80">
-              Ready to elevate your brand? Tell us about your project and
-              we&apos;ll make it happen.
-            </p>
-          </div>
-          <div className="flex flex-col gap-4">
-            <BmButton href="/lets-connect" variant="dark">
-              Let&apos;s Connect
-            </BmButton>
-            <BmButton href="https://catalog.brandmakers.com/" target="_blank" rel="noopener noreferrer" variant="outline-light">
-              View Catalog
-            </BmButton>
-          </div>
-        </div>
-      </section>
+      <CtaSection />
 
       {/* ── 13. FOOTER ────────────────────────────────────────────────── */}
       <Footer2 />

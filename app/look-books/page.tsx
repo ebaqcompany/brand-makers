@@ -22,7 +22,7 @@ export default function LookBooksPage() {
             Look Books
           </p>
           <h1
-            className="mb-4 text-[52px] leading-[1.0] tracking-[-6px] md:text-[100px]"
+            className="mb-4 text-[clamp(40px,7vw,80px)] leading-[1.05] tracking-[-4px]"
             style={{ color: DARK }}
           >
             Browse Our Collections

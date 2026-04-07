@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { SiteShell } from "@/components/site-shell";
 import { BmButton } from "@/components/bm-button";
+import { CtaSection } from "@/components/cta-section";
 
 export const metadata: Metadata = {
   title: "Custom Merch — Brand Makers",
@@ -90,23 +91,7 @@ export default function CustomProductsPage() {
       </section>
 
       {/* ── CTA ── */}
-      <section className="py-20" style={{ backgroundColor: GREY }}>
-        <div className="max-w-[1200px] mx-auto px-6 text-center">
-          <h2
-            className="mb-4 text-[36px] leading-[1.1] tracking-[-3px] md:text-[60px]"
-            style={{ color: DARK }}
-          >
-            Ready to Create?
-          </h2>
-          <p className="mx-auto mb-10 max-w-2xl text-lg leading-relaxed" style={{ color: "rgba(50,62,72,0.7)" }}>
-            Tell us about your project and we&apos;ll bring your vision to life with
-            custom merch that stands out.
-          </p>
-          <BmButton href="/lets-connect" variant="primary" size="md">
-            Let&apos;s Connect
-          </BmButton>
-        </div>
-      </section>
+      <CtaSection />
 
     </SiteShell>
   );

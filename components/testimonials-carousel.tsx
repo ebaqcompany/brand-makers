@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import { Star } from "lucide-react";
+import { MarqueeRow } from "@/components/marquee-row";
 
 const BLUE = "#00A1E1";
 const DARK = "#323E48";
@@ -119,65 +119,15 @@ function TestimonialCard({
 }
 
 export function TestimonialsCarousel() {
-  const trackRef = useRef<HTMLDivElement>(null);
-  const posRef = useRef(0);
-  const animRef = useRef<number>(0);
-  const [paused, setPaused] = useState(false);
-  const pausedRef = useRef(false);
-
-  // Keep ref in sync so the rAF closure always reads the latest value
-  useEffect(() => {
-    pausedRef.current = paused;
-  }, [paused]);
-
-  useEffect(() => {
-    const track = trackRef.current;
-    if (!track) return;
-
-    // Wait one frame so the DOM is painted and scrollWidth is correct
-    const startAnimation = () => {
-      const halfWidth = track.scrollWidth / 2;
-
-      const step = () => {
-        if (!pausedRef.current) {
-          posRef.current -= 0.6;
-          // Reset once we've scrolled one full set
-          if (Math.abs(posRef.current) >= halfWidth) {
-            posRef.current = 0;
-          }
-          track.style.transform = `translateX(${posRef.current}px)`;
-        }
-        animRef.current = requestAnimationFrame(step);
-      };
-
-      animRef.current = requestAnimationFrame(step);
-    };
-
-    const raf = requestAnimationFrame(startAnimation);
-    return () => {
-      cancelAnimationFrame(raf);
-      cancelAnimationFrame(animRef.current);
-    };
-  }, []);
-
-  // Duplicate list for seamless looping
   const doubled = [...testimonials, ...testimonials];
 
   return (
-    <div
-      className="overflow-hidden"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-    >
-      <div
-        ref={trackRef}
-        className="flex gap-5 py-4"
-        style={{ width: "max-content", willChange: "transform" }}
-      >
-        {doubled.map((t, i) => (
-          <TestimonialCard key={i} {...t} />
-        ))}
-      </div>
-    </div>
+    <MarqueeRow duration={50} direction="left" className="py-4">
+      {doubled.map((t, i) => (
+        <div key={i} className="mx-2.5">
+          <TestimonialCard {...t} />
+        </div>
+      ))}
+    </MarqueeRow>
   );
 }

@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { SiteShell } from "@/components/site-shell";
 import { BmButton } from "@/components/bm-button";
+import { ExperiencesTimeline } from "@/components/experiences-timeline";
+import { CtaSection } from "@/components/cta-section";
+import { MarqueeRow } from "@/components/marquee-row";
+import { CASE_STUDIES } from "@/lib/case-studies";
 
 export const metadata: Metadata = {
   title: "On-Site Experiences — Brand Makers",
@@ -46,25 +51,25 @@ const EXPERIENCES = [
 ];
 
 const ITEMS_TO_DECORATE = [
-  { label: "Hats", image: "/experiences/items-to-decorate/Hatsv2.jpg" },
-  { label: "Bucket Hats", image: "/experiences/items-to-decorate/BucketHats.jpg" },
-  { label: "Straw Hats", image: "/experiences/items-to-decorate/Strawhats.jpg" },
-  { label: "Shirts", image: "/experiences/items-to-decorate/Shirts.jpg" },
-  { label: "Jackets", image: "/experiences/items-to-decorate/Jackets.jpg" },
-  { label: "Tote Bags", image: "/experiences/items-to-decorate/Totebags.jpg" },
-  { label: "Backpacks", image: "/experiences/items-to-decorate/Backpackv2s.jpg" },
-  { label: "Cinch Bags", image: "/experiences/items-to-decorate/CinchBags.jpg" },
-  { label: "Fanny Packs", image: "/experiences/items-to-decorate/FannyPacks.jpg" },
-  { label: "Crossbody Bags", image: "/experiences/items-to-decorate/CrossbodyBags.jpg" },
-  { label: "Sling Bags", image: "/experiences/items-to-decorate/Slingbags.jpg" },
-  { label: "Drinkware", image: "/experiences/items-to-decorate/Drinkware.jpg" },
-  { label: "Key Chains", image: "/experiences/items-to-decorate/KeyChains.jpg" },
-  { label: "Luggage Tags", image: "/experiences/items-to-decorate/LuggageTags.jpg" },
-  { label: "Mousepads", image: "/experiences/items-to-decorate/Mousepads_v2.jpg" },
-  { label: "Pens", image: "/experiences/items-to-decorate/Pens.jpg" },
-  { label: "Plushies", image: "/experiences/items-to-decorate/Plushies.jpg" },
-  { label: "Coin Purses", image: "/experiences/items-to-decorate/CoinPurse.jpg" },
-  { label: "Printed Liner Bags", image: "/experiences/items-to-decorate/Bagswithprintedliners.jpg" },
+  { label: "Hats", image: "/experiences/items2/Hatsv2.jpg" },
+  { label: "Bucket Hats", image: "/experiences/items2/BucketHats.jpg" },
+  { label: "Straw Hats", image: "/experiences/items2/Strawhats.jpg" },
+  { label: "Shirts", image: "/experiences/items2/Shirts.jpg" },
+  { label: "Jackets", image: "/experiences/items2/Jackets.jpg" },
+  { label: "Tote Bags", image: "/experiences/items2/Totebags.jpg" },
+  { label: "Backpacks", image: "/experiences/items2/Backpackv2s.jpg" },
+  { label: "Cinch Bags", image: "/experiences/items2/CinchBags.jpg" },
+  { label: "Fanny Packs", image: "/experiences/items2/FannyPacks.jpg" },
+  { label: "Crossbody Bags", image: "/experiences/items2/CrossbodyBags.jpg" },
+  { label: "Sling Bags", image: "/experiences/items2/Slingbags.jpg" },
+  { label: "Drinkware", image: "/experiences/items2/Drinkware.jpg" },
+  { label: "Key Chains", image: "/experiences/items2/KeyChains.jpg" },
+  { label: "Luggage Tags", image: "/experiences/items2/LuggageTags.jpg" },
+  { label: "Mousepads", image: "/experiences/items2/Mousepads_v2.jpg" },
+  { label: "Pens", image: "/experiences/items2/Pens.jpg" },
+  { label: "Plushies", image: "/experiences/items2/Plushies.jpg" },
+  { label: "Coin Purses", image: "/experiences/items2/CoinPurse.jpg" },
+  { label: "Printed Liner Bags", image: "/experiences/items2/Bagswithprintedliners.jpg" },
 ];
 
 const OUR_WORK_COUNT = 35;
@@ -117,33 +122,14 @@ export default function OnSiteExperiencesPage() {
 
       {/* ── How It Works ── */}
       <section className="py-20 md:py-[80px]" style={{ backgroundColor: "#FFFFFF" }}>
-        <div className="max-w-[1200px] mx-auto px-6 text-center">
+        <div className="max-w-[1200px] mx-auto px-6">
           <p className="mb-4 text-xs font-medium uppercase tracking-[2px]" style={{ color: BLUE }}>
             How It Works
           </p>
           <h2 className="mb-16 text-[36px] leading-[1.1] tracking-[-3px] md:text-[60px]" style={{ color: DARK }}>
             Three Simple Steps
           </h2>
-          <div className="flex flex-col items-center gap-8 md:flex-row md:justify-center md:gap-16">
-            {[
-              { step: "01", label: "Pick", desc: "Guests choose their item and design" },
-              { step: "02", label: "Decorate", desc: "We customize it live on the spot" },
-              { step: "03", label: "Activated", desc: "They leave as brand ambassadors" },
-            ].map((s, i) => (
-              <div key={s.step} className="flex flex-col items-center gap-3">
-                <div
-                  className="flex h-20 w-20 items-center justify-center rounded-full text-2xl font-semibold text-white"
-                  style={{ backgroundColor: BLUE }}
-                >
-                  {s.step}
-                </div>
-                <h3 className="text-xl font-medium" style={{ color: DARK }}>{s.label}</h3>
-                <p className="max-w-[200px] text-sm leading-relaxed" style={{ color: "rgba(50,62,72,0.6)" }}>
-                  {s.desc}
-                </p>
-              </div>
-            ))}
-          </div>
+          <ExperiencesTimeline />
         </div>
       </section>
 
@@ -157,12 +143,12 @@ export default function OnSiteExperiencesPage() {
             Home of the Hat Bar
           </p>
           <h2 className="mb-6 text-[36px] leading-[1.1] tracking-[-3px] text-white md:text-[60px]">
-            The Original Hat Bar Experience
+            Merch That Moves People
           </h2>
           <p className="mx-auto mb-10 max-w-2xl text-lg leading-relaxed text-white/70">
-            The Hat Bar was a hit! Guests choose their preferred hat and patch,
-            and we customize it live on the spot. It&apos;s the activation
-            everyone talks about months later.
+            Our on-site branding activations allow guests to create branded
+            merchandise in real time — transforming ordinary giveaways into
+            unforgettable brand moments.
           </p>
           {/* Video clips grid */}
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
@@ -300,43 +286,19 @@ export default function OnSiteExperiencesPage() {
             visibility, and create lasting impressions.
           </p>
 
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {[
-              {
-                image: "/experiences/case-studies/coca-cola.jpg",
-                company: "Coca-Cola",
-                location: "Atlanta, Georgia",
-                attendance: "3,000+",
-                items: "~400",
-                overview: "The on-site hat decoration experience at Coca-Cola\u2019s college football tailgate was a huge success. Fans loved customizing their hats in real time, creating a steady flow of excitement and engagement throughout the event.",
-              },
-              {
-                image: "/experiences/case-studies/caterpillar-abu-dhabi.jpg",
-                company: "Caterpillar",
-                location: "Abu Dhabi, UAE",
-                attendance: "239,000",
-                items: "3,000+ over 4 days",
-                overview: "A multi-day activation featuring on-site laser engraving of premium leather luggage tags and coasters. Over 3,000 items produced with steady traffic and strong engagement throughout.",
-              },
-              {
-                image: "/experiences/case-studies/caterpillar-houston.jpg",
-                company: "Caterpillar",
-                location: "Houston, TX — Minute Maid Park",
-                attendance: "~350 booth visitors",
-                items: "~350",
-                overview: "On-site laser engraving at Minute Maid Park where attendees personalized premium leather luggage tags and valet trays, driving meaningful engagement and lasting impressions.",
-              },
-            ].map((cs) => (
-              <div
-                key={cs.location}
-                className="overflow-hidden rounded-2xl"
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+            {CASE_STUDIES.map((cs) => (
+              <Link
+                key={cs.slug}
+                href={`/case-studies/${cs.slug}`}
+                className="group overflow-hidden rounded-2xl transition-all duration-200 hover:shadow-xl hover:-translate-y-1"
                 style={{ backgroundColor: "#FFFFFF" }}
               >
                 <div className="overflow-hidden" style={{ aspectRatio: "16/10" }}>
                   <img
                     src={cs.image}
                     alt={`${cs.company} activation`}
-                    className="h-full w-full object-cover"
+                    className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                   />
                 </div>
                 <div className="p-6">
@@ -344,33 +306,26 @@ export default function OnSiteExperiencesPage() {
                     className="mb-1 text-xl font-medium tracking-[-0.5px]"
                     style={{ color: DARK }}
                   >
-                    {cs.company}
+                    <span style={{ color: BLUE }}>{cs.company}</span> {cs.title}
                   </h3>
-                  <p className="mb-3 text-xs font-medium uppercase tracking-[1px]" style={{ color: BLUE }}>
+                  <p className="mb-3 text-xs font-medium uppercase tracking-[1px]" style={{ color: "rgba(50,62,72,0.5)" }}>
                     {cs.location}
                   </p>
                   <p className="mb-4 text-sm leading-relaxed" style={{ color: "rgba(50,62,72,0.65)" }}>
-                    {cs.overview}
+                    {cs.overview.split(".")[0]}.
                   </p>
-                  <div className="flex gap-6 border-t pt-4" style={{ borderColor: "rgba(50,62,72,0.1)" }}>
-                    <div>
-                      <p className="text-lg font-semibold" style={{ color: DARK }}>{cs.attendance}</p>
-                      <p className="text-xs" style={{ color: "rgba(50,62,72,0.5)" }}>Attendance</p>
-                    </div>
-                    <div>
-                      <p className="text-lg font-semibold" style={{ color: DARK }}>{cs.items}</p>
-                      <p className="text-xs" style={{ color: "rgba(50,62,72,0.5)" }}>Items Distributed</p>
-                    </div>
-                  </div>
+                  <span className="text-sm font-medium transition-colors group-hover:opacity-70" style={{ color: BLUE }}>
+                    Learn More &rarr;
+                  </span>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
       </section>
 
       {/* ── Section 4: Items to Decorate ── */}
-      <section className="py-20 md:py-[80px]" style={{ backgroundColor: "#FFFFFF" }}>
+      <section className="py-20 md:py-[80px] overflow-hidden" style={{ backgroundColor: "#FFFFFF" }}>
         <div className="max-w-[1200px] mx-auto px-6">
           <p
             className="mb-4 text-xs font-medium uppercase tracking-[2px]"
@@ -384,53 +339,43 @@ export default function OnSiteExperiencesPage() {
           >
             Items to Decorate
           </h2>
-
-          <div className="grid grid-cols-2 gap-x-4 gap-y-10 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-            {ITEMS_TO_DECORATE.map((item) => (
-              <div
-                key={item.label}
-                className="overflow-hidden rounded-2xl"
-                style={{ backgroundColor: GREY }}
-              >
-                <div className="aspect-square overflow-hidden">
-                  <img
-                    src={item.image}
-                    alt={item.label}
-                    className="h-full w-full object-cover"
-                    loading="lazy"
-                  />
-                </div>
-                <p
-                  className="py-4 text-center text-lg font-medium tracking-[-0.5px]"
-                  style={{ color: DARK }}
-                >
-                  {item.label}
-                </p>
-              </div>
-            ))}
-          </div>
         </div>
+
+        {/* Row 1 — scrolls left, draggable */}
+        <MarqueeRow duration={40} direction="left" className="mb-4">
+          {[...ITEMS_TO_DECORATE.slice(0, 10), ...ITEMS_TO_DECORATE.slice(0, 10)].map((item, i) => (
+            <div
+              key={`r1-${i}`}
+              className="mx-2 w-[180px] shrink-0 overflow-hidden rounded-2xl"
+              style={{ backgroundColor: GREY }}
+            >
+              <img src={item.image} alt={item.label} className="w-full h-auto block" draggable={false} loading="lazy" />
+              <p className="py-3 text-center text-sm font-medium tracking-[-0.5px]" style={{ color: DARK }}>
+                {item.label}
+              </p>
+            </div>
+          ))}
+        </MarqueeRow>
+
+        {/* Row 2 — scrolls right, draggable */}
+        <MarqueeRow duration={40} direction="right">
+          {[...ITEMS_TO_DECORATE.slice(10), ...ITEMS_TO_DECORATE.slice(10)].map((item, i) => (
+            <div
+              key={`r2-${i}`}
+              className="mx-2 w-[180px] shrink-0 overflow-hidden rounded-2xl"
+              style={{ backgroundColor: GREY }}
+            >
+              <img src={item.image} alt={item.label} className="w-full h-auto block" draggable={false} loading="lazy" />
+              <p className="py-3 text-center text-sm font-medium tracking-[-0.5px]" style={{ color: DARK }}>
+                {item.label}
+              </p>
+            </div>
+          ))}
+        </MarqueeRow>
       </section>
 
       {/* ── CTA ── */}
-      <section className="py-20 md:py-[80px]" style={{ backgroundColor: BLUE }}>
-        <div className="max-w-[1200px] mx-auto px-6 grid w-full grid-cols-1 items-center justify-between gap-6 md:grid-cols-[1fr_max-content] md:gap-x-12 lg:gap-x-20">
-          <div className="max-w-lg">
-            <h2 className="mb-3 text-[36px] leading-[1.1] tracking-[-3px] text-white md:mb-4 md:text-[60px]">
-              Book Your Activation
-            </h2>
-            <p className="text-lg leading-relaxed text-white/80">
-              Ready to wow your guests? Let&apos;s plan your next on-site
-              branding experience.
-            </p>
-          </div>
-          <div className="flex flex-col gap-4">
-            <BmButton href="/lets-connect" variant="dark">
-              Get a Quote
-            </BmButton>
-          </div>
-        </div>
-      </section>
+      <CtaSection />
 
     </SiteShell>
   );

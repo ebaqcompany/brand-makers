@@ -12,7 +12,7 @@ const navLinks = [
   { title: "Retail Brand Partners", url: "/about#retail-brand-partners" },
   { title: "Our Responsibility", url: "/about#our-responsibility" },
   { title: "About Us", url: "/about" },
-  { title: "Let's Connect", url: "/lets-connect" },
+  { title: "Case Studies", url: "/case-studies" },
 ];
 
 const footerLinks = [

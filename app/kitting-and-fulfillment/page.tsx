@@ -41,9 +41,11 @@ export default function KittingPage() {
             className="mt-6 max-w-xl text-lg leading-relaxed"
             style={{ color: "rgba(50,62,72,0.7)" }}
           >
-            Create custom swag and packaging that matches your brand perfectly.
-            Our team handles the design, packing, shipping logistics, and direct
-            mail — so you don&apos;t have to.
+            Create the ultimate unboxing experience with custom swag and packaging
+            that matches your brand perfectly. We ensure every order is packed
+            accurately and shipped quickly. By partnering with multiple carriers,
+            we have the flexibility to find the best shipping solutions for your
+            timeline and budget.
           </p>
           <div className="mt-10">
             <BmButton href="/lets-connect" variant="primary" size="md">
@@ -87,36 +89,6 @@ export default function KittingPage() {
 
           {/* Animated Timeline */}
           <KittingTimeline />
-
-          {/* Bento grid */}
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 auto-rows-[200px] md:auto-rows-[260px]">
-            {/* Graphic 1 — landscape */}
-            <div className="overflow-hidden rounded-2xl">
-              <img src="/kitting/kitting-graphic-1.jpg" alt="Branded swag collection" className="h-full w-full object-cover" />
-            </div>
-            {/* Graphic 2 — landscape */}
-            <div className="overflow-hidden rounded-2xl">
-              <img src="/kitting/kitting-graphic-2.jpg" alt="Branded merchandise set" className="h-full w-full object-cover" />
-            </div>
-            {/* Graphic 3 — portrait, spans 2 rows */}
-            <div className="row-span-2 overflow-hidden rounded-2xl">
-              <img src="/kitting/kitting-graphic-3.jpg" alt="Custom branded box" className="h-full w-full object-cover" />
-            </div>
-            {/* Graphic 4 — portrait */}
-            <div className="overflow-hidden rounded-2xl">
-              <img src="/kitting/kitting-graphic-4.jpg" alt="Shipping fulfillment" className="h-full w-full object-cover" />
-            </div>
-            {/* Graphic 5 — portrait */}
-            <div className="overflow-hidden rounded-2xl">
-              <img src="/kitting/kitting-graphic-5.jpg" alt="Unboxing experience" className="h-full w-full object-cover" />
-            </div>
-          </div>
-
-          <div className="mt-12 text-center">
-            <BmButton href="/lets-connect" variant="primary" size="md">
-              Let&apos;s Connect
-            </BmButton>
-          </div>
         </div>
       </section>
 
@@ -136,29 +108,22 @@ export default function KittingPage() {
             Kitting Examples
           </h2>
 
-          {/* Bento grid */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[200px] md:auto-rows-[240px]">
-            {/* Taco Viva — square */}
             <div className="overflow-hidden rounded-2xl">
               <img src="/kitting/examples/kitting---taco-viva.jpg" alt="Taco Viva kitting" className="h-full w-full object-cover" />
             </div>
-            {/* BFF — square */}
             <div className="overflow-hidden rounded-2xl">
               <img src="/kitting/examples/kitting-bff.jpg" alt="BFF kitting" className="h-full w-full object-cover" />
             </div>
-            {/* Cyberdine — landscape, spans 2 cols */}
             <div className="col-span-2 overflow-hidden rounded-2xl">
               <img src="/kitting/examples/kitting-cyberdine.jpg" alt="Cyberdine kitting" className="h-full w-full object-cover" />
             </div>
-            {/* G2 Capital — landscape, spans 2 cols */}
             <div className="col-span-2 overflow-hidden rounded-2xl">
               <img src="/kitting/examples/kitting-g2-capital.jpg" alt="G2 Capital kitting" className="h-full w-full object-cover" />
             </div>
-            {/* Last Mile — square */}
             <div className="overflow-hidden rounded-2xl">
               <img src="/kitting/examples/kitting-last-mile.jpg" alt="Last Mile kitting" className="h-full w-full object-cover" />
             </div>
-            {/* Instat — square, same size as Last Mile */}
             <div className="overflow-hidden rounded-2xl">
               <img src="/kitting/examples/kitting-instat.jpg" alt="Instat kitting" className="h-full w-full object-cover" />
             </div>
