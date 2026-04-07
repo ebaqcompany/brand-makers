@@ -1,6 +1,7 @@
 "use client";
 
 import { Menu } from "lucide-react";
+import Link from "next/link";
 import { BmButton } from "@/components/bm-button";
 
 import {
@@ -77,7 +78,7 @@ const Navbar1 = ({
       <div className="max-w-[1200px] mx-auto px-6">
         <nav className="flex items-center justify-between">
           {/* Logo — wide version on md+, stacked on small */}
-          <a href={logo.url} className="flex items-center gap-2 shrink-0">
+          <Link href={logo.url} className="flex items-center gap-2 shrink-0">
             <img
               src={logo.src}
               className="hidden md:block max-h-8"
@@ -93,7 +94,7 @@ const Navbar1 = ({
                 {logo.title}
               </span>
             )}
-          </a>
+          </Link>
 
           {/* Center nav links — desktop only */}
           {menu.length > 0 && (
@@ -109,9 +110,9 @@ const Navbar1 = ({
           {/* Right side */}
           <div className="flex items-center gap-4 md:gap-6">
             {/* About Us + Log In — desktop only (lg+) */}
-            <a href="/about" className="hidden lg:block text-sm font-medium transition-colors hover:opacity-70" style={{ color: "#323E48" }}>
+            <Link href="/about" className="hidden lg:block text-sm font-medium transition-colors hover:opacity-70" style={{ color: "#323E48" }}>
               About Us
-            </a>
+            </Link>
             <a href={auth.login.url} className="hidden lg:block text-sm font-medium transition-colors hover:opacity-70" style={{ color: "#323E48" }}>
               Log In
             </a>
@@ -132,18 +133,18 @@ const Navbar1 = ({
                 <SheetContent className="overflow-y-auto">
                   <SheetHeader>
                     <SheetTitle>
-                      <a href={logo.url} className="flex items-center gap-2">
+                      <Link href={logo.url} className="flex items-center gap-2">
                         <img src={logo.src} className="max-h-8" alt={logo.alt} />
-                      </a>
+                      </Link>
                     </SheetTitle>
                   </SheetHeader>
                   <div className="flex flex-col gap-6 p-4">
                     <Accordion className="flex w-full flex-col gap-4">
                       {menu.map((item) => renderMobileMenuItem(item))}
                     </Accordion>
-                    <a href="/about" className="text-md font-semibold" style={{ color: "#323E48" }}>
+                    <Link href="/about" className="text-md font-semibold" style={{ color: "#323E48" }}>
                       About Us
-                    </a>
+                    </Link>
                     <a href={auth.login.url} className="text-md font-semibold" style={{ color: "#323E48" }}>
                       Log In
                     </a>
@@ -204,15 +205,15 @@ const renderMobileMenuItem = (item: MenuItem) => {
   }
 
   return (
-    <a key={item.title} href={item.url} className="text-md font-semibold">
+    <Link key={item.title} href={item.url} className="text-md font-semibold">
       {item.title}
-    </a>
+    </Link>
   );
 };
 
 const SubMenuLink = ({ item }: { item: MenuItem }) => {
   return (
-    <a
+    <Link
       className="flex min-w-80 flex-row gap-4 rounded-md p-3 leading-none no-underline transition-colors outline-none select-none hover:bg-muted hover:text-accent-foreground"
       href={item.url}
     >
@@ -225,7 +226,7 @@ const SubMenuLink = ({ item }: { item: MenuItem }) => {
           </p>
         )}
       </div>
-    </a>
+    </Link>
   );
 };
 

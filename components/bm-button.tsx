@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 import React from "react";
 
 // ── Brand Makers Button ───────────────────────────────────────────────────────
@@ -102,10 +103,18 @@ export function BmButton({
   };
 
   if (href) {
+    const isExternal = href.startsWith("http") || href.startsWith("//");
+    if (isExternal) {
+      return (
+        <a href={href} target={target} rel={rel} {...sharedProps}>
+          {children}
+        </a>
+      );
+    }
     return (
-      <a href={href} target={target} rel={rel} {...sharedProps}>
+      <Link href={href} {...sharedProps}>
         {children}
-      </a>
+      </Link>
     );
   }
 
