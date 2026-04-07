@@ -53,13 +53,6 @@ export default function CustomProductsPage() {
             </BmButton>
           </div>
         </div>
-
-        {/* Illustration placeholder — swap when asset is ready */}
-        <img
-          src="/headwear.svg"
-          alt="Custom merch"
-          className="absolute bottom-0 right-0 w-[80%] object-contain pointer-events-none md:w-[45%] md:right-[max(1.5rem,calc((100%-1200px)/2))] md:max-w-[550px]"
-        />
       </section>
 
       {/* ── Gallery ── */}

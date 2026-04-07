@@ -43,13 +43,6 @@ export function AboutHero() {
           </p>
         </div>
       </div>
-
-      {/* Illustration — sticks to bottom right */}
-      <img
-        src="/welcome.png"
-        alt="Welcome to Brand Makers"
-        className="absolute bottom-0 right-0 w-[80%] object-contain pointer-events-none md:w-[45%] md:right-[max(1.5rem,calc((100%-1200px)/2))] md:max-w-[550px]"
-      />
     </section>
   );
 }
