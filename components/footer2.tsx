@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const DARK = "#323E48";
 
 const navLinks = [
@@ -28,22 +30,22 @@ const Footer2 = () => {
       <div className="max-w-[1200px] mx-auto px-6">
         {/* Top: logo centered, then links centered underneath */}
         <div className="flex flex-col items-center pb-12 md:pb-18 lg:pb-20">
-          <a href="/" className="mb-16">
+          <Link href="/" className="mb-16">
             <img
               src="/brandmakers-logo-footer.svg"
               alt="Brand Makers"
               className="inline-block h-[96px]"
             />
-          </a>
+          </Link>
           <ul className="w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-y-4 text-center">
             {navLinks.map((link) => (
               <li key={link.title}>
-                <a
+                <Link
                   href={link.url}
                   className="text-sm font-medium text-white/70 transition-colors hover:text-white whitespace-nowrap"
                 >
                   {link.title}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
