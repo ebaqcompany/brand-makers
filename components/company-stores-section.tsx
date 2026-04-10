@@ -21,7 +21,7 @@ const STORE_NAMES = [
   "Traditional Company Store",
 ];
 
-const LANE_COLORS = ["#F0F0F0", "#ffffff", "#F0F0F0", "#ffffff"];
+const LANE_COLORS = ["#F8F8F8", "#ffffff", "#F8F8F8", "#ffffff"];
 
 const ROWS: Row[] = [
   {
