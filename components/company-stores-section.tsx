@@ -126,7 +126,7 @@ export function CompanyStoresSection() {
     <section style={{ background: "#FFFFFF" }} className="relative py-8 md:py-12">
       <div className="max-w-[1200px] mx-auto px-6">
         <table className="w-full" style={{ borderCollapse: "separate", borderSpacing: 0 }}>
-          <thead>
+          <thead className="relative after:absolute after:left-[-100vw] after:right-[-100vw] after:bottom-0 after:h-px after:shadow-[0_8px_16px_4px_rgba(0,0,0,0.06)]">
             <tr>
               {/* Corner cell — sticky top + left */}
               <th
@@ -136,7 +136,6 @@ export function CompanyStoresSection() {
                   minWidth: 160,
                   padding: "24px 18px 24px 0",
                   background: "#ffffff",
-                  boxShadow: "0 12px 20px -8px rgba(0,0,0,0.08)",
                 }}
               />
 
@@ -148,7 +147,6 @@ export function CompanyStoresSection() {
                   style={{
                     padding: "24px 18px",
                     background: "#ffffff",
-                    boxShadow: "0 12px 20px -8px rgba(0,0,0,0.08)",
                   }}
                 >
                   <div
@@ -172,10 +170,10 @@ export function CompanyStoresSection() {
             {ROWS.map((row, ri) => {
               const isLast = ri === ROWS.length - 1;
               return (
-                <tr key={row.label}>
+                <tr key={row.label} className="transition-shadow duration-150 hover:shadow-[0_0_20px_rgba(0,0,0,0.08)] hover:relative hover:z-[5]">
                   {/* Feature label */}
                   <th
-                    className="text-left align-top"
+                    className="text-left align-top transition-colors duration-150"
                     style={{
                       padding: "14px 18px 14px 0",
                       fontSize: 14,
