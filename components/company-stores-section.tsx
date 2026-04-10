@@ -1,7 +1,3 @@
-"use client";
-
-import { useEffect, useRef, useState } from "react";
-
 const BLUE = "#00A1E1";
 const DARK = "#323E48";
 
@@ -126,54 +122,21 @@ function renderCell(value: CellValue) {
 }
 
 export function CompanyStoresSection() {
-  const theadRef = useRef<HTMLTableSectionElement>(null);
-  const tableRef = useRef<HTMLTableElement>(null);
-  const [showGradient, setShowGradient] = useState(false);
-  const [gradientTop, setGradientTop] = useState(142);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const thead = theadRef.current;
-      const table = tableRef.current;
-      if (!thead || !table) return;
-      const theadRect = thead.getBoundingClientRect();
-      const tableRect = table.getBoundingClientRect();
-      const stuck = theadRect.top <= 72;
-      const tableStillVisible = tableRect.bottom > 200;
-      setShowGradient(stuck && tableStillVisible);
-      setGradientTop(72 + thead.offsetHeight);
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   return (
     <section style={{ background: "#FFFFFF" }} className="relative py-8 md:py-12">
-      {/* Fade gradient below stuck header */}
-      <div
-        className="pointer-events-none fixed left-0 right-0 z-[14] transition-opacity duration-200"
-        style={{
-          top: gradientTop,
-          height: 60,
-          background: "linear-gradient(to bottom, rgba(240,240,240,0.8) 0%, rgba(240,240,240,0) 100%)",
-          opacity: showGradient ? 1 : 0,
-        }}
-      />
-
       <div className="max-w-[1200px] mx-auto px-6">
-        <table ref={tableRef} className="w-full" style={{ borderCollapse: "separate", borderSpacing: 0 }}>
-          <thead ref={theadRef}>
+        <table className="w-full" style={{ borderCollapse: "separate", borderSpacing: 0 }}>
+          <thead>
             <tr>
               {/* Corner cell — sticky top + left */}
               <th
-                className="sticky top-[72px] left-0 z-[20]"
+                className="sticky top-[70px] left-0 z-[20]"
                 style={{
                   width: 200,
                   minWidth: 160,
                   padding: "24px 18px 24px 0",
                   background: "#ffffff",
-                  borderBottom: "2px solid #e5e7eb",
+                  boxShadow: "0 12px 20px -8px rgba(0,0,0,0.08)",
                 }}
               />
 
@@ -181,11 +144,11 @@ export function CompanyStoresSection() {
               {STORE_NAMES.map((name, i) => (
                 <th
                   key={name}
-                  className="sticky top-[72px] z-[15] text-left align-bottom"
+                  className="sticky top-[70px] z-[15] text-left align-bottom"
                   style={{
                     padding: "24px 18px",
                     background: "#ffffff",
-                    borderBottom: "2px solid #e5e7eb",
+                    boxShadow: "0 12px 20px -8px rgba(0,0,0,0.08)",
                   }}
                 >
                   <div
