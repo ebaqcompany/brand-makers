@@ -127,17 +127,24 @@ function renderCell(value: CellValue) {
 
 export function CompanyStoresSection() {
   const theadRef = useRef<HTMLTableSectionElement>(null);
-  const [isStuck, setIsStuck] = useState(false);
+  const tableRef = useRef<HTMLTableElement>(null);
+  const [showGradient, setShowGradient] = useState(false);
+  const [gradientTop, setGradientTop] = useState(142);
 
   useEffect(() => {
     const handleScroll = () => {
       const thead = theadRef.current;
-      if (!thead) return;
-      const rect = thead.getBoundingClientRect();
-      // Header is stuck when its top reaches the navbar (72px)
-      setIsStuck(rect.top <= 72);
+      const table = tableRef.current;
+      if (!thead || !table) return;
+      const theadRect = thead.getBoundingClientRect();
+      const tableRect = table.getBoundingClientRect();
+      const stuck = theadRect.top <= 72;
+      const tableStillVisible = tableRect.bottom > 200;
+      setShowGradient(stuck && tableStillVisible);
+      setGradientTop(72 + thead.offsetHeight);
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -147,15 +154,15 @@ export function CompanyStoresSection() {
       <div
         className="pointer-events-none fixed left-0 right-0 z-[14] transition-opacity duration-200"
         style={{
-          top: 142,
+          top: gradientTop,
           height: 60,
           background: "linear-gradient(to bottom, rgba(240,240,240,0.8) 0%, rgba(240,240,240,0) 100%)",
-          opacity: isStuck ? 1 : 0,
+          opacity: showGradient ? 1 : 0,
         }}
       />
 
       <div className="max-w-[1200px] mx-auto px-6">
-        <table className="w-full" style={{ borderCollapse: "separate", borderSpacing: 0 }}>
+        <table ref={tableRef} className="w-full" style={{ borderCollapse: "separate", borderSpacing: 0 }}>
           <thead ref={theadRef}>
             <tr>
               {/* Corner cell — sticky top + left */}
