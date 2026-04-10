@@ -122,91 +122,104 @@ function renderCell(value: CellValue) {
 }
 
 export function CompanyStoresSection() {
-  return (
-    <section style={{ background: "#FFFFFF" }} className="relative py-8 md:py-12">
-      <div className="max-w-[1200px] mx-auto px-6">
-        <table className="w-full" style={{ borderCollapse: "separate", borderSpacing: 0 }}>
-          <thead className="relative after:absolute after:left-[-100vw] after:right-[-100vw] after:bottom-0 after:h-px after:shadow-[0_8px_16px_4px_rgba(0,0,0,0.06)]">
-            <tr>
-              {/* Corner cell — sticky top + left */}
-              <th
-                className="sticky top-[70px] left-0 z-[20]"
-                style={{
-                  width: 200,
-                  minWidth: 160,
-                  padding: "24px 18px 24px 0",
-                  background: "#ffffff",
-                }}
-              />
+  // Calculate side padding to center content at max 1200px
+  // Using CSS calc: each side = max(24px, (100% - 1200px) / 2)
+  const sidePad = "max(24px, calc((100% - 1200px) / 2))";
 
-              {/* Store option headers — sticky to top below navbar */}
-              {STORE_NAMES.map((name, i) => (
+  return (
+    <section style={{ background: "#FFFFFF" }} className="py-8 md:py-12">
+      <table className="w-full" style={{ borderCollapse: "separate", borderSpacing: 0 }}>
+        <thead>
+          <tr>
+            {/* Corner cell — sticky */}
+            <th
+              className="sticky top-[70px] left-0 z-[20]"
+              style={{
+                width: 200,
+                minWidth: 160,
+                paddingTop: 24,
+                paddingBottom: 24,
+                paddingLeft: sidePad,
+                paddingRight: 18,
+                background: "#ffffff",
+                boxShadow: "0 8px 16px -4px rgba(0,0,0,0.06)",
+              }}
+            />
+
+            {/* Store option headers — sticky */}
+            {STORE_NAMES.map((name, i) => (
+              <th
+                key={name}
+                className="sticky top-[70px] z-[15] text-left align-bottom"
+                style={{
+                  padding: "24px 18px",
+                  background: "#ffffff",
+                  boxShadow: "0 8px 16px -4px rgba(0,0,0,0.06)",
+                  ...(i === STORE_NAMES.length - 1 ? { paddingRight: sidePad } : {}),
+                }}
+              >
+                <div
+                  className="mb-1 text-[10px] font-medium uppercase"
+                  style={{ letterSpacing: "0.12em", color: "#6b7280" }}
+                >
+                  Option {i + 1}
+                </div>
+                <div
+                  className="text-lg font-extrabold leading-tight"
+                  style={{ color: DARK }}
+                >
+                  {name}
+                </div>
+              </th>
+            ))}
+          </tr>
+        </thead>
+
+        <tbody>
+          {ROWS.map((row, ri) => {
+            const isLast = ri === ROWS.length - 1;
+            return (
+              <tr
+                key={row.label}
+                className="transition-shadow duration-150 hover:shadow-[0_0_24px_rgba(0,0,0,0.08)] hover:relative hover:z-[5]"
+              >
+                {/* Feature label */}
                 <th
-                  key={name}
-                  className="sticky top-[70px] z-[15] text-left align-bottom"
+                  className="text-left align-top"
                   style={{
-                    padding: "24px 18px",
-                    background: "#ffffff",
+                    padding: "14px 18px 14px 0",
+                    paddingLeft: sidePad,
+                    fontSize: 14,
+                    fontWeight: 700,
+                    color: "#374151",
+                    background: "#fff",
+                    borderBottom: isLast ? "none" : "1px solid #e5e7eb",
                   }}
                 >
-                  <div
-                    className="mb-1 text-[10px] font-medium uppercase"
-                    style={{ letterSpacing: "0.12em", color: "#6b7280" }}
-                  >
-                    Option {i + 1}
-                  </div>
-                  <div
-                    className="text-lg font-extrabold leading-tight"
-                    style={{ color: DARK }}
-                  >
-                    {name}
-                  </div>
+                  {row.label}
                 </th>
-              ))}
-            </tr>
-          </thead>
-
-          <tbody>
-            {ROWS.map((row, ri) => {
-              const isLast = ri === ROWS.length - 1;
-              return (
-                <tr key={row.label} className="transition-shadow duration-150 hover:shadow-[0_0_20px_rgba(0,0,0,0.08)] hover:relative hover:z-[5]">
-                  {/* Feature label */}
-                  <th
-                    className="text-left align-top transition-colors duration-150"
+                {/* Data cells */}
+                {row.values.map((val, vi) => (
+                  <td
+                    key={vi}
+                    className="align-top"
                     style={{
-                      padding: "14px 18px 14px 0",
+                      padding: "14px 18px",
                       fontSize: 14,
-                      fontWeight: 700,
-                      color: "#374151",
-                      background: "#fff",
+                      lineHeight: 1.55,
+                      background: LANE_COLORS[vi],
                       borderBottom: isLast ? "none" : "1px solid #e5e7eb",
+                      ...(vi === row.values.length - 1 ? { paddingRight: sidePad } : {}),
                     }}
                   >
-                    {row.label}
-                  </th>
-                  {/* Data cells */}
-                  {row.values.map((val, vi) => (
-                    <td
-                      key={vi}
-                      className="align-top"
-                      style={{
-                        padding: "14px 18px",
-                        fontSize: 14,
-                        lineHeight: 1.55,
-                        background: LANE_COLORS[vi],
-                        borderBottom: isLast ? "none" : "1px solid #e5e7eb",
-                      }}
-                    >
-                      {renderCell(val)}
-                    </td>
-                  ))}
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
+                    {renderCell(val)}
+                  </td>
+                ))}
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
     </section>
   );
 }
