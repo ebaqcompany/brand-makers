@@ -8,13 +8,13 @@ const DARK = "#323E48";
 
 const SERVICES = [
   { label: "Search for Merch",      href: "https://catalog.brandmakers.com/", icon: "/icons/icons_bm-01.svg" },
-  { label: "Company Stores",        href: "/company-stores",                  icon: "/icons/icons_bm-02.svg" },
+  { label: "Company Stores",        href: "/company-stores",                  icon: "/icons/icons_bm-06.svg" },
   { label: "Kitting & Fulfillment", href: "/kitting-and-fulfillment",         icon: "/icons/icons_bm-03.svg" },
   { label: "Custom Headwear",       href: "/custom-headwear",                 icon: "/icons/icons_bm-04.svg" },
-  { label: "Custom Merch",          href: "/custom-products",                 icon: "/icons/icons_bm-05.svg" },
-  { label: "On-Site Experiences",   href: "/on-site-experiences",             icon: "/icons/icons_bm-06.svg" },
-  { label: "Retail Brand Partners", href: "/about#retail-brand-partners",     icon: "/icons/icons_bm-07.svg" },
-  { label: "Our Responsibility",    href: "/about#our-responsibility",        icon: "/icons/icons_bm-08.svg" },
+  { label: "Custom Merch",          href: "/custom-products",                 icon: "/icons/icons_bm-08.svg" },
+  { label: "On-Site Experiences",   href: "/on-site-experiences",             icon: "/icons/icons_bm-07.svg" },
+  { label: "Retail Brand Partners", href: "/about#retail-brand-partners",     icon: "/icons/icons_bm-02.svg" },
+  { label: "Our Responsibility",    href: "/about#our-responsibility",        icon: "/icons/icons_bm-05.svg" },
 ];
 
 const ICON_STAGGER = 0.08;

@@ -17,7 +17,7 @@ export default function CompanyStoresPage() {
   return (
     <SiteShell>
       {/* Hero — compact */}
-      <section className="pt-16 pb-8 md:pt-20 md:pb-10" style={{ backgroundColor: "#FFFFFF" }}>
+      <section className="pt-16 pb-2 md:pt-20 md:pb-4" style={{ backgroundColor: "#FFFFFF" }}>
         <div className="max-w-[1200px] mx-auto px-6">
           <p className="mb-4 text-xs font-medium uppercase tracking-[2px]" style={{ color: BLUE }}>
             Company Stores

@@ -21,10 +21,9 @@ const STORE_NAMES = [
   "Traditional Company Store",
 ];
 
-const LANE_COLORS = ["#fcfcfd", "#fbfcff", "#fcfcfe", "#fcfcfa"];
+const LANE_COLORS = ["#F0F0F0", "#ffffff", "#F0F0F0", "#ffffff"];
 
 const ROWS: Row[] = [
-  { label: "Contract", values: ["None", "None", "30 Day Notice", "30 Day Notice"] },
   {
     label: "Description",
     values: [
@@ -34,6 +33,7 @@ const ROWS: Row[] = [
       "A specialized e-commerce solution specific to your company. Users can access the store to order company merch, redeem awards, build culture, send marketing materials, and more.",
     ],
   },
+  { label: "Contract", values: ["None", "None", "30 Day Notice", "30 Day Notice"] },
   {
     label: "Term",
     values: [
@@ -122,116 +122,92 @@ function renderCell(value: CellValue) {
 }
 
 export function CompanyStoresSection() {
-
   return (
-    <section style={{ background: "#FFFFFF" }} className="py-16 md:py-20">
+    <section style={{ background: "#FFFFFF" }} className="py-8 md:py-12">
       <div className="max-w-[1200px] mx-auto px-6">
-        {/* Table shell */}
-        <div className="relative">
-          <div
-            className="overflow-x-auto rounded-[28px]"
-            style={{
-              border: "1px solid #e5e7eb",
-              boxShadow: "0 18px 46px rgba(15,23,42,0.08)",
-              background: "linear-gradient(180deg, #ffffff 0%, #f8fafc 100%)",
-              padding: 18,
-            }}
-          >
-            <table className="w-full" style={{ minWidth: 900, borderCollapse: "separate", borderSpacing: 0 }}>
-              <thead>
-                <tr>
-                  {/* Corner cell */}
+        <table className="w-full" style={{ borderCollapse: "separate", borderSpacing: 0 }}>
+          <thead>
+            <tr>
+              {/* Corner cell — sticky top + left */}
+              <th
+                className="sticky top-[72px] left-0 z-[20]"
+                style={{
+                  width: 200,
+                  minWidth: 160,
+                  padding: "24px 18px 24px 0",
+                  background: "#ffffff",
+                  borderBottom: "2px solid #e5e7eb",
+                }}
+              />
+
+              {/* Store option headers — sticky to top below navbar */}
+              {STORE_NAMES.map((name, i) => (
+                <th
+                  key={name}
+                  className="sticky top-[72px] z-[15] text-left align-bottom"
+                  style={{
+                    padding: "24px 18px",
+                    background: LANE_COLORS[i],
+                    borderBottom: "2px solid #e5e7eb",
+                  }}
+                >
+                  <div
+                    className="mb-1 text-[10px] font-medium uppercase"
+                    style={{ letterSpacing: "0.12em", color: "#6b7280" }}
+                  >
+                    Option {i + 1}
+                  </div>
+                  <div
+                    className="text-lg font-extrabold leading-tight"
+                    style={{ color: DARK }}
+                  >
+                    {name}
+                  </div>
+                </th>
+              ))}
+            </tr>
+          </thead>
+
+          <tbody>
+            {ROWS.map((row, ri) => {
+              const isLast = ri === ROWS.length - 1;
+              return (
+                <tr key={row.label}>
+                  {/* Feature label */}
                   <th
-                    className="sticky left-0 z-[12]"
+                    className="text-left align-top"
                     style={{
-                      width: 240,
-                      minWidth: 200,
-                      padding: 0,
-                      background: "linear-gradient(180deg, #ffffff 0%, #f8fafc 100%)",
+                      padding: "14px 18px 14px 0",
+                      fontSize: 14,
+                      fontWeight: 700,
+                      color: "#374151",
+                      background: "#fff",
+                      borderBottom: isLast ? "none" : "1px solid #e5e7eb",
                     }}
                   >
-                    <div style={{ height: 112, borderBottom: "1px solid #e5e7eb" }} />
+                    {row.label}
                   </th>
-
-                  {/* Store headers as cards */}
-                  {STORE_NAMES.map((name, i) => (
-                    <th key={name} className="sticky top-0 z-10 px-2 text-left align-bottom">
-                      <div
-                        className="rounded-t-[22px] px-5 py-5"
-                        style={{
-                          minHeight: 112,
-                          background: LANE_COLORS[i],
-                          border: "1px solid #e5e7eb",
-                          borderBottom: "none",
-                          boxShadow: "0 12px 30px rgba(15,23,42,0.06)",
-                        }}
-                      >
-                        <div
-                          className="mb-2 text-[11px] font-medium uppercase"
-                          style={{ letterSpacing: "0.12em", color: "#6b7280" }}
-                        >
-                          Option {i + 1}
-                        </div>
-                        <div
-                          className="text-xl font-extrabold leading-tight"
-                          style={{ color: DARK }}
-                        >
-                          {name}
-                        </div>
-                      </div>
-                    </th>
+                  {/* Data cells */}
+                  {row.values.map((val, vi) => (
+                    <td
+                      key={vi}
+                      className="align-top"
+                      style={{
+                        padding: "14px 18px",
+                        fontSize: 14,
+                        lineHeight: 1.55,
+                        background: LANE_COLORS[vi],
+                        borderBottom: isLast ? "none" : "1px solid #e5e7eb",
+                      }}
+                    >
+                      {renderCell(val)}
+                    </td>
                   ))}
                 </tr>
-              </thead>
-
-              <tbody>
-                {ROWS.map((row, ri) => {
-                  const isLast = ri === ROWS.length - 1;
-                  return (
-                    <tr key={row.label}>
-                      {/* Feature label — sticky left */}
-                      <th
-                        className="sticky left-0 z-[8] text-left align-top"
-                        style={{
-                          padding: "16px 18px",
-                          fontSize: 14,
-                          fontWeight: 700,
-                          color: "#374151",
-                          background: "#fff",
-                          borderBottom: isLast ? "none" : "1px solid #e5e7eb",
-                          borderRadius: isLast ? "0 0 0 18px" : undefined,
-                        }}
-                      >
-                        {row.label}
-                      </th>
-                      {/* Data cells — card lanes */}
-                      {row.values.map((val, vi) => (
-                        <td
-                          key={vi}
-                          className="align-top"
-                          style={{
-                            padding: "16px 18px",
-                            fontSize: 14,
-                            lineHeight: 1.55,
-                            background: LANE_COLORS[vi],
-                            borderBottom: isLast ? "none" : "1px solid #e5e7eb",
-                            borderLeft: "8px solid #fff",
-                            borderRight: "8px solid #fff",
-                            boxShadow: "inset 1px 0 0 #e5e7eb, inset -1px 0 0 #e5e7eb",
-                            borderRadius: isLast ? "0 0 20px 20px" : undefined,
-                          }}
-                        >
-                          {renderCell(val)}
-                        </td>
-                      ))}
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-
-        </div>
+              );
+            })}
+          </tbody>
+        </table>
       </div>
     </section>
   );
