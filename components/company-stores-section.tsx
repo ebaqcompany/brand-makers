@@ -148,8 +148,8 @@ export function CompanyStoresSection() {
         className="pointer-events-none fixed left-0 right-0 z-[14] transition-opacity duration-200"
         style={{
           top: 142,
-          height: 32,
-          background: "linear-gradient(to bottom, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0) 100%)",
+          height: 80,
+          background: "linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%)",
           opacity: isStuck ? 1 : 0,
         }}
       />
