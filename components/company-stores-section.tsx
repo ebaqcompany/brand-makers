@@ -1,3 +1,7 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+
 const BLUE = "#00A1E1";
 const DARK = "#323E48";
 
@@ -21,8 +25,7 @@ const STORE_NAMES = [
   "Traditional Company Store",
 ];
 
-const LANE_COLORS = ["#ffffff", "#ffffff", "#ffffff", "#ffffff"];
-const HEADER_COLORS = ["#F0F0F0", "#F0F0F0", "#F0F0F0", "#F0F0F0"];
+const LANE_COLORS = ["#F8F8F8", "#ffffff", "#F8F8F8", "#ffffff"];
 
 const ROWS: Row[] = [
   {
@@ -123,11 +126,37 @@ function renderCell(value: CellValue) {
 }
 
 export function CompanyStoresSection() {
+  const theadRef = useRef<HTMLTableSectionElement>(null);
+  const [isStuck, setIsStuck] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const thead = theadRef.current;
+      if (!thead) return;
+      const rect = thead.getBoundingClientRect();
+      // Header is stuck when its top reaches the navbar (72px)
+      setIsStuck(rect.top <= 72);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <section style={{ background: "#FFFFFF" }} className="py-8 md:py-12">
+    <section style={{ background: "#FFFFFF" }} className="relative py-8 md:py-12">
+      {/* Fade gradient below stuck header */}
+      <div
+        className="pointer-events-none fixed left-0 right-0 z-[14] transition-opacity duration-200"
+        style={{
+          top: 142,
+          height: 32,
+          background: "linear-gradient(to bottom, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0) 100%)",
+          opacity: isStuck ? 1 : 0,
+        }}
+      />
+
       <div className="max-w-[1200px] mx-auto px-6">
         <table className="w-full" style={{ borderCollapse: "separate", borderSpacing: 0 }}>
-          <thead>
+          <thead ref={theadRef}>
             <tr>
               {/* Corner cell — sticky top + left */}
               <th
@@ -148,7 +177,7 @@ export function CompanyStoresSection() {
                   className="sticky top-[72px] z-[15] text-left align-bottom"
                   style={{
                     padding: "24px 18px",
-                    background: HEADER_COLORS[i],
+                    background: "#ffffff",
                     borderBottom: "2px solid #e5e7eb",
                   }}
                 >
