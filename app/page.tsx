@@ -7,7 +7,8 @@ import { HeroStatic } from "@/components/hero-static";
 // import { HeroSection } from "@/components/hero-section";
 import { Footer2 } from "@/components/footer2";
 import { TestimonialsCarousel } from "@/components/testimonials-carousel";
-import { ServicesGrid } from "@/components/services-grid";
+import { ServicesGridCustom } from "@/components/services-grid-custom";
+// import { ServicesGrid } from "@/components/services-grid";
 
 // ─── Brand colour tokens ───────────────────────────────────────────────────
 const BLUE = "#00A1E1";
@@ -34,7 +35,9 @@ export default function Home() {
       <div className="flex flex-col w-full overflow-x-hidden">
 
       {/* ── 3. SERVICES GRID ──────────────────────────────────────────── */}
-      <ServicesGrid />
+      {/* Original services grid with Hugeicons (hidden for review) */}
+      {/* <ServicesGrid /> */}
+      <ServicesGridCustom />
 
       {/* ── 4. SEARCH FOR MERCH ───────────────────────────────────────── */}
       <section className={SEC} style={{ backgroundColor: BLUE }}>
