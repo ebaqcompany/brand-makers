@@ -21,7 +21,8 @@ const STORE_NAMES = [
   "Traditional Company Store",
 ];
 
-const LANE_COLORS = ["#F8F8F8", "#ffffff", "#F8F8F8", "#ffffff"];
+const LANE_COLORS = ["#ffffff", "#ffffff", "#ffffff", "#ffffff"];
+const HEADER_COLORS = ["#F0F0F0", "#F0F0F0", "#F0F0F0", "#F0F0F0"];
 
 const ROWS: Row[] = [
   {
@@ -147,7 +148,7 @@ export function CompanyStoresSection() {
                   className="sticky top-[72px] z-[15] text-left align-bottom"
                   style={{
                     padding: "24px 18px",
-                    background: LANE_COLORS[i],
+                    background: HEADER_COLORS[i],
                     borderBottom: "2px solid #e5e7eb",
                   }}
                 >
