@@ -19,7 +19,7 @@ export function SiteShell({
         className={`sticky top-0 z-50 ${
           transparentNavbar
             ? "bg-[#F0F0F0]"
-            : "bg-white shadow-sm"
+            : "bg-white border-b border-gray-200"
         }`}
       >
         <Navbar1
