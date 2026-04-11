@@ -125,14 +125,7 @@ export function CompanyStoresSection() {
 
   return (
     <section style={{ background: "#FFFFFF" }} className="py-8 md:py-12">
-      <table className="w-full" style={{ borderCollapse: "separate", borderSpacing: 0, tableLayout: "fixed" }}>
-        <colgroup>
-          <col style={{ width: "max(220px, calc((100vw - 1200px) / 2 + 220px))" }} />
-          <col />
-          <col />
-          <col />
-          <col />
-        </colgroup>
+      <table className="w-full" style={{ borderCollapse: "separate", borderSpacing: 0 }}>
         <thead>
           <tr>
             {/* Corner cell — sticky */}
