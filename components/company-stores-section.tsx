@@ -122,25 +122,25 @@ function renderCell(value: CellValue) {
 }
 
 export function CompanyStoresSection() {
-  // Calculate side padding to center content at max 1200px
-  // Using CSS calc: each side = max(24px, (100% - 1200px) / 2)
-  const sidePad = "max(24px, calc((100% - 1200px) / 2))";
 
   return (
     <section style={{ background: "#FFFFFF" }} className="py-8 md:py-12">
-      <table className="w-full" style={{ borderCollapse: "separate", borderSpacing: 0 }}>
+      <table className="w-full" style={{ borderCollapse: "separate", borderSpacing: 0, tableLayout: "fixed" }}>
+        <colgroup>
+          <col style={{ width: "max(220px, calc((100vw - 1200px) / 2 + 220px))" }} />
+          <col />
+          <col />
+          <col />
+          <col />
+        </colgroup>
         <thead>
           <tr>
             {/* Corner cell — sticky */}
             <th
               className="sticky top-[70px] left-0 z-[20]"
               style={{
-                width: 200,
-                minWidth: 160,
-                paddingTop: 24,
-                paddingBottom: 24,
-                paddingLeft: sidePad,
-                paddingRight: 18,
+                padding: "24px 18px 24px 0",
+                paddingLeft: "max(24px, calc((100vw - 1200px) / 2 + 24px))",
                 background: "#ffffff",
                 boxShadow: "0 8px 16px -4px rgba(0,0,0,0.06)",
               }}
@@ -155,7 +155,7 @@ export function CompanyStoresSection() {
                   padding: "24px 18px",
                   background: "#ffffff",
                   boxShadow: "0 8px 16px -4px rgba(0,0,0,0.06)",
-                  ...(i === STORE_NAMES.length - 1 ? { paddingRight: sidePad } : {}),
+                  ...(i === STORE_NAMES.length - 1 ? { paddingRight: "max(24px, calc((100vw - 1200px) / 2 + 24px))" } : {}),
                 }}
               >
                 <div
@@ -188,7 +188,7 @@ export function CompanyStoresSection() {
                   className="text-left align-top"
                   style={{
                     padding: "14px 18px 14px 0",
-                    paddingLeft: sidePad,
+                    paddingLeft: "max(24px, calc((100vw - 1200px) / 2 + 24px))",
                     fontSize: 14,
                     fontWeight: 700,
                     color: "#374151",
@@ -209,7 +209,7 @@ export function CompanyStoresSection() {
                       lineHeight: 1.55,
                       background: LANE_COLORS[vi],
                       borderBottom: isLast ? "none" : "1px solid #e5e7eb",
-                      ...(vi === row.values.length - 1 ? { paddingRight: sidePad } : {}),
+                      ...(vi === row.values.length - 1 ? { paddingRight: "max(24px, calc((100vw - 1200px) / 2 + 24px))" } : {}),
                     }}
                   >
                     {renderCell(val)}
