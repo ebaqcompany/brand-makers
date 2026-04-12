@@ -58,14 +58,11 @@ export default function CustomProductsPage() {
       {/* ── Gallery ── */}
       <section className="py-20" style={{ backgroundColor: "#FFFFFF" }}>
         <div className="max-w-[1200px] mx-auto px-6">
-          <p className="mb-4 text-xs font-medium uppercase tracking-[2px]" style={{ color: BLUE }}>
-            Our Work
-          </p>
           <h2
             className="mb-12 text-[36px] leading-[1.1] tracking-[-3px] md:text-[60px]"
             style={{ color: DARK }}
           >
-            Custom Merch Gallery
+            Our Custom Merch Work
           </h2>
 
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">

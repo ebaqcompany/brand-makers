@@ -77,43 +77,49 @@ export default function CustomHeadwearPage() {
   return (
     <SiteShell transparentNavbar>
 
-      {/* ── Hero — full width ── */}
+      {/* ── Hero — video with blue background ── */}
       <section
-        className="relative overflow-hidden py-20 "
-        style={{ backgroundColor: GREY }}
+        className="relative overflow-hidden"
+        style={{ backgroundColor: BLUE }}
       >
-        {/* Text content — stays in place */}
-        <div className="relative z-10 max-w-[1200px] mx-auto px-6">
-          <p className="mb-4 text-xs font-medium uppercase tracking-[2px]" style={{ color: BLUE }}>
-            Custom Headwear
-          </p>
-          <h1
-            className="text-[clamp(40px,7vw,80px)] font-normal leading-[1.05] tracking-[-4px]"
-            style={{ color: DARK, maxWidth: 600 }}
-          >
-            Designed To Perfection
-          </h1>
-          <p className="mt-6 max-w-xl text-lg leading-relaxed" style={{ color: "rgba(50,62,72,0.7)" }}>
-            From structured 6-panel caps to relaxed dad hats, we craft every
-            detail — materials, colours, closures, and logo placements — exactly
-            the way you envisioned.
-          </p>
-          <div className="mt-10">
-            <BmButton href="/lets-connect" variant="primary" size="md">
-              Get a Quote
-            </BmButton>
+        <div className="max-w-[1200px] mx-auto px-6 grid grid-cols-1 md:grid-cols-2 items-center gap-8 py-20">
+          {/* Left: text */}
+          <div>
+            <p className="mb-4 text-xs font-medium uppercase tracking-[2px] text-white/70">
+              Custom Headwear
+            </p>
+            <h1
+              className="text-[clamp(40px,7vw,80px)] font-normal leading-[1.05] tracking-[-4px] text-white"
+              style={{ maxWidth: 600 }}
+            >
+              Designed To Perfection
+            </h1>
+            <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/80">
+              From structured 6-panel caps to relaxed dad hats, we craft every
+              detail — materials, colours, closures, and logo placements — exactly
+              the way you envisioned.
+            </p>
+            <div className="mt-10">
+              <BmButton href="/lets-connect" variant="dark" size="md">
+                Get a Quote
+              </BmButton>
+            </div>
+          </div>
+
+          {/* Right: video with transparent background */}
+          <div className="flex justify-center">
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="w-full max-w-[500px] object-contain pointer-events-none"
+            >
+              <source src="/headwear-hero-transparent.webm" type="video/webm" />
+              <source src="/headwear-hero-nobg.mp4" type="video/mp4" />
+            </video>
           </div>
         </div>
-
-        {/* Video — absolute, always sticks to the bottom right */}
-        <video
-          src="/headwear2-loop.mp4"
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="absolute bottom-0 right-0 w-[80%] object-contain pointer-events-none md:w-[45%] md:right-[max(1.5rem,calc((100%-1200px)/2))] md:max-w-[550px]"
-        />
       </section>
 
       {/* ── Sidebar + Sections ── */}

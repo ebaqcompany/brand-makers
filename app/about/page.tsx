@@ -49,7 +49,7 @@ const RESPONSIBILITY_SECTIONS = [
     text: "Brand Makers is all about being a great place to work. When we started back in 2008, it was on the first page of the business plan to prioritize staff happiness. We are an award winning company that has been recognized by PPAI as one of the \u201cGreatest Companies to Work For\u201d.",
   },
   {
-    image: "/about-us/responsibility/minority-owned.jpg",
+    image: "/supplier.jpg",
     title: "Supplier Diversity and Accountability",
     stats: ["Women Owned Suppliers: 85+", "Minority Owned Suppliers: 60+", "Local Suppliers: 45+"],
     text: "We have worked to discover a supplier base that is as inclusive and responsible as our clients. What is important to you, is important to us. Our commitment to high standards extends to our partners as well. We seek out organizations that demonstrate strong environmental responsibility and maintain ethical, supportive workplaces.",

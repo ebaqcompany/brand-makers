@@ -113,28 +113,14 @@ export default function OnSiteExperiencesPage() {
         </div>
       </section>
 
-      {/* ── How It Works ── */}
-      <section className="py-20 md:py-[80px]" style={{ backgroundColor: "#FFFFFF" }}>
-        <div className="max-w-[1200px] mx-auto px-6">
-          <p className="mb-4 text-xs font-medium uppercase tracking-[2px]" style={{ color: BLUE }}>
-            How It Works
-          </p>
-          <h2 className="mb-16 text-[36px] leading-[1.1] tracking-[-3px] md:text-[60px]" style={{ color: DARK }}>
-            Three Simple Steps
-          </h2>
-          <ExperiencesTimeline />
-        </div>
-      </section>
-
-      {/* ── Home of the Hat Bar ── */}
+      {/* ── Merch That Moves People (videos) ── */}
       <section className="py-20 md:py-[80px]" style={{ backgroundColor: DARK }}>
         <div className="max-w-[1200px] mx-auto px-6 text-center">
-          <p
-            className="mb-4 text-xs font-medium uppercase tracking-[2px]"
-            style={{ color: BLUE }}
-          >
-            Home of the Hat Bar
-          </p>
+          <img
+            src="/experiences/hatbar-white.png"
+            alt="The Hat Bar"
+            className="mx-auto mb-8 h-10"
+          />
           <h2 className="mb-6 text-[36px] leading-[1.1] tracking-[-3px] text-white md:text-[60px]">
             Merch That Moves People
           </h2>
@@ -162,42 +148,41 @@ export default function OnSiteExperiencesPage() {
               </div>
             ))}
           </div>
-          <img
-            src="/experiences/hatbar-white.png"
-            alt="The Hat Bar"
-            className="mx-auto mt-12 h-20"
-          />
+
+          {/* Section navigation */}
+          <div className="mt-12 flex flex-wrap justify-center gap-3">
+            <a href="#experiences" className="rounded-full border border-white/30 px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-white/10">
+              Experiences
+            </a>
+            <a href="#our-work" className="rounded-full border border-white/30 px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-white/10">
+              Our Work
+            </a>
+            <a href="#case-studies" className="rounded-full border border-white/30 px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-white/10">
+              Case Studies
+            </a>
+            <a href="#items-to-decorate" className="rounded-full border border-white/30 px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-white/10">
+              Items to Decorate
+            </a>
+          </div>
         </div>
       </section>
 
-      {/* ── Section 1: Experiences (Decoration Methods) ── */}
-      <section className="py-20 md:py-[80px]" style={{ backgroundColor: GREY }}>
+      {/* ── Experiences ── */}
+      <section id="experiences" className="py-20 md:py-[80px]" style={{ backgroundColor: GREY }}>
         <div className="max-w-[1200px] mx-auto px-6">
-          <p
-            className="mb-4 text-xs font-medium uppercase tracking-[2px]"
-            style={{ color: BLUE }}
-          >
-            What We Offer
+          <p className="mb-4 text-xs font-medium uppercase tracking-[2px]" style={{ color: BLUE }}>
+            How It Works
           </p>
-          <h2
-            className="mb-4 text-[36px] leading-[1.1] tracking-[-3px] md:text-[60px]"
-            style={{ color: DARK }}
-          >
+          <h2 className="mb-16 text-[36px] leading-[1.1] tracking-[-3px] md:text-[60px]" style={{ color: DARK }}>
             Experiences
           </h2>
-          <p
-            className="mb-12 max-w-2xl text-lg leading-relaxed"
-            style={{ color: "rgba(50,62,72,0.7)" }}
-          >
-            From live screen printing to on-the-spot embroidery, we bring the
-            production floor to your event.
-          </p>
+          <ExperiencesTimeline />
 
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {EXPERIENCES.map((exp) => (
               <div
                 key={exp.title}
-                className="overflow-hidden rounded-2xl transition-colors duration-200 hover:bg-gray-100"
+                className="overflow-hidden rounded-2xl"
                 style={{ backgroundColor: "#FFFFFF" }}
               >
                 <div className="overflow-hidden" style={{ aspectRatio: "4/3" }}>
@@ -209,15 +194,12 @@ export default function OnSiteExperiencesPage() {
                   />
                 </div>
                 <div className="p-6">
-                <h3
-                  className="mb-2 text-xl font-medium leading-snug tracking-[-0.5px]"
-                  style={{ color: DARK }}
-                >
-                  {exp.title}
-                </h3>
-                <p className="text-sm leading-relaxed" style={{ color: "rgba(50,62,72,0.65)" }}>
-                  {exp.description}
-                </p>
+                  <h3
+                    className="mb-2 text-xl font-medium leading-snug tracking-[-0.5px]"
+                    style={{ color: DARK }}
+                  >
+                    {exp.title}
+                  </h3>
                 </div>
               </div>
             ))}
@@ -225,8 +207,8 @@ export default function OnSiteExperiencesPage() {
         </div>
       </section>
 
-      {/* ── Section 2: Our Work (Display Ideas) ── */}
-      <section className="py-20 md:py-[80px]" style={{ backgroundColor: "#FFFFFF" }}>
+      {/* ── Our Work ── */}
+      <section id="our-work" className="py-20 md:py-[80px]" style={{ backgroundColor: "#FFFFFF" }}>
         <div className="max-w-[1200px] mx-auto px-6">
           <p
             className="mb-4 text-xs font-medium uppercase tracking-[2px]"
@@ -256,8 +238,8 @@ export default function OnSiteExperiencesPage() {
         </div>
       </section>
 
-      {/* ── Section 3: Case Studies ── */}
-      <section className="py-20 md:py-[80px]" style={{ backgroundColor: GREY }}>
+      {/* ── Case Studies ── */}
+      <section id="case-studies" className="py-20 md:py-[80px]" style={{ backgroundColor: GREY }}>
         <div className="max-w-[1200px] mx-auto px-6">
           <p
             className="mb-4 text-xs font-medium uppercase tracking-[2px]"
@@ -317,8 +299,8 @@ export default function OnSiteExperiencesPage() {
         </div>
       </section>
 
-      {/* ── Section 4: Items to Decorate ── */}
-      <section className="py-20 md:py-[80px] overflow-hidden" style={{ backgroundColor: "#FFFFFF" }}>
+      {/* ── Items to Decorate ── */}
+      <section id="items-to-decorate" className="py-20 md:py-[80px] overflow-hidden" style={{ backgroundColor: "#FFFFFF" }}>
         <div className="max-w-[1200px] mx-auto px-6">
           <p
             className="mb-4 text-xs font-medium uppercase tracking-[2px]"
