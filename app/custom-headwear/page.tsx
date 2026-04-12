@@ -82,24 +82,23 @@ export default function CustomHeadwearPage() {
         className="relative overflow-hidden"
         style={{ backgroundColor: BLUE }}
       >
-        <div className="max-w-[1200px] mx-auto px-6 grid grid-cols-1 md:grid-cols-2 items-center gap-8 py-20">
+        <div className="max-w-[1200px] mx-auto px-6 grid grid-cols-1 md:grid-cols-2 items-center gap-6 md:gap-8 py-12 md:py-20">
           {/* Left: text */}
-          <div>
+          <div className="text-center md:text-left">
             <p className="mb-4 text-xs font-medium uppercase tracking-[2px] text-white/70">
               Custom Headwear
             </p>
             <h1
               className="text-[clamp(40px,7vw,80px)] font-normal leading-[1.05] tracking-[-4px] text-white"
-              style={{ maxWidth: 600 }}
             >
               Designed To Perfection
             </h1>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/80">
+            <p className="mt-6 mx-auto md:mx-0 max-w-xl text-lg leading-relaxed text-white/80">
               From structured 6-panel caps to relaxed dad hats, we craft every
               detail — materials, colours, closures, and logo placements — exactly
               the way you envisioned.
             </p>
-            <div className="mt-10">
+            <div className="mt-8 md:mt-10">
               <BmButton href="/lets-connect" variant="dark" size="md">
                 Get a Quote
               </BmButton>
@@ -113,7 +112,7 @@ export default function CustomHeadwearPage() {
               loop
               muted
               playsInline
-              className="w-full max-w-[500px] object-contain pointer-events-none"
+              className="w-[70%] max-w-[500px] object-contain pointer-events-none md:w-full"
             >
               <source src="/headwear-hero-transparent.webm" type="video/webm" />
               <source src="/headwear-hero-nobg.mp4" type="video/mp4" />
