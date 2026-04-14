@@ -139,20 +139,13 @@ export default function Home() {
             From wearables to products, we turn ideas into reality. Every detail matters, and we&apos;re here to ensure your vision comes to life.
           </p>
 
-          {/* 6-tile image grid */}
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
-            {[
-              "badge.jpg",
-              "coca-cola-basket-mini.jpg",
-              "coca-cola-mini-book.jpg",
-              "empower.jpg",
-              "mini-skate.jpg",
-              "optiv.jpg",
-            ].map((img) => (
-              <div key={img} className="aspect-square overflow-hidden rounded-xl">
+          {/* 8-tile image grid */}
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+            {Array.from({ length: 8 }).map((_, i) => (
+              <div key={i} className="aspect-square overflow-hidden rounded-xl">
                 <img
-                  src={`/custom-merch/${img}`}
-                  alt={img.replace(/\.jpg$/, "").replace(/-/g, " ")}
+                  src={`/custom-merch/merch-${String(i + 1).padStart(2, "0")}.jpg`}
+                  alt={`Custom merch ${i + 1}`}
                   className="h-full w-full object-cover"
                   loading="lazy"
                 />

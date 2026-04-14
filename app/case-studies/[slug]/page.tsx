@@ -73,7 +73,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
       </section>
 
       {/* Stats bar */}
-      <section className="py-12" style={{ backgroundColor: "#FFFFFF" }}>
+      <section className="pt-12 pb-4" style={{ backgroundColor: "#FFFFFF" }}>
         <div className="max-w-[1200px] mx-auto px-6">
           <div className="flex flex-wrap gap-12 md:gap-20">
             <div>
@@ -113,7 +113,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
       </section>
 
       {/* Content sections: Challenge, Strategy, Execution, Results — 2×2 grid */}
-      <section className="py-16 md:py-20" style={{ backgroundColor: "#FFFFFF" }}>
+      <section className="pt-4 pb-16 md:pb-20" style={{ backgroundColor: "#FFFFFF" }}>
         <div className="max-w-[1200px] mx-auto px-6">
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             {cs.sections.map((section) => (
@@ -133,32 +133,30 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
                 </p>
               </div>
             ))}
-          </div>
-        </div>
-      </section>
 
-      {/* Key Takeaways */}
-      <section className="py-16 md:py-20" style={{ backgroundColor: DARK }}>
-        <div className="max-w-[1200px] mx-auto px-6">
-          <p className="mb-4 text-xs font-medium uppercase tracking-[2px]" style={{ color: BLUE }}>
-            Key Takeaways
-          </p>
-          <h2 className="mb-10 text-[36px] leading-[1.1] tracking-[-3px] text-white md:text-[48px]">
-            What We Learned
-          </h2>
-          <ul className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            {cs.takeaways.map((takeaway) => (
-              <li
-                key={takeaway}
-                className="flex items-start gap-3"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="mt-1 h-5 w-5 shrink-0" style={{ color: BLUE }}>
-                  <path fillRule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clipRule="evenodd" />
-                </svg>
-                <span className="text-lg leading-relaxed text-white/80">{takeaway}</span>
-              </li>
-            ))}
-          </ul>
+            {/* Key Takeaways — double wide card */}
+            <div
+              className="md:col-span-2 rounded-2xl p-8"
+              style={{ backgroundColor: GREY }}
+            >
+              <h3 className="mb-6 text-[24px] font-medium leading-[1.2] tracking-[-1px] md:text-[32px]" style={{ color: DARK }}>
+                Key Takeaways
+              </h3>
+              <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
+                {cs.takeaways.map((takeaway) => (
+                  <li
+                    key={takeaway}
+                    className="flex items-start gap-3"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="mt-0.5 h-5 w-5 shrink-0" style={{ color: BLUE }}>
+                      <path fillRule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clipRule="evenodd" />
+                    </svg>
+                    <span className="text-base leading-relaxed" style={{ color: "rgba(50,62,72,0.75)" }}>{takeaway}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
         </div>
       </section>
 

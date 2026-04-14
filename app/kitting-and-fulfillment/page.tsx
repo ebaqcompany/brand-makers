@@ -111,14 +111,17 @@ export default function KittingPage() {
             <div className="col-span-2 overflow-hidden rounded-2xl">
               <img src="/kitting/examples/kitting-cyberdine.jpg" alt="Cyberdine kitting" className="h-full w-full object-cover" />
             </div>
-            <div className="col-span-2 overflow-hidden rounded-2xl">
+            <div className="overflow-hidden rounded-2xl">
               <img src="/kitting/examples/kitting-g2-capital.jpg" alt="G2 Capital kitting" className="h-full w-full object-cover" />
+            </div>
+            <div className="overflow-hidden rounded-2xl">
+              <img src="/kitting/examples/kitting-instat.jpg" alt="Instat kitting" className="h-full w-full object-cover" />
             </div>
             <div className="overflow-hidden rounded-2xl">
               <img src="/kitting/examples/kitting-last-mile.jpg" alt="Last Mile kitting" className="h-full w-full object-cover" />
             </div>
             <div className="overflow-hidden rounded-2xl">
-              <img src="/kitting/examples/kitting-instat.jpg" alt="Instat kitting" className="h-full w-full object-cover" />
+              <img src="/kitting/examples/kitting-custom.jpg" alt="Custom kitting" className="h-full w-full object-cover" />
             </div>
           </div>
         </div>

@@ -13,15 +13,7 @@ const BLUE = "#00A1E1";
 const DARK = "#323E48";
 const GREY = "#F0F0F0";
 
-const MERCH_IMAGES = [
-  "badge.jpg",
-  "coca-cola-basket-mini.jpg",
-  "coca-cola-mini-book.jpg",
-  "empower.jpg",
-  "img_3902.jpg",
-  "mini-skate.jpg",
-  "optiv.jpg",
-];
+const MERCH_COUNT = 44;
 
 export default function CustomProductsPage() {
   return (
@@ -65,12 +57,12 @@ export default function CustomProductsPage() {
             Our Custom Merch Work
           </h2>
 
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
-            {MERCH_IMAGES.map((img) => (
-              <div key={img} className="aspect-square overflow-hidden rounded-xl">
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+            {Array.from({ length: MERCH_COUNT }).map((_, i) => (
+              <div key={i} className="aspect-square overflow-hidden rounded-xl border border-gray-200">
                 <img
-                  src={`/custom-merch/${img}`}
-                  alt={img.replace(/\.jpg$/, "").replace(/-/g, " ")}
+                  src={`/custom-merch/merch-${String(i + 1).padStart(2, "0")}.jpg`}
+                  alt={`Custom merch ${i + 1}`}
                   className="h-full w-full object-cover"
                   loading="lazy"
                 />

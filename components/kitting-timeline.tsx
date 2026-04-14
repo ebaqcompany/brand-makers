@@ -174,7 +174,7 @@ export function KittingTimeline() {
             return (
               <div
                 key={`dot-${i}`}
-                className="absolute z-20 size-3.5 rounded-full shadow-[0_0_0_4px_white] transition-all duration-500"
+                className="absolute z-20 size-3.5 rounded-full shadow-[0_0_0_4px_#F0F0F0] transition-all duration-500"
                 style={{
                   left: `${leftPct}%`,
                   top: "50%",

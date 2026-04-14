@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { SiteShell } from "@/components/site-shell";
-import { ServicesGrid } from "@/components/services-grid";
+import { ServicesGridCustom } from "@/components/services-grid-custom";
 import { AboutHero } from "@/components/about-hero";
 
 export const metadata: Metadata = {
@@ -89,7 +89,7 @@ export default function AboutPage() {
       <AboutHero />
 
       {/* ── Services Icons (reusing the services grid from homepage) ── */}
-      <ServicesGrid />
+      <ServicesGridCustom />
 
       {/* ── Retail Brand Partners ── */}
       <section id="retail-brand-partners" className="py-20 md:py-[80px]" style={{ backgroundColor: GREY }}>

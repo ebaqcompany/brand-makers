@@ -50,6 +50,8 @@ export const CASE_STUDIES: CaseStudy[] = [
       "Premium, personalized takeaways outperform standard giveaways",
       "Interactive activations turn attendees into brand ambassadors",
       "Live decoration drives foot traffic and social sharing",
+      "Fans wear custom hats long after the event, extending brand reach",
+      "Tailgate activations create organic, shareable moments",
     ],
   },
   {
@@ -85,13 +87,15 @@ export const CASE_STUDIES: CaseStudy[] = [
       "Laser engraving scales well for high-volume multi-day events",
       "Personalization drives repeat booth visits and word-of-mouth",
       "Live craftsmanship creates a spectacle that attracts foot traffic",
+      "International audiences respond strongly to hands-on experiences",
+      "High-quality takeaways reinforce brand identity across cultures",
     ],
   },
   {
     slug: "caterpillar-houston",
     title: "Driving Engagement Through Hands-On Personalization",
     company: "Caterpillar",
-    location: "Houston, Texas \u2014 Minute Maid Park (Astros Stadium)",
+    location: "Minute Maid Park",
     attendance: "~350 booth visitors",
     items: "~350",
     image: "/experiences/case-studies/caterpillar-houston.jpg",
@@ -120,6 +124,8 @@ export const CASE_STUDIES: CaseStudy[] = [
       "Useful takeaways (luggage tags, valet trays) extend brand impressions",
       "Watching items being created adds to the experience",
       "Quality over quantity drives deeper brand connections",
+      "Stadium venues amplify activation visibility and engagement",
+      "Premium leather goods feel like gifts, not typical event swag",
     ],
   },
   {
@@ -155,6 +161,8 @@ export const CASE_STUDIES: CaseStudy[] = [
       "Uniqueness and attention to detail are the keys to a successful activation",
       "Quality-first giveaways convert even internal skeptics into advocates",
       "The curiosity factor drives organic booth traffic",
+      "Subtle branding creates items people actually want to wear",
+      "Strategic consulting maximizes activation impact within budget",
     ],
   },
 ];
