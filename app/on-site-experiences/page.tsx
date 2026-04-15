@@ -78,44 +78,12 @@ export default function OnSiteExperiencesPage() {
   return (
     <SiteShell transparentNavbar>
 
-      {/* ── Hero ── */}
-      <section
-        className="relative overflow-hidden py-20"
-        style={{ backgroundColor: GREY }}
-      >
-        {/* Text content */}
-        <div className="relative z-10 max-w-[1200px] mx-auto px-6">
-          <p
-            className="mb-4 text-xs font-medium uppercase tracking-[2px]"
-            style={{ color: BLUE }}
-          >
-            On-Site Experiences
-          </p>
-          <h1
-            className="text-[clamp(40px,7vw,80px)] font-normal leading-[1.05] tracking-[-4px]"
-            style={{ color: DARK, maxWidth: 600 }}
-          >
-            Merch That Moves People
-          </h1>
-          <p
-            className="mt-6 max-w-xl text-lg leading-relaxed"
-            style={{ color: "rgba(50,62,72,0.7)" }}
-          >
-            Our on-site branding activations allow guests to create branded
-            merchandise in real time — transforming ordinary giveaways into
-            unforgettable brand moments.
-          </p>
-          <div className="mt-10 flex flex-wrap gap-4">
-            <BmButton href="/lets-connect" variant="primary" size="md">
-              Get a Quote
-            </BmButton>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Merch That Moves People (videos) ── */}
+      {/* ── Videos section (first section) ── */}
       <section className="py-20 md:py-[80px]" style={{ backgroundColor: DARK }}>
         <div className="max-w-[1200px] mx-auto px-6 text-center">
+          <p className="mb-6 text-xs font-medium uppercase tracking-[2px]" style={{ color: BLUE }}>
+            On-Site Experiences
+          </p>
           <img
             src="/experiences/hatbar-white.png"
             alt="The Hat Bar"
@@ -151,16 +119,16 @@ export default function OnSiteExperiencesPage() {
 
           {/* Section navigation */}
           <div className="mt-12 flex flex-wrap justify-center gap-3">
-            <a href="#experiences" className="rounded-full border border-white/30 px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-white/10">
+            <a href="#experiences" className="rounded-full px-6 py-2.5 text-sm font-medium text-white transition-colors hover:opacity-80" style={{ backgroundColor: BLUE }}>
               Experiences
             </a>
-            <a href="#our-work" className="rounded-full border border-white/30 px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-white/10">
+            <a href="#our-work" className="rounded-full px-6 py-2.5 text-sm font-medium text-white transition-colors hover:opacity-80" style={{ backgroundColor: BLUE }}>
               Our Work
             </a>
-            <a href="#case-studies" className="rounded-full border border-white/30 px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-white/10">
+            <a href="#case-studies" className="rounded-full px-6 py-2.5 text-sm font-medium text-white transition-colors hover:opacity-80" style={{ backgroundColor: BLUE }}>
               Case Studies
             </a>
-            <a href="#items-to-decorate" className="rounded-full border border-white/30 px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-white/10">
+            <a href="#items-to-decorate" className="rounded-full px-6 py-2.5 text-sm font-medium text-white transition-colors hover:opacity-80" style={{ backgroundColor: BLUE }}>
               Items to Decorate
             </a>
           </div>
@@ -168,7 +136,7 @@ export default function OnSiteExperiencesPage() {
       </section>
 
       {/* ── Experiences ── */}
-      <section id="experiences" className="py-20 md:py-[80px]" style={{ backgroundColor: GREY }}>
+      <section id="experiences" className="py-20 md:py-[80px] scroll-mt-[80px]" style={{ backgroundColor: GREY }}>
         <div className="max-w-[1200px] mx-auto px-6">
           <p className="mb-4 text-xs font-medium uppercase tracking-[2px]" style={{ color: BLUE }}>
             How It Works
@@ -208,7 +176,7 @@ export default function OnSiteExperiencesPage() {
       </section>
 
       {/* ── Our Work ── */}
-      <section id="our-work" className="py-20 md:py-[80px]" style={{ backgroundColor: "#FFFFFF" }}>
+      <section id="our-work" className="py-20 md:py-[80px] scroll-mt-[80px]" style={{ backgroundColor: "#FFFFFF" }}>
         <div className="max-w-[1200px] mx-auto px-6">
           <p
             className="mb-4 text-xs font-medium uppercase tracking-[2px]"
@@ -239,7 +207,7 @@ export default function OnSiteExperiencesPage() {
       </section>
 
       {/* ── Case Studies ── */}
-      <section id="case-studies" className="py-20 md:py-[80px]" style={{ backgroundColor: GREY }}>
+      <section id="case-studies" className="py-20 md:py-[80px] scroll-mt-[80px]" style={{ backgroundColor: GREY }}>
         <div className="max-w-[1200px] mx-auto px-6">
           <p
             className="mb-4 text-xs font-medium uppercase tracking-[2px]"
@@ -300,7 +268,7 @@ export default function OnSiteExperiencesPage() {
       </section>
 
       {/* ── Items to Decorate ── */}
-      <section id="items-to-decorate" className="py-20 md:py-[80px] overflow-hidden" style={{ backgroundColor: "#FFFFFF" }}>
+      <section id="items-to-decorate" className="py-20 md:py-[80px] overflow-hidden scroll-mt-[80px]" style={{ backgroundColor: "#FFFFFF" }}>
         <div className="max-w-[1200px] mx-auto px-6">
           <p
             className="mb-4 text-xs font-medium uppercase tracking-[2px]"

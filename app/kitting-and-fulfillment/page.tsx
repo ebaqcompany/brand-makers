@@ -98,7 +98,7 @@ export default function KittingPage() {
             className="mb-12 text-[36px] leading-[1.1] tracking-[-3px] md:text-[60px]"
             style={{ color: DARK }}
           >
-            Kitting Examples
+            Our Kitting Work
           </h2>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[200px] md:auto-rows-[240px]">
