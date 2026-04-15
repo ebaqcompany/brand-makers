@@ -6,7 +6,7 @@ import Link from "next/link";
 const BLUE = "#00A1E1";
 const DARK = "#323E48";
 
-const TOTAL_ANIM_TIME = 1.2; // all icons finish in this many seconds
+const TOTAL_ANIM_TIME = 3.6; // all icons finish in this many seconds
 
 const SERVICES = [
   { label: "Search for Merch",      href: "https://catalog.brandmakers.com/", icon: "bm_icons-searchforswag" },
@@ -86,7 +86,7 @@ function AnimatedIcon({ src, revealed, iconIndex }: { src: string; revealed: boo
   return (
     <div
       ref={containerRef}
-      style={{ width: 192, height: 192 }}
+      style={{ width: 172, height: 172 }}
     />
   );
 }
@@ -151,7 +151,7 @@ export function ServicesGridCustom() {
               </>
             );
 
-            const cls = "group flex flex-col items-center gap-4 rounded-xl p-6 text-center transition-colors duration-200 hover:bg-[#00A1E1]";
+            const cls = "group flex flex-col items-center gap-0 rounded-xl px-6 py-3 text-center transition-colors duration-200 hover:bg-[#00A1E1]";
 
             if (isExternal) {
               return (
