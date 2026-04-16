@@ -241,10 +241,10 @@ export const CASE_STUDIES: CaseStudy[] = [
   },
   {
     slug: "elavon-savannah",
-    title: "Delivering a Premium \u201CBoutique\u201D Experience for Executive Attendees",
+    title: "Delivering a Premium Experience for Executives",
     company: "US Bank | Elavon",
     location: "Savannah, Georgia",
-    attendance: "500 top VPs & executives",
+    attendance: "500 Top Execs",
     items: "1,500+ custom items",
     image: "/experiences/case-studies/elavon.jpg",
     overview:
