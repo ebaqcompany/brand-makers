@@ -57,6 +57,7 @@ const RESPONSIBILITY_SECTIONS = [
   {
     image: "/about-us/responsibility/eco-friendly.jpg",
     title: "Eco-Friendly",
+    stats: ["Eco-Friendly Suppliers: 85+"],
     text: "We prioritize partnering with environmentally responsible suppliers who follow sustainable practices. By selecting eco-friendly materials and emphasizing responsible sourcing, we help build a more sustainable and resilient supply chain. Check out some eco friendly ideas in our look books.",
   },
   {
