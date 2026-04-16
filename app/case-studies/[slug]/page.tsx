@@ -35,7 +35,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
           {/* Left: text */}
           <div>
             <Link
-              href="/case-studies"
+              href="/on-site-experiences#case-studies"
               className="mb-8 inline-flex items-center gap-1 text-xs font-medium uppercase tracking-[2px] transition-opacity hover:opacity-70"
               style={{ color: BLUE }}
             >
