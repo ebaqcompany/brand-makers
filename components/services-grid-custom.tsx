@@ -9,7 +9,7 @@ const DARK = "#323E48";
 const TOTAL_ANIM_TIME = 3.6; // all icons finish in this many seconds
 
 const SERVICES = [
-  { label: "Search for Merch",      href: "https://catalog.brandmakers.com/", icon: "bm_icons-searchforswag" },
+  { label: "Search for Merch",      href: "/search-for-merch",                icon: "bm_icons-searchforswag" },
   { label: "Company Stores",        href: "/company-stores",                  icon: "bm_icons-companystores" },
   { label: "Kitting & Fulfillment", href: "/kitting-and-fulfillment",         icon: "bm_icons-kitting" },
   { label: "Custom Headwear",       href: "/custom-headwear",                 icon: "bm_icons-headwear" },

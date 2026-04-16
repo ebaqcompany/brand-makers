@@ -3,7 +3,7 @@ import Link from "next/link";
 const DARK = "#323E48";
 
 const navLinks = [
-  { title: "Search for Merch", url: "https://catalog.brandmakers.com/", external: true },
+  { title: "Search for Merch", url: "/search-for-merch", external: false },
   { title: "Company Stores", url: "/company-stores" },
   { title: "Kitting & Fulfillment", url: "/kitting-and-fulfillment" },
   { title: "Custom Headwear", url: "/custom-headwear" },
