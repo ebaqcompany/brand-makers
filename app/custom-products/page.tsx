@@ -39,11 +39,6 @@ export default function CustomProductsPage() {
             From wearables to products, we turn ideas into reality. Every detail
             matters, and we&apos;re here to ensure your vision comes to life.
           </p>
-          <div className="mt-10">
-            <BmButton href="/lets-connect" variant="primary" size="md">
-              Start Your Project
-            </BmButton>
-          </div>
         </div>
       </section>
 
