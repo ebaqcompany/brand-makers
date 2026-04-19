@@ -72,7 +72,7 @@ const ITEMS_TO_DECORATE = [
   { label: "Printed Liner Bags", image: "/experiences/items2/Bagswithprintedliners.jpg" },
 ];
 
-const OUR_WORK_COUNT = 62;
+const OUR_WORK_COUNT = 58;
 
 export default function OnSiteExperiencesPage() {
   return (
