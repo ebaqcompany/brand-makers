@@ -51,7 +51,7 @@ export function HeroStatic() {
                 fontSize: "clamp(36px, 7vw, 90px)",
                 lineHeight: 1.0,
                 letterSpacing: "-0.05em",
-                color: DARK,
+                color: "#FFFFFF",
                 transform: showText ? "translateY(0)" : "translateY(110%)",
               }}
             >
@@ -67,7 +67,7 @@ export function HeroStatic() {
                 fontSize: "clamp(36px, 7vw, 90px)",
                 lineHeight: 1.0,
                 letterSpacing: "-0.05em",
-                color: DARK,
+                color: "#FFFFFF",
                 transform: showText ? "translateY(0)" : "translateY(-110%)",
                 transitionDelay: showText ? "0.1s" : "0s",
               }}
