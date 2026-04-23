@@ -17,8 +17,9 @@ export function HeroStatic() {
       const dur = video.duration || 24;
       // Items go in from 0-9.75s, blank blue hold from 9.75-12.75s, reverse from 12.75-22.25s, hold hero from 22.25-24.25s
       // Show text during the blank blue hold
-      const blueStart = 9.5;
-      const blueEnd = 13;
+      // Show text earlier (before items fully gone) and keep longer (into the reverse)
+      const blueStart = 8;
+      const blueEnd = 16;
       setShowText(t >= blueStart && t < blueEnd);
     };
 

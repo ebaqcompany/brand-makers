@@ -29,30 +29,32 @@ export function ScrollNavbar() {
     <div
       className="fixed top-0 left-0 right-0 z-50 transition-[background-color,border-color] duration-300"
       style={{
-        backgroundColor: scrolled ? "#FFFFFF" : "#1AABE5",
+        backgroundColor: scrolled ? "#FFFFFF" : "transparent",
         borderBottom: scrolled ? "1px solid #e5e7eb" : "1px solid transparent",
       }}
     >
-      <Navbar1
-        logo={{
-          url: "/",
-          src: scrolled ? "/brandmakers-logo.svg" : "/brandmakers-logo-footer.svg",
-          mobileSrc: scrolled ? "/brandmakers-logo2.svg" : "/brandmakers-logo-footer.svg",
-          alt: "Brand Makers",
-          title: "",
-        }}
-        menu={[]}
-        auth={{
-          login: {
-            title: "Log In",
-            url: "https://catalog.brandmakers.com/auth/login",
-          },
-          signup: {
-            title: "Let's Connect",
-            url: "/lets-connect",
-          },
-        }}
-      />
+      <div className={scrolled ? "" : "hero-nav-white"}>
+        <Navbar1
+          logo={{
+            url: "/",
+            src: scrolled ? "/brandmakers-logo.svg" : "/brandmakers-logo-white.svg",
+            mobileSrc: scrolled ? "/brandmakers-logo2.svg" : "/brandmakers-logo-white.svg",
+            alt: "Brand Makers",
+            title: "",
+          }}
+          menu={[]}
+          auth={{
+            login: {
+              title: "Log In",
+              url: "https://catalog.brandmakers.com/auth/login",
+            },
+            signup: {
+              title: "Let's Connect",
+              url: "/lets-connect",
+            },
+          }}
+        />
+      </div>
     </div>
   );
 }

@@ -141,6 +141,17 @@
   }
 }
 
+/* ── Hero navbar: all white links and outlined button ── */
+.hero-nav-white a,
+.hero-nav-white button {
+  color: #FFFFFF !important;
+}
+.hero-nav-white [style*="background: rgb(0, 161, 225)"],
+.hero-nav-white [style*="background-color: rgb(0, 161, 225)"] {
+  background: transparent !important;
+  border: 1px solid #FFFFFF !important;
+}
+
 /* ── Marquee animations for auto-scrolling rows ── */
 @keyframes marquee-left {
   0% { transform: translateX(0); }
