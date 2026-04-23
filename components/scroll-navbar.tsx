@@ -29,7 +29,7 @@ export function ScrollNavbar() {
     <div
       className="fixed top-0 left-0 right-0 z-50 transition-[background-color,border-color] duration-300"
       style={{
-        backgroundColor: "#FFFFFF",
+        backgroundColor: scrolled ? "#FFFFFF" : "#1AABE5",
         borderBottom: scrolled ? "1px solid #e5e7eb" : "1px solid transparent",
       }}
     >

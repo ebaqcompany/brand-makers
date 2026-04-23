@@ -27,7 +27,7 @@ export function HeroStatic() {
   }, []);
 
   return (
-    <section className="relative w-full overflow-hidden min-h-[60vh] md:min-h-[80vh]" style={{ backgroundColor: "#1AABE5" }}>
+    <section className="relative w-full overflow-hidden h-[100svh]" style={{ backgroundColor: "#1AABE5" }}>
       <video
         ref={videoRef}
         src="/hero-stopmotion.mp4"
@@ -35,7 +35,7 @@ export function HeroStatic() {
         loop
         muted
         playsInline
-        className="absolute inset-0 w-full h-full object-cover"
+        className="absolute inset-0 w-full h-full object-cover object-center"
       />
 
       {/* Text overlay */}
