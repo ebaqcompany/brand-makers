@@ -10,16 +10,29 @@ export function ScrollToTop() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  // Get the hash from the URL
-  const hash = typeof window !== "undefined" ? window.location.hash : "";
+  // Disable browser's automatic scroll restoration
+  useEffect(() => {
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+  }, []);
 
   useIsomorphicLayoutEffect(() => {
-    // If there's a hash (e.g. #retail-brand-partners), let the browser handle scrolling to it
-    if (hash) return;
+    const hash = window.location.hash;
 
-    // Otherwise force scroll to top immediately
-    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
-  }, [pathname, searchParams, hash]);
+    if (hash) {
+      // Scroll to the anchored element
+      requestAnimationFrame(() => {
+        const el = document.querySelector(hash);
+        if (el) {
+          el.scrollIntoView({ behavior: "instant", block: "start" });
+        }
+      });
+    } else {
+      // Scroll to top
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    }
+  }, [pathname, searchParams]);
 
   return null;
 }
