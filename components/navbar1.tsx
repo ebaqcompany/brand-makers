@@ -127,8 +127,8 @@ const Navbar1 = ({
             {/* Hamburger — visible below lg */}
             <div className="lg:hidden">
               <Sheet>
-                <SheetTrigger render={<Button variant="outline" size="icon" />}>
-                  <Menu className="size-4" />
+                <SheetTrigger render={<Button variant="ghost" size="icon" className="border-0 bg-transparent hover:bg-transparent" />}>
+                  <Menu className="size-5" />
                 </SheetTrigger>
                 <SheetContent className="overflow-y-auto">
                   <SheetHeader>
