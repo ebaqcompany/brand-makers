@@ -47,7 +47,7 @@ export function HeroStatic() {
               style={{
                 fontFamily: "var(--font-sans, Inter, sans-serif)",
                 fontWeight: 400,
-                fontSize: "clamp(36px, 7vw, 90px)",
+                fontSize: "clamp(48px, 9vw, 100px)",
                 lineHeight: 1.0,
                 letterSpacing: "-0.05em",
                 color: "#FFFFFF",
@@ -63,7 +63,7 @@ export function HeroStatic() {
               style={{
                 fontFamily: "var(--font-sans, Inter, sans-serif)",
                 fontWeight: 400,
-                fontSize: "clamp(36px, 7vw, 90px)",
+                fontSize: "clamp(48px, 9vw, 100px)",
                 lineHeight: 1.0,
                 letterSpacing: "-0.05em",
                 color: "#FFFFFF",
