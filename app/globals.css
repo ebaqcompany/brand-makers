@@ -141,17 +141,18 @@
   }
 }
 
-/* ── Hero navbar: all white links and outlined button ── */
-.hero-nav-white a,
-.hero-nav-white button {
+/* ── Hero navbar: white everything on transparent bg ── */
+.hero-nav-white * {
   color: #FFFFFF !important;
+  border-color: transparent !important;
 }
-.hero-nav-white a[style],
-.hero-nav-white button[style] {
-  background-color: transparent !important;
+.hero-nav-white svg {
+  stroke: #FFFFFF !important;
+}
+/* CTA button: white outline, no fill */
+.hero-nav-white .hover\:opacity-85 {
   background: transparent !important;
-  border: 1px solid #FFFFFF !important;
-  color: #FFFFFF !important;
+  border: 1px solid rgba(255,255,255,0.6) !important;
 }
 
 /* ── Marquee animations for auto-scrolling rows ── */
