@@ -146,10 +146,12 @@
 .hero-nav-white button {
   color: #FFFFFF !important;
 }
-.hero-nav-white [style*="background: rgb(0, 161, 225)"],
-.hero-nav-white [style*="background-color: rgb(0, 161, 225)"] {
+.hero-nav-white a[style],
+.hero-nav-white button[style] {
+  background-color: transparent !important;
   background: transparent !important;
   border: 1px solid #FFFFFF !important;
+  color: #FFFFFF !important;
 }
 
 /* ── Marquee animations for auto-scrolling rows ── */
