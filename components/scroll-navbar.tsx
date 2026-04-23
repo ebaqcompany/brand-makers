@@ -37,8 +37,8 @@ export function ScrollNavbar() {
         <Navbar1
           logo={{
             url: "/",
-            src: scrolled ? "/logos/brand-makers-horizontal-full-color.svg" : "/logos/brand-makers-horizontal-all-white.svg",
-            mobileSrc: scrolled ? "/logos/brand-makers-horizontal-full-color.svg" : "/logos/brand-makers-horizontal-all-white.svg",
+            src: scrolled ? "/brandmakers-logo.svg" : "/brandmakers-logo-white.svg",
+            mobileSrc: scrolled ? "/brandmakers-logo.svg" : "/brandmakers-logo-white.svg",
             alt: "Brand Makers",
             title: "",
           }}
