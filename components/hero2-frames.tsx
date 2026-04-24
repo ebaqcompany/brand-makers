@@ -7,7 +7,7 @@ const FRAME_COUNT = 32;
 const FRAME_RATE = 8;
 const PING_PONG_FRAME_COUNT = FRAME_COUNT * 2 - 2;
 const LOOP_DURATION_MS = (PING_PONG_FRAME_COUNT / FRAME_RATE) * 1000;
-const TEXT_START_PROGRESS = 0.66;
+const TEXT_START_PROGRESS = 0.6;
 const TEXT_END_PROGRESS = 0.97;
 
 function getFrameSrc(index: number) {
