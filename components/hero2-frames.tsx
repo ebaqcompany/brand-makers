@@ -25,12 +25,7 @@ const HERO_FRAMES = Array.from({ length: FRAME_COUNT }, (_, index) =>
 const FRAME_DURATIONS = Array.from({ length: FRAME_COUNT }, (_, index) =>
   getFrameDuration(index)
 );
-const LOOP_FRAMES = [
-  ...Array.from({ length: FRAME_COUNT }, (_, index) => index),
-  ...Array.from({ length: FRAME_COUNT - 2 }, (_, index) =>
-    FRAME_COUNT - 2 - index
-  ),
-];
+const LOOP_FRAMES = Array.from({ length: FRAME_COUNT }, (_, index) => index);
 const LOOP_FRAME_DURATIONS = LOOP_FRAMES.map(
   (frameIndex) => FRAME_DURATIONS[frameIndex]
 );
@@ -94,10 +89,7 @@ export function Hero2Frames() {
       const elapsed = (now - startedAt) % LOOP_DURATION_MS;
       const { sequenceIndex, frameIndex: nextFrame, frameElapsed } =
         getLoopFrameState(elapsed);
-      const isForward = sequenceIndex < FRAME_COUNT;
-      const forwardElapsed = isForward
-        ? LOOP_FRAME_STARTS[sequenceIndex] + frameElapsed
-        : 0;
+      const forwardElapsed = LOOP_FRAME_STARTS[sequenceIndex] + frameElapsed;
 
       if (nextFrame !== previousFrameRef.current) {
         previousFrameRef.current = nextFrame;
@@ -105,9 +97,7 @@ export function Hero2Frames() {
       }
 
       setTextProgress(
-        isForward
-          ? clamp((forwardElapsed - TEXT_START_MS) / (TEXT_END_MS - TEXT_START_MS))
-          : 0
+        clamp((forwardElapsed - TEXT_START_MS) / (TEXT_END_MS - TEXT_START_MS))
       );
       rafRef.current = requestAnimationFrame(animate);
     };

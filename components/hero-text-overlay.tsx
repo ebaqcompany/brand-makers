@@ -12,8 +12,8 @@ function smoothstep(value: number) {
 }
 
 export function HeroTextOverlay({ progress }: HeroTextOverlayProps) {
-  const exitTwo = smoothstep((progress - 0.8) / 0.12);
-  const exitOne = smoothstep((progress - 0.9) / 0.08);
+  const exitTwo = smoothstep((progress - 0.86) / 0.1);
+  const exitOne = smoothstep((progress - 0.94) / 0.06);
   const lineOne = smoothstep((progress - 0.06) / 0.18) * (1 - exitOne);
   const lineTwo = smoothstep((progress - 0.18) / 0.18) * (1 - exitTwo);
   const opacity = clamp(Math.max(lineOne, lineTwo) * 1.15);
@@ -21,11 +21,10 @@ export function HeroTextOverlay({ progress }: HeroTextOverlayProps) {
   return (
     <div className="absolute inset-0 pointer-events-none">
       <div
-        className="absolute w-[min(calc(100vw-48px),980px)] text-left"
+        className="absolute left-1/2 top-1/2 w-[min(calc(100vw-48px),980px)] text-center"
         style={{
-          left: "max(24px, calc((100vw - 1200px) / 2 + 24px))",
-          bottom: "clamp(40px, 8vh, 88px)",
           opacity,
+          transform: "translate3d(-50%, -50%, 0)",
           transition: "opacity 120ms linear",
           willChange: "opacity",
         }}
