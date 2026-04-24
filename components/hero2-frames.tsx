@@ -18,7 +18,7 @@ const HERO_FRAMES = Array.from({ length: FRAME_COUNT }, (_, index) =>
 export function Hero2Frames() {
   const rafRef = useRef<number>(0);
   const previousFrameRef = useRef(-1);
-  const [showText, setShowText] = useState(false);
+  const [textProgress, setTextProgress] = useState(0);
   const [frameIndex, setFrameIndex] = useState(0);
 
   useEffect(() => {
@@ -44,9 +44,9 @@ export function Hero2Frames() {
       if (nextFrame !== previousFrameRef.current) {
         previousFrameRef.current = nextFrame;
         setFrameIndex(nextFrame);
-        setShowText(progress >= 0.28 && progress < 0.72);
       }
 
+      setTextProgress(progress);
       rafRef.current = requestAnimationFrame(animate);
     };
 
@@ -66,7 +66,7 @@ export function Hero2Frames() {
         className="absolute inset-0 w-full h-full object-cover object-center"
       />
 
-      <HeroTextOverlay showText={showText} />
+      <HeroTextOverlay progress={textProgress} />
     </section>
   );
 }

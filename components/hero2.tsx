@@ -5,7 +5,7 @@ import { HeroTextOverlay } from "@/components/hero-text-overlay";
 
 export function Hero2() {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [showText, setShowText] = useState(false);
+  const [textProgress, setTextProgress] = useState(0);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -14,7 +14,7 @@ export function Hero2() {
     const onTime = () => {
       const duration = video.duration || 4;
       const progress = (video.currentTime % duration) / duration;
-      setShowText(progress >= 0.28 && progress < 0.72);
+      setTextProgress(progress);
     };
 
     video.addEventListener("timeupdate", onTime);
@@ -33,7 +33,7 @@ export function Hero2() {
         className="absolute inset-0 w-full h-full object-cover object-center"
       />
 
-      <HeroTextOverlay showText={showText} />
+      <HeroTextOverlay progress={textProgress} />
     </section>
   );
 }
