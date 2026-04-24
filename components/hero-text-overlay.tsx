@@ -12,24 +12,28 @@ function smoothstep(value: number) {
 }
 
 export function HeroTextOverlay({ progress }: HeroTextOverlayProps) {
-  const enter = smoothstep((progress - 0.22) / 0.2);
-  const travel = smoothstep((progress - 0.46) / 0.34);
-  const exit = smoothstep((progress - 0.82) / 0.1);
-  const translateX = -62 + enter * 62 + travel * 32 + exit * 42;
-  const opacity = clamp(enter * 1.15 - exit);
+  const approach = smoothstep((progress - 0.3) / 0.28);
+  const drift = smoothstep((progress - 0.62) / 0.2);
+  const exit = smoothstep((progress - 0.88) / 0.08);
+  const lineOne = smoothstep((progress - 0.38) / 0.18);
+  const lineTwo = smoothstep((progress - 0.44) / 0.18);
+  const wipe = smoothstep((progress - 0.36) / 0.28);
+  const translateX = -76 + approach * 76 + drift * 18 + exit * 44;
+  const opacity = clamp(wipe * 1.2 - exit);
 
   return (
-    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+    <div className="absolute inset-0 pointer-events-none">
       <div
-        className="text-center"
+        className="absolute left-1/2 top-1/2 w-[min(82vw,980px)] text-left"
         style={{
           opacity,
-          transform: `translate3d(${translateX}vw, 0, 0)`,
+          clipPath: `inset(0 ${100 - wipe * 100}% 0 0)`,
+          transform: `translate3d(calc(-50% + ${translateX}vw), -50%, 0)`,
           transition: "opacity 120ms linear",
-          willChange: "transform, opacity",
+          willChange: "clip-path, transform, opacity",
         }}
       >
-        <div>
+        <div className="overflow-hidden">
           <h1
             style={{
               fontFamily: "var(--font-sans, Inter, sans-serif)",
@@ -38,12 +42,14 @@ export function HeroTextOverlay({ progress }: HeroTextOverlayProps) {
               lineHeight: 1.0,
               letterSpacing: "-0.05em",
               color: "#FFFFFF",
+              transform: `translate3d(0, ${(1 - lineOne) * 112}%, 0)`,
+              willChange: "transform",
             }}
           >
             We Make Your
           </h1>
         </div>
-        <div className="mt-1">
+        <div className="mt-1 overflow-hidden">
           <h1
             style={{
               fontFamily: "var(--font-sans, Inter, sans-serif)",
@@ -52,6 +58,8 @@ export function HeroTextOverlay({ progress }: HeroTextOverlayProps) {
               lineHeight: 1.0,
               letterSpacing: "-0.05em",
               color: "#FFFFFF",
+              transform: `translate3d(${(1 - lineTwo) * -6}vw, ${(1 - lineTwo) * 112}%, 0)`,
+              willChange: "transform",
             }}
           >
             Brand Look Good
