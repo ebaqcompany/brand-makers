@@ -18,17 +18,18 @@ export function HeroTextOverlay({ progress }: HeroTextOverlayProps) {
   const lineOne = smoothstep((progress - 0.38) / 0.18);
   const lineTwo = smoothstep((progress - 0.44) / 0.18);
   const wipe = smoothstep((progress - 0.36) / 0.28);
-  const translateX = -76 + approach * 76 + drift * 18 + exit * 44;
+  const translateX = -64 + approach * 64 + drift * 16 + exit * 42;
   const opacity = clamp(wipe * 1.2 - exit);
 
   return (
     <div className="absolute inset-0 pointer-events-none">
       <div
-        className="absolute left-1/2 top-1/2 w-[min(82vw,980px)] text-left"
+        className="absolute top-1/2 w-[min(calc(100vw-48px),980px)] text-left"
         style={{
+          left: "max(24px, calc((100vw - 1200px) / 2 + 24px))",
           opacity,
           clipPath: `inset(0 ${100 - wipe * 100}% 0 0)`,
-          transform: `translate3d(calc(-50% + ${translateX}vw), -50%, 0)`,
+          transform: `translate3d(${translateX}vw, -50%, 0)`,
           transition: "opacity 120ms linear",
           willChange: "clip-path, transform, opacity",
         }}
