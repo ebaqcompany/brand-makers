@@ -2,40 +2,66 @@
 
 import { useRef, useEffect, useState } from "react";
 
-const DARK = "#323E48";
+const FRAME_COUNT = 32;
+const FRAME_RATE = 8;
+const LOOP_DURATION_MS = (FRAME_COUNT / FRAME_RATE) * 1000;
+
+function getFrameSrc(index: number) {
+  return `/hero-stopmotion-webp/frame-${String(index + 1).padStart(3, "0")}.webp`;
+}
+
+const HERO_FRAMES = Array.from({ length: FRAME_COUNT }, (_, index) =>
+  getFrameSrc(index)
+);
 
 export function HeroStatic() {
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const rafRef = useRef<number>(0);
+  const previousFrameRef = useRef(-1);
   const [showText, setShowText] = useState(false);
+  const [frameIndex, setFrameIndex] = useState(0);
 
   useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
+    HERO_FRAMES.forEach((src) => {
+      const img = new Image();
+      img.src = src;
+    });
+  }, []);
 
-    const onTime = () => {
-      const t = video.currentTime;
-      const dur = video.duration || 24;
-      // Items go in from 0-9.75s, blank blue hold from 9.75-12.75s, reverse from 12.75-22.25s, hold hero from 22.25-24.25s
-      // Show text during the blank blue hold
-      // Text appears when tape shows (~7.5s), disappears when box centers on reverse (~15s)
-      const blueStart = 7.5;
-      const blueEnd = 15;
-      setShowText(t >= blueStart && t < blueEnd);
+  useEffect(() => {
+    let startedAt: number | null = null;
+
+    const animate = (now: number) => {
+      if (startedAt === null) startedAt = now;
+
+      const elapsed = (now - startedAt) % LOOP_DURATION_MS;
+      const progress = elapsed / LOOP_DURATION_MS;
+      const nextFrame = Math.min(
+        Math.floor(progress * FRAME_COUNT),
+        FRAME_COUNT - 1
+      );
+
+      if (nextFrame !== previousFrameRef.current) {
+        previousFrameRef.current = nextFrame;
+        setFrameIndex(nextFrame);
+        setShowText(progress >= 0.28 && progress < 0.72);
+      }
+
+      rafRef.current = requestAnimationFrame(animate);
     };
 
-    video.addEventListener("timeupdate", onTime);
-    return () => video.removeEventListener("timeupdate", onTime);
+    rafRef.current = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(rafRef.current);
   }, []);
 
   return (
     <section className="relative w-full overflow-hidden h-[100svh]" style={{ backgroundColor: "#1AABE5" }}>
-      <video
-        ref={videoRef}
-        src="/TEST/PHOTOS/stopmotion.mp4"
-        autoPlay
-        loop
-        muted
-        playsInline
+      <img
+        src={HERO_FRAMES[frameIndex]}
+        alt=""
+        aria-hidden="true"
+        loading="eager"
+        decoding="sync"
+        draggable={false}
         className="absolute inset-0 w-full h-full object-cover object-center"
       />
 
