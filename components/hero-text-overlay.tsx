@@ -12,9 +12,10 @@ function smoothstep(value: number) {
 }
 
 export function HeroTextOverlay({ progress }: HeroTextOverlayProps) {
-  const exit = smoothstep((progress - 0.86) / 0.12);
-  const lineOne = smoothstep((progress - 0.06) / 0.18) * (1 - exit);
-  const lineTwo = smoothstep((progress - 0.18) / 0.18) * (1 - exit);
+  const exitTwo = smoothstep((progress - 0.8) / 0.12);
+  const exitOne = smoothstep((progress - 0.9) / 0.08);
+  const lineOne = smoothstep((progress - 0.06) / 0.18) * (1 - exitOne);
+  const lineTwo = smoothstep((progress - 0.18) / 0.18) * (1 - exitTwo);
   const opacity = clamp(Math.max(lineOne, lineTwo) * 1.15);
 
   return (
