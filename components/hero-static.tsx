@@ -31,7 +31,7 @@ export function HeroStatic() {
     <section className="relative w-full overflow-hidden h-[100svh]" style={{ backgroundColor: "#1AABE5" }}>
       <video
         ref={videoRef}
-        src="/hero-stopmotion.mp4"
+        src="/TEST/PHOTOS/stopmotion.mp4"
         autoPlay
         loop
         muted
