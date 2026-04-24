@@ -3,6 +3,9 @@
 import { useEffect, useRef, useState } from "react";
 import { HeroTextOverlay } from "@/components/hero-text-overlay";
 
+const TEXT_START_PROGRESS = 0.66;
+const TEXT_END_PROGRESS = 0.97;
+
 export function Hero2() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [textProgress, setTextProgress] = useState(0);
@@ -14,7 +17,16 @@ export function Hero2() {
     const onTime = () => {
       const duration = video.duration || 4;
       const progress = (video.currentTime % duration) / duration;
-      setTextProgress(progress);
+      setTextProgress(
+        Math.min(
+          Math.max(
+            (progress - TEXT_START_PROGRESS) /
+              (TEXT_END_PROGRESS - TEXT_START_PROGRESS),
+            0
+          ),
+          1
+        )
+      );
     };
 
     video.addEventListener("timeupdate", onTime);

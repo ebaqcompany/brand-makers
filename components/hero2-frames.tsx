@@ -5,7 +5,10 @@ import { HeroTextOverlay } from "@/components/hero-text-overlay";
 
 const FRAME_COUNT = 32;
 const FRAME_RATE = 8;
-const LOOP_DURATION_MS = (FRAME_COUNT / FRAME_RATE) * 1000;
+const PING_PONG_FRAME_COUNT = FRAME_COUNT * 2 - 2;
+const LOOP_DURATION_MS = (PING_PONG_FRAME_COUNT / FRAME_RATE) * 1000;
+const TEXT_START_PROGRESS = 0.66;
+const TEXT_END_PROGRESS = 0.97;
 
 function getFrameSrc(index: number) {
   return `/hero-stopmotion-webp/frame-${String(index + 1).padStart(3, "0")}.webp`;
@@ -35,18 +38,30 @@ export function Hero2Frames() {
       if (startedAt === null) startedAt = now;
 
       const elapsed = (now - startedAt) % LOOP_DURATION_MS;
-      const progress = elapsed / LOOP_DURATION_MS;
-      const nextFrame = Math.min(
-        Math.floor(progress * FRAME_COUNT),
-        FRAME_COUNT - 1
-      );
+      const rawFrame = Math.floor((elapsed / 1000) * FRAME_RATE) % PING_PONG_FRAME_COUNT;
+      const isForward = rawFrame < FRAME_COUNT;
+      const nextFrame = isForward
+        ? rawFrame
+        : PING_PONG_FRAME_COUNT - rawFrame;
+      const forwardProgress = nextFrame / (FRAME_COUNT - 1);
 
       if (nextFrame !== previousFrameRef.current) {
         previousFrameRef.current = nextFrame;
         setFrameIndex(nextFrame);
       }
 
-      setTextProgress(progress);
+      setTextProgress(
+        isForward
+          ? Math.min(
+              Math.max(
+                (forwardProgress - TEXT_START_PROGRESS) /
+                  (TEXT_END_PROGRESS - TEXT_START_PROGRESS),
+                0
+              ),
+              1
+            )
+          : 0
+      );
       rafRef.current = requestAnimationFrame(animate);
     };
 
