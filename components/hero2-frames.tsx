@@ -5,7 +5,7 @@ import { HeroTextOverlay } from "@/components/hero-text-overlay";
 
 const FRAME_COUNT = 32;
 const FRAME_RATE = 8;
-const TEXT_START_PROGRESS = 0.86;
+const TEXT_START_PROGRESS = 0.93;
 const BASE_FRAME_DURATION_MS = 1000 / FRAME_RATE;
 
 function getFrameDuration(index: number) {
