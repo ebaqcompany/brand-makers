@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { HeroTextOverlay } from "@/components/hero-text-overlay";
 
-const TEXT_START_PROGRESS = 0.6;
+const TEXT_START_PROGRESS = 0.72;
 const TEXT_END_PROGRESS = 0.97;
 
 export function Hero2() {

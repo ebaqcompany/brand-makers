@@ -5,13 +5,14 @@ import { HeroTextOverlay } from "@/components/hero-text-overlay";
 
 const FRAME_COUNT = 32;
 const FRAME_RATE = 8;
-const TEXT_START_PROGRESS = 0.6;
+const TEXT_START_PROGRESS = 0.72;
 const BASE_FRAME_DURATION_MS = 1000 / FRAME_RATE;
 
 function getFrameDuration(index: number) {
   const progress = index / (FRAME_COUNT - 1);
-  if (progress >= 0.82) return BASE_FRAME_DURATION_MS * 2.25;
-  if (progress >= TEXT_START_PROGRESS) return BASE_FRAME_DURATION_MS * 1.65;
+  if (progress >= 0.88) return BASE_FRAME_DURATION_MS * 3.25;
+  if (progress >= 0.82) return BASE_FRAME_DURATION_MS * 2.5;
+  if (progress >= TEXT_START_PROGRESS) return BASE_FRAME_DURATION_MS * 2;
   return BASE_FRAME_DURATION_MS;
 }
 
