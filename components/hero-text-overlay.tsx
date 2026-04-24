@@ -20,11 +20,11 @@ export function HeroTextOverlay({ progress }: HeroTextOverlayProps) {
   return (
     <div className="absolute inset-0 pointer-events-none">
       <div
-        className="absolute top-1/2 w-[min(calc(100vw-48px),980px)] text-left"
+        className="absolute w-[min(calc(100vw-48px),980px)] text-left"
         style={{
           left: "max(24px, calc((100vw - 1200px) / 2 + 24px))",
+          bottom: "clamp(40px, 8vh, 88px)",
           opacity,
-          transform: "translate3d(0, -50%, 0)",
           transition: "opacity 120ms linear",
           willChange: "opacity",
         }}
