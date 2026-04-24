@@ -15,11 +15,12 @@ export function HeroTextOverlay({ progress }: HeroTextOverlayProps) {
   const approach = smoothstep((progress - 0.3) / 0.28);
   const drift = smoothstep((progress - 0.62) / 0.2);
   const exit = smoothstep((progress - 0.88) / 0.08);
-  const lineOne = smoothstep((progress - 0.38) / 0.18);
-  const lineTwo = smoothstep((progress - 0.44) / 0.18);
-  const wipe = smoothstep((progress - 0.36) / 0.28);
-  const translateX = -64 + approach * 64 + drift * 16 + exit * 42;
-  const opacity = clamp(wipe * 1.2 - exit);
+  const lineOne = smoothstep((progress - 0.38) / 0.18) * (1 - exit);
+  const lineTwo = smoothstep((progress - 0.44) / 0.18) * (1 - exit);
+  const wipe = smoothstep((progress - 0.36) / 0.28) * (1 - exit);
+  const driftX = drift * 8;
+  const translateX = -64 + approach * 64 + driftX - exit * (64 + driftX);
+  const opacity = clamp(wipe * 1.2);
 
   return (
     <div className="absolute inset-0 pointer-events-none">
