@@ -5,10 +5,15 @@ import { HeroTextOverlay } from "@/components/hero-text-overlay";
 
 const FRAME_COUNT = 32;
 const FRAME_RATE = 8;
-const PING_PONG_FRAME_COUNT = FRAME_COUNT * 2 - 2;
-const LOOP_DURATION_MS = (PING_PONG_FRAME_COUNT / FRAME_RATE) * 1000;
 const TEXT_START_PROGRESS = 0.6;
-const TEXT_END_PROGRESS = 0.97;
+const BASE_FRAME_DURATION_MS = 1000 / FRAME_RATE;
+
+function getFrameDuration(index: number) {
+  const progress = index / (FRAME_COUNT - 1);
+  if (progress >= 0.82) return BASE_FRAME_DURATION_MS * 2.25;
+  if (progress >= TEXT_START_PROGRESS) return BASE_FRAME_DURATION_MS * 1.65;
+  return BASE_FRAME_DURATION_MS;
+}
 
 function getFrameSrc(index: number) {
   return `/hero-stopmotion-webp/frame-${String(index + 1).padStart(3, "0")}.webp`;
@@ -17,6 +22,55 @@ function getFrameSrc(index: number) {
 const HERO_FRAMES = Array.from({ length: FRAME_COUNT }, (_, index) =>
   getFrameSrc(index)
 );
+const FRAME_DURATIONS = Array.from({ length: FRAME_COUNT }, (_, index) =>
+  getFrameDuration(index)
+);
+const LOOP_FRAMES = [
+  ...Array.from({ length: FRAME_COUNT }, (_, index) => index),
+  ...Array.from({ length: FRAME_COUNT - 2 }, (_, index) =>
+    FRAME_COUNT - 2 - index
+  ),
+];
+const LOOP_FRAME_DURATIONS = LOOP_FRAMES.map(
+  (frameIndex) => FRAME_DURATIONS[frameIndex]
+);
+const LOOP_FRAME_STARTS = LOOP_FRAME_DURATIONS.reduce<number[]>(
+  (starts, duration) => {
+    starts.push((starts.at(-1) ?? 0) + duration);
+    return starts;
+  },
+  [0]
+);
+const LOOP_DURATION_MS = LOOP_FRAME_DURATIONS.reduce(
+  (total, duration) => total + duration,
+  0
+);
+const TEXT_START_FRAME = Math.round(TEXT_START_PROGRESS * (FRAME_COUNT - 1));
+const TEXT_START_MS = LOOP_FRAME_STARTS[TEXT_START_FRAME];
+const TEXT_END_MS =
+  LOOP_FRAME_STARTS[FRAME_COUNT - 1] + FRAME_DURATIONS[FRAME_COUNT - 1];
+
+function clamp(value: number, min = 0, max = 1) {
+  return Math.min(Math.max(value, min), max);
+}
+
+function getLoopFrameState(elapsed: number) {
+  for (let sequenceIndex = 0; sequenceIndex < LOOP_FRAMES.length; sequenceIndex++) {
+    if (elapsed < LOOP_FRAME_STARTS[sequenceIndex + 1]) {
+      return {
+        sequenceIndex,
+        frameIndex: LOOP_FRAMES[sequenceIndex],
+        frameElapsed: elapsed - LOOP_FRAME_STARTS[sequenceIndex],
+      };
+    }
+  }
+
+  return {
+    sequenceIndex: 0,
+    frameIndex: 0,
+    frameElapsed: 0,
+  };
+}
 
 export function Hero2Frames() {
   const rafRef = useRef<number>(0);
@@ -38,12 +92,12 @@ export function Hero2Frames() {
       if (startedAt === null) startedAt = now;
 
       const elapsed = (now - startedAt) % LOOP_DURATION_MS;
-      const rawFrame = Math.floor((elapsed / 1000) * FRAME_RATE) % PING_PONG_FRAME_COUNT;
-      const isForward = rawFrame < FRAME_COUNT;
-      const nextFrame = isForward
-        ? rawFrame
-        : PING_PONG_FRAME_COUNT - rawFrame;
-      const forwardProgress = nextFrame / (FRAME_COUNT - 1);
+      const { sequenceIndex, frameIndex: nextFrame, frameElapsed } =
+        getLoopFrameState(elapsed);
+      const isForward = sequenceIndex < FRAME_COUNT;
+      const forwardElapsed = isForward
+        ? LOOP_FRAME_STARTS[sequenceIndex] + frameElapsed
+        : 0;
 
       if (nextFrame !== previousFrameRef.current) {
         previousFrameRef.current = nextFrame;
@@ -52,14 +106,7 @@ export function Hero2Frames() {
 
       setTextProgress(
         isForward
-          ? Math.min(
-              Math.max(
-                (forwardProgress - TEXT_START_PROGRESS) /
-                  (TEXT_END_PROGRESS - TEXT_START_PROGRESS),
-                0
-              ),
-              1
-            )
+          ? clamp((forwardElapsed - TEXT_START_MS) / (TEXT_END_MS - TEXT_START_MS))
           : 0
       );
       rafRef.current = requestAnimationFrame(animate);
