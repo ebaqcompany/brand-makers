@@ -12,15 +12,10 @@ function smoothstep(value: number) {
 }
 
 export function HeroTextOverlay({ progress }: HeroTextOverlayProps) {
-  const approach = smoothstep((progress - 0.3) / 0.28);
-  const drift = smoothstep((progress - 0.62) / 0.2);
   const exit = smoothstep((progress - 0.88) / 0.08);
-  const lineOne = smoothstep((progress - 0.38) / 0.18) * (1 - exit);
-  const lineTwo = smoothstep((progress - 0.44) / 0.18) * (1 - exit);
-  const wipe = smoothstep((progress - 0.36) / 0.28) * (1 - exit);
-  const driftX = drift * 8;
-  const translateX = -64 + approach * 64 + driftX - exit * (64 + driftX);
-  const opacity = clamp(wipe * 1.2);
+  const lineOne = smoothstep((progress - 0.42) / 0.18) * (1 - exit);
+  const lineTwo = smoothstep((progress - 0.5) / 0.18) * (1 - exit);
+  const opacity = clamp(Math.max(lineOne, lineTwo) * 1.15);
 
   return (
     <div className="absolute inset-0 pointer-events-none">
@@ -29,10 +24,9 @@ export function HeroTextOverlay({ progress }: HeroTextOverlayProps) {
         style={{
           left: "max(24px, calc((100vw - 1200px) / 2 + 24px))",
           opacity,
-          clipPath: `inset(0 ${100 - wipe * 100}% 0 0)`,
-          transform: `translate3d(${translateX}vw, -50%, 0)`,
+          transform: "translate3d(0, -50%, 0)",
           transition: "opacity 120ms linear",
-          willChange: "clip-path, transform, opacity",
+          willChange: "opacity",
         }}
       >
         <div className="overflow-hidden">
@@ -60,7 +54,7 @@ export function HeroTextOverlay({ progress }: HeroTextOverlayProps) {
               lineHeight: 1.0,
               letterSpacing: "-0.05em",
               color: "#FFFFFF",
-              transform: `translate3d(${(1 - lineTwo) * -6}vw, ${(1 - lineTwo) * 112}%, 0)`,
+              transform: `translate3d(0, ${(1 - lineTwo) * 112}%, 0)`,
               willChange: "transform",
             }}
           >
