@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { SiteShell } from "@/components/site-shell";
 import { ServicesGridCustom } from "@/components/services-grid-custom";
 import { AboutHero } from "@/components/about-hero";
+import { AnimatedResponsibilityIcon } from "@/components/animated-responsibility-icon";
 
 export const metadata: Metadata = {
   title: "About Us — Brand Makers",
@@ -39,44 +40,44 @@ const BRAND_PARTNERS = [
 
 const RESPONSIBILITY_SECTIONS = [
   {
-    image: "/about-us/responsibility/we-actually-care.jpg",
+    icon: "bm_icons-weactuallycare",
     title: "We Actually Care",
     text: "We believe great products should reflect great values. That\u2019s why we prioritize our workforce, sustainable practices, nonprofit partnerships, and work with diverse suppliers \u2014 ensuring our offerings are as inclusive and responsible as our clients.",
   },
   {
-    image: "/about-us/responsibility/ppai-award.jpg",
+    icon: "bm_icons-ourworkforce",
     title: "Our Workforce",
     text: "Brand Makers is all about being a great place to work. When we started back in 2008, it was on the first page of the business plan to prioritize staff happiness. We are an award winning company that has been recognized by PPAI as one of the \u201cGreatest Companies to Work For\u201d.",
   },
   {
-    image: "/supplier.jpg",
+    icon: "bm_icons-supplierdiversity",
     title: "Supplier Diversity and Accountability",
     stats: ["Women Owned Suppliers: 85+", "Minority Owned Suppliers: 60+", "Local Suppliers: 45+"],
     text: "We have worked to discover a supplier base that is as inclusive and responsible as our clients. What is important to you, is important to us. Our commitment to high standards extends to our partners as well. We seek out organizations that demonstrate strong environmental responsibility and maintain ethical, supportive workplaces.",
   },
   {
-    image: "/about-us/responsibility/eco-friendly.jpg",
+    icon: "bm_icons-ecofriendly",
     title: "Eco-Friendly",
     stats: ["Eco-Friendly Suppliers: 85+"],
     text: "We prioritize partnering with environmentally responsible suppliers who follow sustainable practices. By selecting eco-friendly materials and emphasizing responsible sourcing, we help build a more sustainable and resilient supply chain. Check out some eco friendly ideas in our look books.",
   },
   {
-    image: "/about-us/responsibility/give-back.jpg",
+    icon: "bm_icons-communityinvolvement",
     title: "Community Involvement",
     text: "Brand Makers is about more than just business. We actually care. Having held over 30 company sponsored service projects, we know that helping the community is like holding a branded tumbler with your favorite hot drink. Everyone can see you do it, but you\u2019re the only one that gets that warm feeling. Tell your favorite Brand Makers team member that you saw this cheezy joke and get extra special service on your next project. Oh, and we think Give Back Suppliers are really cool too.",
   },
   {
-    image: "/about-us/responsibility/reducing-waste.jpg",
+    icon: "bm_icons-reducingwaste",
     title: "Reducing Waste",
     text: "Reducing waste is all about having the right ideas. In our industry, successful sustainability initiatives are often about client education. Our approach with clients has always been to propose items that will get significant use. In simple terms, we guide clients to pick items that are usable in everyday life. Not only does this lead to a better experience for recipients, but also results in a successful outcome in sustainability through reduced waste and mindful production.",
   },
   {
-    image: "/about-us/responsibility/company-emissions.jpg",
+    icon: "bm_icons-companyemissions",
     title: "Company Emissions",
     text: "We frequently review company-wide processes regarding event travel, work from home, packaging, printing, freight carrier analysis, meeting travel, hard invoice mailing, and sustainable product availability for our customers. We are deeply committed to responsible business practices that extend across our entire supply chain, from sourcing to production. Our focus on Responsible Sourcing, Vendor Social Accountability, and Product Safety and Compliance ensures that we not only meet, but exceed industry standards for ethics, quality, and environmental responsibility.",
   },
   {
-    image: "/about-us/responsibility/security-privacy.jpg",
+    icon: "bm_icons-securityandprivacy",
     title: "Security and Privacy",
     text: "We take a comprehensive approach to security, privacy, and data control to ensure your information stays protected at every stage. We frequently train staff on security and threat awareness and ensure best security practices among employees. Brand Makers uses Google Workspace for email, data storage, and data transfer. Google Workspace is built on Google\u2019s secure global infrastructure and backed by some of the world\u2019s most trusted security standards. The platform is independently audited and certified under internationally recognized frameworks including ISO/IEC 27001, ISO/IEC 27017, ISO/IEC 27018, ISO/IEC 27701, and SOC 2 and SOC 3.",
   },
@@ -132,14 +133,10 @@ export default function AboutPage() {
           </h2>
 
           <div className="grid grid-cols-1 gap-12 md:grid-cols-2">
-            {RESPONSIBILITY_SECTIONS.map((item) => (
+            {RESPONSIBILITY_SECTIONS.map((item, i) => (
               <div key={item.title} className="flex gap-6">
                 <div className="shrink-0">
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="h-24 w-24 rounded-xl object-contain"
-                  />
+                  <AnimatedResponsibilityIcon src={item.icon} title={item.title} iconIndex={i} />
                 </div>
                 <div>
                   <h3
