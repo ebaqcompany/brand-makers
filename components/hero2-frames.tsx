@@ -4,17 +4,9 @@ import { useEffect, useRef, useState } from "react";
 import { HeroTextOverlay } from "@/components/hero-text-overlay";
 
 const FRAME_COUNT = 32;
-const FRAME_RATE = 8;
+const FRAME_RATE = 4;
 const TEXT_START_PROGRESS = 0.93;
-const BASE_FRAME_DURATION_MS = 1000 / FRAME_RATE;
-
-function getFrameDuration(index: number) {
-  const progress = index / (FRAME_COUNT - 1);
-  if (progress >= 0.88) return BASE_FRAME_DURATION_MS * 3.25;
-  if (progress >= 0.82) return BASE_FRAME_DURATION_MS * 2.5;
-  if (progress >= TEXT_START_PROGRESS) return BASE_FRAME_DURATION_MS * 2;
-  return BASE_FRAME_DURATION_MS;
-}
+const FRAME_DURATION_MS = 1000 / FRAME_RATE;
 
 function getFrameSrc(index: number) {
   return `/hero-stopmotion-webp/frame-${String(index + 1).padStart(3, "0")}.webp`;
@@ -23,8 +15,9 @@ function getFrameSrc(index: number) {
 const HERO_FRAMES = Array.from({ length: FRAME_COUNT }, (_, index) =>
   getFrameSrc(index)
 );
-const FRAME_DURATIONS = Array.from({ length: FRAME_COUNT }, (_, index) =>
-  getFrameDuration(index)
+const FRAME_DURATIONS = Array.from(
+  { length: FRAME_COUNT },
+  () => FRAME_DURATION_MS
 );
 const LOOP_FRAMES = Array.from({ length: FRAME_COUNT }, (_, index) => index);
 const LOOP_FRAME_DURATIONS = LOOP_FRAMES.map(
