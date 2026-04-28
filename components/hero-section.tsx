@@ -3,8 +3,8 @@
 import { useEffect, useRef, useCallback } from "react";
 import { ArrowDown } from "lucide-react";
 
-const FIRST_FRAME = 3;
-const LAST_FRAME = 58;
+const FIRST_FRAME = 1;
+const LAST_FRAME = 72;
 const FRAME_COUNT = LAST_FRAME - FIRST_FRAME + 1;
 const SCROLL_VH = 1.5;
 
@@ -110,7 +110,7 @@ export function HeroSection() {
       <section
         className="sticky top-0 w-full overflow-hidden"
         style={{
-          backgroundColor: "#F0F0F0",
+          backgroundColor: "#00A1E1",
           height: "100svh",
         }}
       >
@@ -123,13 +123,13 @@ export function HeroSection() {
         {/* Top gradient to separate navbar from image */}
         <div
           className="absolute inset-x-0 top-0"
-          style={{ height: "18%", background: "linear-gradient(to bottom, #F0F0F0 0%, transparent 100%)" }}
+          style={{ height: "18%", background: "linear-gradient(to bottom, #00A1E1 0%, transparent 100%)" }}
         />
 
         {/* Bottom gradient for text readability */}
         <div
           className="absolute inset-x-0 bottom-0"
-          style={{ height: "35%", background: "linear-gradient(to top, #F0F0F0 0%, #F0F0F0 15%, transparent 100%)" }}
+          style={{ height: "35%", background: "linear-gradient(to top, #00A1E1 0%, #00A1E1 15%, transparent 100%)" }}
         />
 
         {/* Bottom bar: headline left, arrow right */}
@@ -147,7 +147,7 @@ export function HeroSection() {
                 fontSize: "clamp(40px, 7vw, 80px)",
                 lineHeight: 1.0,
                 letterSpacing: "clamp(-2px, -0.05em, -4px)",
-                color: "#323E48",
+                color: "#FFFFFF",
                 margin: 0,
               }}
             >
@@ -160,7 +160,7 @@ export function HeroSection() {
               href="#services"
               aria-label="Scroll down"
               className="animate-bounce shrink-0 cursor-pointer"
-              style={{ color: "#323E48" }}
+              style={{ color: "#FFFFFF" }}
             >
               <ArrowDown
                 strokeWidth={2}
