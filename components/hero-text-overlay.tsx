@@ -8,15 +8,27 @@ function clamp(value: number, min = 0, max = 1) {
 
 function smoothstep(value: number) {
   const t = clamp(value);
-  return t * t * (3 - 2 * t);
+  return t * t * t * (t * (t * 6 - 15) + 10);
+}
+
+function easeOutCubic(value: number) {
+  const t = clamp(value);
+  return 1 - Math.pow(1 - t, 3);
+}
+
+function easeInOutCubic(value: number) {
+  const t = clamp(value);
+  return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 }
 
 export function HeroTextOverlay({ progress }: HeroTextOverlayProps) {
-  const exitTwo = smoothstep((progress - 0.9) / 0.08);
-  const exitOne = smoothstep((progress - 0.97) / 0.03);
-  const lineOne = smoothstep((progress - 0.04) / 0.14) * (1 - exitOne);
-  const lineTwo = smoothstep((progress - 0.14) / 0.14) * (1 - exitTwo);
-  const opacity = clamp(Math.max(lineOne, lineTwo) * 1.15);
+  const lineOneIn = easeOutCubic((progress - 0.02) / 0.2);
+  const lineTwoIn = easeOutCubic((progress - 0.13) / 0.2);
+  const exitTwo = easeInOutCubic((progress - 0.78) / 0.18);
+  const exitOne = easeInOutCubic((progress - 0.83) / 0.16);
+  const opacityIn = smoothstep((progress - 0.02) / 0.2);
+  const opacityOut = easeInOutCubic((progress - 0.82) / 0.16);
+  const opacity = clamp(opacityIn * (1 - opacityOut));
 
   return (
     <div className="absolute inset-0 pointer-events-none">
@@ -25,7 +37,7 @@ export function HeroTextOverlay({ progress }: HeroTextOverlayProps) {
         style={{
           opacity,
           transform: "translate3d(-50%, -50%, 0)",
-          transition: "opacity 120ms linear",
+          transition: "opacity 180ms ease",
           willChange: "opacity",
         }}
       >
@@ -38,7 +50,9 @@ export function HeroTextOverlay({ progress }: HeroTextOverlayProps) {
               lineHeight: 1.0,
               letterSpacing: "-0.05em",
               color: "#FFFFFF",
-              transform: `translate3d(0, ${(1 - lineOne) * 112}%, 0)`,
+              transform: `translate3d(0, ${
+                (1 - lineOneIn) * 112 + exitOne * 112
+              }%, 0)`,
               willChange: "transform",
             }}
           >
@@ -54,7 +68,9 @@ export function HeroTextOverlay({ progress }: HeroTextOverlayProps) {
               lineHeight: 1.0,
               letterSpacing: "-0.05em",
               color: "#FFFFFF",
-              transform: `translate3d(0, ${(1 - lineTwo) * 112}%, 0)`,
+              transform: `translate3d(0, ${
+                (1 - lineTwoIn) * 112 + exitTwo * 112
+              }%, 0)`,
               willChange: "transform",
             }}
           >
