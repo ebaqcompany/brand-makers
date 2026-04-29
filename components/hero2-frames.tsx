@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { HeroTextOverlay } from "@/components/hero-text-overlay";
 
-const FRAME_COUNT = 71;
+const FRAME_COUNT = 73;
 const FRAME_RATE = 8;
 const TEXT_START_PROGRESS = 0.86;
 const TITLE_HOLD_MS = 3000;
