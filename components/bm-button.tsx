@@ -56,7 +56,8 @@ const BASE: React.CSSProperties = {
   whiteSpace: "nowrap",
   textDecoration: "none",
   cursor: "pointer",
-  transition: "opacity 150ms ease, transform 100ms ease",
+  transition:
+    "background-color 150ms ease, border-color 150ms ease, color 150ms ease, opacity 150ms ease, transform 100ms ease",
 };
 
 interface BmButtonProps {

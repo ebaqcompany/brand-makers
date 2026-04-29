@@ -3,7 +3,8 @@ import { BmButton } from "@/components/bm-button";
 import { CtaSection } from "@/components/cta-section";
 import { Navbar1 } from "@/components/navbar1";
 import { ScrollNavbar } from "@/components/scroll-navbar";
-import { Hero2Frames } from "@/components/hero2-frames";
+import { Hero3 } from "@/components/hero3";
+// import { Hero2Frames } from "@/components/hero2-frames";
 // import { Hero1 } from "@/components/hero1";
 // import { Hero2 } from "@/components/hero2";
 // import { HeroSection } from "@/components/hero-section";
@@ -30,7 +31,8 @@ export default function Home() {
       <ScrollNavbar />
 
       {/* ── 2. HERO ──────────────────────────────────────────────────── */}
-      <Hero2Frames />
+      <Hero3 />
+      {/* <Hero2Frames /> */}
       {/* <HeroSection /> */}
 
       {/* ── Content (overflow hidden only on the scrolling content, not navbar) ── */}

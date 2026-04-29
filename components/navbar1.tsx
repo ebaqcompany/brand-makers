@@ -119,7 +119,12 @@ const Navbar1 = ({
 
             {/* CTA button — tablet+ (md+), hidden on small mobile */}
             <div className="hidden md:block">
-              <BmButton href={auth.signup.url} variant="primary" size="md">
+              <BmButton
+                href={auth.signup.url}
+                variant="primary"
+                size="md"
+                className="navbar-cta-button"
+              >
                 {auth.signup.title}
               </BmButton>
             </div>
@@ -148,7 +153,11 @@ const Navbar1 = ({
                     <a href={auth.login.url} className="text-md font-semibold" style={{ color: "#323E48" }}>
                       Log In
                     </a>
-                    <BmButton href={auth.signup.url} variant="primary">
+                    <BmButton
+                      href={auth.signup.url}
+                      variant="primary"
+                      className="navbar-cta-button"
+                    >
                       {auth.signup.title}
                     </BmButton>
                   </div>

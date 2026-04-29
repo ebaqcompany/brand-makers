@@ -150,9 +150,17 @@
   stroke: #FFFFFF !important;
 }
 /* CTA button: white outline, no fill */
-.hero-nav-white .hover\:opacity-85 {
+.hero-nav-white .navbar-cta-button {
   background: transparent !important;
   border: 1px solid rgba(255,255,255,0.6) !important;
+}
+.hero-nav-white .navbar-cta-button:hover {
+  background: rgba(255,255,255,0.15) !important;
+  border-color: rgba(255,255,255,0.8) !important;
+  opacity: 1 !important;
+}
+.navbar-cta-button:hover {
+  opacity: 1 !important;
 }
 
 /* ── Marquee animations for auto-scrolling rows ── */
