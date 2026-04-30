@@ -42,6 +42,7 @@ export function ScrollNavbar() {
             alt: "Brand Makers",
             title: "",
           }}
+          mobilePanelLogoSrc="/brandmakers-logo.svg"
           menu={[]}
           auth={{
             login: {

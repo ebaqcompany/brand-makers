@@ -46,6 +46,7 @@ interface Navbar1Props {
     title: string;
     className?: string;
   };
+  mobilePanelLogoSrc?: string;
   menu?: MenuItem[];
   auth?: {
     login: {
@@ -66,6 +67,7 @@ const Navbar1 = ({
     alt: "logo",
     title: "Shadcnblocks.com",
   },
+  mobilePanelLogoSrc,
   menu = [],
   auth = {
     login: { title: "Login", url: "#" },
@@ -139,7 +141,7 @@ const Navbar1 = ({
                   <SheetHeader>
                     <SheetTitle>
                       <Link href={logo.url} className="flex items-center gap-2">
-                        <img src={logo.src} className="max-h-8" alt={logo.alt} />
+                        <img src={mobilePanelLogoSrc || logo.src} className="max-h-8" alt={logo.alt} />
                       </Link>
                     </SheetTitle>
                   </SheetHeader>

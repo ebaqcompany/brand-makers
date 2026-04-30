@@ -10,6 +10,7 @@ type HomeHeroVideo = {
   kind?: "video" | "frames";
   frameCount?: number;
   frameRate?: number;
+  vignette?: boolean;
 };
 
 const HERO_VIDEOS: HomeHeroVideo[] = [
@@ -39,6 +40,15 @@ const HERO_VIDEOS: HomeHeroVideo[] = [
     frameCount: 72,
     frameRate: 8,
     textStartAt: 8.65,
+  },
+  {
+    id: 7,
+    src: "/hero-stopmotion-transparent/frame-001.webp",
+    kind: "frames",
+    frameCount: 72,
+    frameRate: 8,
+    textStartAt: 8.65,
+    vignette: true,
   },
 ];
 const TITLE_HOLD_MS = 3000;
@@ -281,13 +291,15 @@ export function Hero3({ lineOne, lineTwo, videos = HERO_VIDEOS }: Hero3Props) {
       )}
 
       {/* Vignette overlay — brand blue darkening at edges */}
-      <div
-        className="pointer-events-none absolute inset-0 z-[1]"
-        style={{
-          background:
-            "radial-gradient(ellipse 80% 70% at 50% 45%, transparent 35%, rgba(0,50,80,0.5) 100%)",
-        }}
-      />
+      {activeVideo.vignette && (
+        <div
+          className="pointer-events-none absolute inset-0 z-[1]"
+          style={{
+            background:
+              "radial-gradient(ellipse 80% 70% at 50% 45%, transparent 35%, rgba(0,50,80,0.5) 100%)",
+          }}
+        />
+      )}
 
       <HeroTextOverlay progress={textProgress} lineOne={lineOne} lineTwo={lineTwo} />
 
