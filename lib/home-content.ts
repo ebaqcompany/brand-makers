@@ -135,6 +135,14 @@ export const HOME_FALLBACK: HomePageContent = {
     { id: 3, src: "/hero-stopmotion-videos/stopmotion3.mp4", textStartAt: 8.65 },
     {
       id: 4,
+      src: "/hero-stopmotion-clean-background-webp/frame-001.webp",
+      kind: "frames",
+      frameCount: 72,
+      frameRate: 8,
+      textStartAt: 8.65,
+    },
+    {
+      id: 5,
       src: "/hero-stopmotion-clean-background-expanded-backup/frame-001.webp",
       kind: "frames",
       frameCount: 72,

@@ -18,6 +18,14 @@ const HERO_VIDEOS: HomeHeroVideo[] = [
   { id: 3, src: "/hero-stopmotion-videos/stopmotion3.mp4", textStartAt: 8.65 },
   {
     id: 4,
+    src: "/hero-stopmotion-clean-background-webp/frame-001.webp",
+    kind: "frames",
+    frameCount: 72,
+    frameRate: 8,
+    textStartAt: 8.65,
+  },
+  {
+    id: 5,
     src: "/hero-stopmotion-clean-background-expanded-backup/frame-001.webp",
     kind: "frames",
     frameCount: 72,
@@ -65,9 +73,13 @@ type Hero3Props = {
 export function Hero3({ lineOne, lineTwo, videos = HERO_VIDEOS }: Hero3Props) {
   const heroItems = useMemo(() => {
     const items = videos.length ? videos : HERO_VIDEOS;
-    const hasCleanBackground = items.some((item) => item.id === 4);
+    const missingFallbackItems = HERO_VIDEOS.filter(
+      (fallbackItem) =>
+        fallbackItem.id >= 4 &&
+        !items.some((item) => item.id === fallbackItem.id)
+    );
 
-    return hasCleanBackground ? items : [...items, HERO_VIDEOS[3]];
+    return missingFallbackItems.length ? [...items, ...missingFallbackItems] : items;
   }, [videos]);
   const videoRef = useRef<HTMLVideoElement>(null);
   const rafRef = useRef<number>(0);
