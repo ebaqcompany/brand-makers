@@ -28,6 +28,7 @@ export interface HomeHeroVideo {
   kind?: "video" | "frames";
   frameCount?: number;
   frameRate?: number;
+  vignette?: boolean;
 }
 
 export interface HomeServiceItem {
