@@ -1,5 +1,9 @@
-import type { SbBlokData } from "@storyblok/react/rsc";
 import { DEFAULT_CTA_CONTENT, type CtaSectionContent } from "@/components/cta-section";
+
+interface SbBlokData {
+  _uid?: string;
+  component?: string;
+}
 
 export interface HomeHeroVideo {
   id: number;
