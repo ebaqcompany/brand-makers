@@ -1,5 +1,7 @@
 type HeroTextOverlayProps = {
   progress: number;
+  lineOne?: string;
+  lineTwo?: string;
 };
 
 function clamp(value: number, min = 0, max = 1) {
@@ -21,7 +23,11 @@ function easeInOutCubic(value: number) {
   return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 }
 
-export function HeroTextOverlay({ progress }: HeroTextOverlayProps) {
+export function HeroTextOverlay({
+  progress,
+  lineOne = "We Make Your",
+  lineTwo = "Brand Look Good",
+}: HeroTextOverlayProps) {
   const lineOneIn = easeOutCubic((progress - 0.02) / 0.2);
   const lineTwoIn = easeOutCubic((progress - 0.13) / 0.2);
   const exitTwo = easeInOutCubic((progress - 0.78) / 0.18);
@@ -56,7 +62,7 @@ export function HeroTextOverlay({ progress }: HeroTextOverlayProps) {
               willChange: "transform",
             }}
           >
-            We Make Your
+            {lineOne}
           </h1>
         </div>
         <div className="mt-1 overflow-hidden">
@@ -74,7 +80,7 @@ export function HeroTextOverlay({ progress }: HeroTextOverlayProps) {
               willChange: "transform",
             }}
           >
-            Brand Look Good
+            {lineTwo}
           </h1>
         </div>
       </div>
