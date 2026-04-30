@@ -1,10 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 export async function POST(req: NextRequest) {
   try {
+    const resendApiKey = process.env.RESEND_API_KEY;
+    if (!resendApiKey) {
+      console.error("Contact form error: RESEND_API_KEY is not configured");
+      return NextResponse.json(
+        { error: "Contact form is not configured. Please try again later." },
+        { status: 500 }
+      );
+    }
+
+    const resend = new Resend(resendApiKey);
     const formData = await req.formData();
 
     const firstName = (formData.get("firstName") as string)?.trim() || "";

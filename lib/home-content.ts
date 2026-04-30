@@ -1,9 +1,25 @@
-import { DEFAULT_CTA_CONTENT, type CtaSectionContent } from "@/components/cta-section";
-
 interface SbBlokData {
   _uid?: string;
   component?: string;
 }
+
+export interface CtaSectionContent {
+  heading: string;
+  body: string;
+  primaryLabel: string;
+  primaryHref: string;
+  secondaryLabel: string;
+  secondaryHref: string;
+}
+
+const DEFAULT_CTA_CONTENT: CtaSectionContent = {
+  heading: "Let's Work Together",
+  body: "Ready to elevate your brand? Tell us about your project and we'll make it happen.",
+  primaryLabel: "Let's Connect",
+  primaryHref: "/lets-connect",
+  secondaryLabel: "View Catalog",
+  secondaryHref: "https://catalog.brandmakers.com/",
+};
 
 export interface HomeHeroVideo {
   id: number;
