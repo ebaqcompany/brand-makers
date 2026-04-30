@@ -32,6 +32,14 @@ const HERO_VIDEOS: HomeHeroVideo[] = [
     frameRate: 8,
     textStartAt: 8.65,
   },
+  {
+    id: 6,
+    src: "/hero-stopmotion-transparent/frame-001.webp",
+    kind: "frames",
+    frameCount: 72,
+    frameRate: 8,
+    textStartAt: 8.65,
+  },
 ];
 const TITLE_HOLD_MS = 3000;
 
@@ -243,7 +251,7 @@ export function Hero3({ lineOne, lineTwo, videos = HERO_VIDEOS }: Hero3Props) {
 
   return (
     <section
-      className="relative h-[100svh] w-full overflow-hidden"
+      className="relative h-[clamp(320px,62svh,520px)] w-full overflow-hidden md:h-[100svh]"
       style={{ backgroundColor: "#00A1E1" }}
     >
       {isFrameSequence(activeVideo) ? (
@@ -255,7 +263,7 @@ export function Hero3({ lineOne, lineTwo, videos = HERO_VIDEOS }: Hero3Props) {
           loading="eager"
           decoding="sync"
           draggable={false}
-          className="absolute inset-0 h-full w-full object-cover object-center"
+          className="absolute inset-0 h-full w-full object-contain object-center"
         />
       ) : (
         <video
@@ -268,7 +276,7 @@ export function Hero3({ lineOne, lineTwo, videos = HERO_VIDEOS }: Hero3Props) {
           preload="auto"
           onLoadedMetadata={handleLoadedMetadata}
           onEnded={handleEnded}
-          className="absolute inset-0 h-full w-full object-cover object-center"
+          className="absolute inset-0 h-full w-full object-contain object-center"
         />
       )}
 
