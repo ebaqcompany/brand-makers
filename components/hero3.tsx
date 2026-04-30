@@ -280,6 +280,15 @@ export function Hero3({ lineOne, lineTwo, videos = HERO_VIDEOS }: Hero3Props) {
         />
       )}
 
+      {/* Vignette overlay — brand blue darkening at edges */}
+      <div
+        className="pointer-events-none absolute inset-0 z-[1]"
+        style={{
+          background:
+            "radial-gradient(ellipse 80% 70% at 50% 45%, transparent 35%, rgba(0,50,80,0.5) 100%)",
+        }}
+      />
+
       <HeroTextOverlay progress={textProgress} lineOne={lineOne} lineTwo={lineTwo} />
 
       <div
