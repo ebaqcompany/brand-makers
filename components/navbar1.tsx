@@ -85,7 +85,15 @@ const Navbar1 = ({
           </Link>
 
           <div className="flex items-center gap-3">
-            <BmButton href={auth.signup.url} className="hidden md:inline-flex">
+            <BmButton
+              href={auth.signup.url}
+              className="navbar-cta-button hidden md:inline-flex"
+              style={{
+                backgroundColor: "transparent",
+                border: "1px solid #00A1E1",
+                color: "#00A1E1",
+              }}
+            >
               {auth.signup.title}
             </BmButton>
 

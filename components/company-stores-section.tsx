@@ -14,11 +14,23 @@ interface Row {
   values: [CellValue, CellValue, CellValue, CellValue];
 }
 
-const STORE_NAMES = [
-  "Sendito Form",
-  "Pop-Up Store",
-  "On Demand Store",
-  "Traditional Company Store",
+const STORE_OPTIONS = [
+  {
+    name: "Sendito Form",
+    sampleHref: "https://sendito.brandmakers.com/sendito",
+  },
+  {
+    name: "Pop-Up Store",
+    sampleHref: "https://brandmakerspopupdemo.itemorder.com/shop/home/",
+  },
+  {
+    name: "On Demand Store",
+    sampleHref: "https://bit.ly/brandmakersondemand",
+  },
+  {
+    name: "Traditional Company Store",
+    sampleHref: "https://brandmakersemployeestore.itemorder.com/shop/home/",
+  },
 ];
 
 const LANE_COLORS = ["#F8F8F8", "#ffffff", "#F8F8F8", "#ffffff"];
@@ -48,15 +60,15 @@ const ROWS: Row[] = [
   {
     label: "Sample Site",
     values: [
-      { href: "https://sendito.brandmakers.com/sendito", label: "View sample" },
+      { href: "https://sendito.brandmakers.com/sendito", label: "Open demo" },
       {
         href: "https://brandmakerspopupdemo.itemorder.com/shop/home/",
-        label: "View sample",
+        label: "Open demo",
       },
-      { href: "https://bit.ly/brandmakersondemand", label: "View sample" },
+      { href: "https://bit.ly/brandmakersondemand", label: "Open demo" },
       {
         href: "https://brandmakersemployeestore.itemorder.com/shop/home/",
-        label: "View sample",
+        label: "Open demo",
       },
     ],
   },
@@ -146,15 +158,15 @@ export function CompanyStoresSection() {
             />
 
             {/* Store option headers — sticky */}
-            {STORE_NAMES.map((name, i) => (
+            {STORE_OPTIONS.map((store, i) => (
               <th
-                key={name}
+                key={store.name}
                 className="sticky top-[70px] z-[15] text-left align-bottom"
                 style={{
                   padding: "24px 18px",
                   background: "#ffffff",
                   boxShadow: "0 8px 16px -4px rgba(0,0,0,0.06)",
-                  ...(i === STORE_NAMES.length - 1 ? { paddingRight: "max(24px, calc((100vw - 1200px) / 2 + 24px))" } : {}),
+                  ...(i === STORE_OPTIONS.length - 1 ? { paddingRight: "max(24px, calc((100vw - 1200px) / 2 + 24px))" } : {}),
                 }}
               >
                 <div
@@ -167,8 +179,21 @@ export function CompanyStoresSection() {
                   className="text-lg font-extrabold leading-tight"
                   style={{ color: DARK }}
                 >
-                  {name}
+                  {store.name}
                 </div>
+                <a
+                  href={store.sampleHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-4 inline-flex items-center justify-center rounded-full px-3 py-1.5 text-[10px] font-bold uppercase no-underline transition-colors hover:bg-gray-100 hover:text-[#323E48]"
+                  style={{
+                    border: "1px solid #CBD5E1",
+                    color: "#6B7280",
+                    letterSpacing: "0.12em",
+                  }}
+                >
+                  Open demo
+                </a>
               </th>
             ))}
           </tr>

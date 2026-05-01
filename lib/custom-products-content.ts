@@ -21,7 +21,7 @@ export interface CustomProductsContent {
 
 const MERCH_COUNT = 49;
 const FEATURED_MERCH_IMAGE_NUMBERS = [
-  29, 11, 25, 46, 43, 45, 37, 48, 26, 49, 40, 47, 17, 38, 19, 7,
+  29, 2, 11, 25, 46, 43, 45, 37, 48, 26, 49, 40, 47, 17, 38, 19, 7,
 ];
 const MERCH_IMAGE_ORDER = [
   ...FEATURED_MERCH_IMAGE_NUMBERS,
