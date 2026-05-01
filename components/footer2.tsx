@@ -1,28 +1,7 @@
 import Link from "next/link";
+import { footerUtilityLinks, mainNavLinks } from "@/lib/navigation-links";
 
 const DARK = "#323E48";
-
-const navLinks = [
-  { title: "Search for Merch", url: "/search-for-merch", external: false },
-  { title: "Company Stores", url: "/company-stores" },
-  { title: "Kitting & Fulfillment", url: "/kitting-and-fulfillment" },
-  { title: "Custom Headwear", url: "/custom-headwear" },
-  { title: "Custom Merch", url: "/custom-products" },
-  { title: "On-Site Experiences", url: "/on-site-experiences" },
-  { title: "Retail Brand Partners", url: "/about#retail-brand-partners" },
-  { title: "Our Responsibility", url: "/about#our-responsibility" },
-  { title: "About Us", url: "/about" },
-  { title: "Let's Connect", url: "/lets-connect" },
-];
-
-const footerLinks = [
-  {
-    title: "Terms and Conditions",
-    url: "https://brandmakers.com/wp-content/uploads/2025/11/Brand-Makers-Terms-and-Conditions.pdf",
-  },
-  { title: "Client Application", url: "https://brandmakersbox.typeform.com/3minuteintake" },
-  { title: "Log In", url: "https://catalog.brandmakers.com/auth/login" },
-];
 
 const Footer2 = () => {
   return (
@@ -38,7 +17,7 @@ const Footer2 = () => {
             />
           </Link>
           <ul className="w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-y-4 text-center">
-            {navLinks.map((link) => (
+            {mainNavLinks.map((link) => (
               <li key={link.title}>
                 {link.external ? (
                   <a
@@ -69,7 +48,7 @@ const Footer2 = () => {
         <div className="flex flex-col-reverse items-center justify-between pb-4 pt-6 text-center text-sm text-white/40 md:flex-row md:pb-0 md:pt-8">
           <p className="mt-8 md:mt-0">&copy; {new Date().getFullYear()} Brand Makers. All rights reserved.</p>
           <ul className="grid grid-flow-row grid-cols-[max-content] justify-center gap-y-4 text-sm md:grid-flow-col md:gap-x-6 md:gap-y-0">
-            {footerLinks.map((link) => (
+            {footerUtilityLinks.map((link) => (
               <li key={link.title}>
                 <a
                   href={link.url}

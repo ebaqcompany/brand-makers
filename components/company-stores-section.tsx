@@ -49,9 +49,15 @@ const ROWS: Row[] = [
     label: "Sample Site",
     values: [
       { href: "https://sendito.brandmakers.com/sendito", label: "View sample" },
-      "—",
-      "—",
-      "—",
+      {
+        href: "https://brandmakerspopupdemo.itemorder.com/shop/home/",
+        label: "View sample",
+      },
+      { href: "https://bit.ly/brandmakersondemand", label: "View sample" },
+      {
+        href: "https://brandmakersemployeestore.itemorder.com/shop/home/",
+        label: "View sample",
+      },
     ],
   },
   { label: "Good for Sending Gifts", values: ["Yes", "Yes", "Yes", "Yes"] },

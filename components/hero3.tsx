@@ -51,6 +51,7 @@ const HERO_VIDEOS: HomeHeroVideo[] = [
     vignette: true,
   },
 ];
+const DEFAULT_HERO_VERSION_ID = 7;
 const TITLE_HOLD_MS = 3000;
 
 function clamp(value: number, min = 0, max = 1) {
@@ -82,6 +83,15 @@ function getFrameIndex(item: HomeHeroVideo, elapsedMs: number) {
   return Math.min(Math.floor(elapsedMs / frameDurationMs), frameCount - 1);
 }
 
+function getDefaultHeroItem(items: HomeHeroVideo[]) {
+  return (
+    items.find((item) => item.id === DEFAULT_HERO_VERSION_ID) ||
+    items[0] ||
+    HERO_VIDEOS.find((item) => item.id === DEFAULT_HERO_VERSION_ID) ||
+    HERO_VIDEOS[0]
+  );
+}
+
 type Hero3Props = {
   lineOne?: string;
   lineTwo?: string;
@@ -105,8 +115,8 @@ export function Hero3({ lineOne, lineTwo, videos = HERO_VIDEOS }: Hero3Props) {
   const holdStartedAtRef = useRef<number | null>(null);
   const frameStartedAtRef = useRef<number | null>(null);
   const previousFrameRef = useRef(-1);
-  const activeVideoRef = useRef(heroItems[2] || heroItems[0] || HERO_VIDEOS[2]);
-  const [activeVideo, setActiveVideo] = useState(heroItems[2] || heroItems[0] || HERO_VIDEOS[2]);
+  const activeVideoRef = useRef(getDefaultHeroItem(heroItems));
+  const [activeVideo, setActiveVideo] = useState(getDefaultHeroItem(heroItems));
   const [frameIndex, setFrameIndex] = useState(0);
   const [textProgress, setTextProgress] = useState(0);
 

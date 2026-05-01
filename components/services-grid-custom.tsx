@@ -2,13 +2,14 @@
 
 import { useRef, useState, useEffect, useCallback } from "react";
 import Link from "next/link";
+import type { HomeServiceItem } from "@/lib/home-content";
 
 const BLUE = "#00A1E1";
 const DARK = "#323E48";
 
 const TOTAL_ANIM_TIME = 3.6; // all icons finish in this many seconds
 
-const SERVICES = [
+const SERVICES: HomeServiceItem[] = [
   { label: "Search for Merch",      href: "/search-for-merch",                icon: "bm_icons-searchforswag" },
   { label: "Company Stores",        href: "/company-stores",                  icon: "bm_icons-companystores" },
   { label: "Kitting & Fulfillment", href: "/kitting-and-fulfillment",         icon: "bm_icons-kitting" },
@@ -91,7 +92,17 @@ function AnimatedIcon({ src, revealed, iconIndex }: { src: string; revealed: boo
   );
 }
 
-export function ServicesGridCustom() {
+type ServicesGridCustomProps = {
+  eyebrow?: string;
+  heading?: string;
+  services?: HomeServiceItem[];
+};
+
+export function ServicesGridCustom({
+  eyebrow = "Our Services",
+  heading = "How We Do It",
+  services = SERVICES,
+}: ServicesGridCustomProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const [revealed, setRevealed] = useState(false);
 
@@ -125,18 +136,18 @@ export function ServicesGridCustom() {
           className="mb-4 text-xs font-medium uppercase tracking-[2px]"
           style={{ color: BLUE }}
         >
-          Our Services
+          {eyebrow}
         </p>
 
         <h2
           className="mb-12 text-[36px] leading-[1.1] tracking-[-3px] md:text-[60px]"
           style={{ color: "#FFFFFF" }}
         >
-          How We Do It
+          {heading}
         </h2>
 
         <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">
-          {SERVICES.map(({ label, href, icon }, i) => {
+          {services.map(({ label, href, icon }, i) => {
             const isExternal = href.startsWith("http");
 
             const content = (

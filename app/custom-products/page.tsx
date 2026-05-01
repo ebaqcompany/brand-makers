@@ -1,75 +1,14 @@
 import type { Metadata } from "next";
-import { SiteShell } from "@/components/site-shell";
-import { BmButton } from "@/components/bm-button";
-import { CtaSection } from "@/components/cta-section";
+import { CustomProductsPageView } from "@/components/custom-products-page-view";
+import { CUSTOM_PRODUCTS_FALLBACK } from "@/lib/custom-products-content";
 
-export const metadata: Metadata = {
-  title: "Custom Merch — Brand Makers",
-  description:
-    "From wearables to products, we turn ideas into reality. Every detail matters, and we're here to ensure your vision comes to life.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: CUSTOM_PRODUCTS_FALLBACK.seoTitle,
+    description: CUSTOM_PRODUCTS_FALLBACK.seoDescription,
+  };
+}
 
-const BLUE = "#00A1E1";
-const DARK = "#323E48";
-const GREY = "#F0F0F0";
-
-const MERCH_COUNT = 44;
-
-export default function CustomProductsPage() {
-  return (
-    <SiteShell transparentNavbar>
-
-      {/* ── Hero ── */}
-      <section
-        className="relative overflow-hidden py-20 "
-        style={{ backgroundColor: GREY }}
-      >
-        {/* Text content */}
-        <div className="relative z-10 max-w-[1200px] mx-auto px-6">
-          <p className="mb-4 text-xs font-medium uppercase tracking-[2px]" style={{ color: BLUE }}>
-            Custom Merch
-          </p>
-          <h1
-            className="text-[clamp(40px,7vw,80px)] font-normal leading-[1.05] tracking-[-4px]"
-            style={{ color: DARK, maxWidth: 600 }}
-          >
-            Create Something Truly Unique
-          </h1>
-          <p className="mt-6 max-w-xl text-lg leading-relaxed" style={{ color: "rgba(50,62,72,0.7)" }}>
-            From wearables to products, we turn ideas into reality. Every detail
-            matters, and we&apos;re here to ensure your vision comes to life.
-          </p>
-        </div>
-      </section>
-
-      {/* ── Gallery ── */}
-      <section className="py-20" style={{ backgroundColor: "#FFFFFF" }}>
-        <div className="max-w-[1200px] mx-auto px-6">
-          <h2
-            className="mb-12 text-[36px] leading-[1.1] tracking-[-3px] md:text-[60px]"
-            style={{ color: DARK }}
-          >
-            Our Custom Merch Work
-          </h2>
-
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-            {Array.from({ length: MERCH_COUNT }).map((_, i) => (
-              <div key={i} className="aspect-square overflow-hidden rounded-xl border border-gray-200">
-                <img
-                  src={`/custom-merch/merch-${String(i + 1).padStart(2, "0")}.jpg`}
-                  alt={`Custom merch ${i + 1}`}
-                  className="h-full w-full object-cover"
-                  loading="lazy"
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── CTA ── */}
-      <CtaSection />
-
-    </SiteShell>
-  );
+export default async function CustomProductsPage() {
+  return <CustomProductsPageView content={CUSTOM_PRODUCTS_FALLBACK} />;
 }

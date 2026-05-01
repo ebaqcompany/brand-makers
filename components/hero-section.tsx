@@ -153,7 +153,7 @@ export function HeroSection() {
             >
               We Make Your
               <br />
-              Brand Look Good
+              Brand Look Good.
             </h1>
 
             <a

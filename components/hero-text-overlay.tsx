@@ -26,7 +26,7 @@ function easeInOutCubic(value: number) {
 export function HeroTextOverlay({
   progress,
   lineOne = "We Make Your",
-  lineTwo = "Brand Look Good",
+  lineTwo = "Brand Look Good.",
 }: HeroTextOverlayProps) {
   const lineOneIn = easeOutCubic((progress - 0.02) / 0.2);
   const lineTwoIn = easeOutCubic((progress - 0.13) / 0.2);
@@ -63,7 +63,7 @@ export function HeroTextOverlay({
             style={{
               fontFamily: "var(--font-sans, Inter, sans-serif)",
               fontWeight: 400,
-              fontSize: "clamp(48px, 9vw, 100px)",
+              fontSize: "clamp(34px, 9vw, 100px)",
               lineHeight: 1.0,
               letterSpacing: "-0.05em",
               color: "#FFFFFF",
@@ -81,7 +81,7 @@ export function HeroTextOverlay({
             style={{
               fontFamily: "var(--font-sans, Inter, sans-serif)",
               fontWeight: 400,
-              fontSize: "clamp(48px, 9vw, 100px)",
+              fontSize: "clamp(34px, 9vw, 100px)",
               lineHeight: 1.0,
               letterSpacing: "-0.05em",
               color: "#FFFFFF",

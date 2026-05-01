@@ -150,7 +150,7 @@ export function AnimatedResponsibilityIcon({
   return (
     <div
       ref={containerRef}
-      className="h-24 w-24 text-[#00A1E1]"
+      className="h-32 w-32 text-[#00A1E1] md:h-36 md:w-36"
       onMouseEnter={replay}
     />
   );

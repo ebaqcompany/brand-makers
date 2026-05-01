@@ -3,22 +3,7 @@
 import { Menu } from "lucide-react";
 import Link from "next/link";
 import { BmButton } from "@/components/bm-button";
-
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu";
 import {
   Sheet,
   SheetContent,
@@ -26,6 +11,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { hamburgerMenuLinks, type SiteLink } from "@/lib/navigation-links";
 import { cn } from "@/lib/utils";
 
 interface MenuItem {
@@ -98,74 +84,30 @@ const Navbar1 = ({
             )}
           </Link>
 
-          {/* Center nav links — desktop only */}
-          {menu.length > 0 && (
-            <div className="hidden lg:flex items-center">
-              <NavigationMenu>
-                <NavigationMenuList>
-                  {menu.map((item) => renderMenuItem(item))}
-                </NavigationMenuList>
-              </NavigationMenu>
-            </div>
-          )}
+          <div className="flex items-center gap-3">
+            <BmButton href={auth.signup.url} className="hidden md:inline-flex">
+              {auth.signup.title}
+            </BmButton>
 
-          {/* Right side */}
-          <div className="flex items-center gap-4 md:gap-6">
-            {/* About Us + Log In — desktop only (lg+) */}
-            <Link href="/about" className="hidden lg:block text-sm font-medium transition-colors hover:opacity-70" style={{ color: "#323E48" }}>
-              About Us
-            </Link>
-            <a href={auth.login.url} className="hidden lg:block text-sm font-medium transition-colors hover:opacity-70" style={{ color: "#323E48" }}>
-              Log In
-            </a>
-
-            {/* CTA button — tablet+ (md+), hidden on small mobile */}
-            <div className="hidden md:block">
-              <BmButton
-                href={auth.signup.url}
-                variant="primary"
-                size="md"
-                className="navbar-cta-button"
-              >
-                {auth.signup.title}
-              </BmButton>
-            </div>
-
-            {/* Hamburger — visible below lg */}
-            <div className="lg:hidden">
-              <Sheet>
-                <SheetTrigger render={<Button variant="ghost" size="icon" className="border-0 bg-transparent hover:bg-transparent" />}>
-                  <Menu className="size-5" />
-                </SheetTrigger>
-                <SheetContent className="overflow-y-auto">
-                  <SheetHeader>
-                    <SheetTitle>
-                      <Link href={logo.url} className="flex items-center gap-2">
-                        <img src={mobilePanelLogoSrc || logo.src} className="max-h-8" alt={logo.alt} />
-                      </Link>
-                    </SheetTitle>
-                  </SheetHeader>
-                  <div className="flex flex-col gap-6 p-4">
-                    <Accordion className="flex w-full flex-col gap-4">
-                      {menu.map((item) => renderMobileMenuItem(item))}
-                    </Accordion>
-                    <Link href="/about" className="text-md font-semibold" style={{ color: "#323E48" }}>
-                      About Us
+            <Sheet>
+              <SheetTrigger render={<Button variant="ghost" size="icon" className="border-0 bg-transparent hover:bg-transparent" />}>
+                <Menu className="size-5" />
+              </SheetTrigger>
+              <SheetContent className="w-[min(420px,88vw)] overflow-y-auto">
+                <SheetHeader>
+                  <SheetTitle>
+                    <Link href={logo.url} className="flex items-center gap-2">
+                      <img src={mobilePanelLogoSrc || logo.src} className="max-h-8" alt={logo.alt} />
                     </Link>
-                    <a href={auth.login.url} className="text-md font-semibold" style={{ color: "#323E48" }}>
-                      Log In
-                    </a>
-                    <BmButton
-                      href={auth.signup.url}
-                      variant="primary"
-                      className="navbar-cta-button"
-                    >
-                      {auth.signup.title}
-                    </BmButton>
-                  </div>
-                </SheetContent>
-              </Sheet>
-            </div>
+                  </SheetTitle>
+                </SheetHeader>
+                <nav className="flex flex-col gap-1 p-4 pt-2" aria-label="Main menu">
+                  {hamburgerMenuLinks.map((link) => (
+                    <MenuLink key={link.title} link={link} />
+                  ))}
+                </nav>
+              </SheetContent>
+            </Sheet>
           </div>
         </nav>
       </div>
@@ -173,70 +115,27 @@ const Navbar1 = ({
   );
 };
 
-const renderMenuItem = (item: MenuItem) => {
-  if (item.items) {
-    return (
-      <NavigationMenuItem key={item.title}>
-        <NavigationMenuTrigger>{item.title}</NavigationMenuTrigger>
-        <NavigationMenuContent className="bg-popover text-popover-foreground">
-          {item.items.map((subItem) => (
-            <NavigationMenuLink key={subItem.title} className="w-80" render={<SubMenuLink item={subItem} />}></NavigationMenuLink>
-          ))}
-        </NavigationMenuContent>
-      </NavigationMenuItem>
-    );
-  }
+const menuLinkClass =
+  "rounded-md px-3 py-2 text-base font-medium leading-tight transition-colors hover:bg-muted";
 
-  return (
-    <NavigationMenuItem key={item.title}>
-      <NavigationMenuLink
-        href={item.url}
-        className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-muted hover:text-accent-foreground"
+const MenuLink = ({ link }: { link: SiteLink }) => {
+  if (link.external) {
+    return (
+      <a
+        href={link.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={menuLinkClass}
+        style={{ color: "#323E48" }}
       >
-        {item.title}
-      </NavigationMenuLink>
-    </NavigationMenuItem>
-  );
-};
-
-const renderMobileMenuItem = (item: MenuItem) => {
-  if (item.items) {
-    return (
-      <AccordionItem key={item.title} value={item.title} className="border-b-0">
-        <AccordionTrigger className="text-md py-0 font-semibold hover:no-underline">
-          {item.title}
-        </AccordionTrigger>
-        <AccordionContent className="mt-2">
-          {item.items.map((subItem) => (
-            <SubMenuLink key={subItem.title} item={subItem} />
-          ))}
-        </AccordionContent>
-      </AccordionItem>
+        {link.title}
+      </a>
     );
   }
 
   return (
-    <Link key={item.title} href={item.url} className="text-md font-semibold">
-      {item.title}
-    </Link>
-  );
-};
-
-const SubMenuLink = ({ item }: { item: MenuItem }) => {
-  return (
-    <Link
-      className="flex min-w-80 flex-row gap-4 rounded-md p-3 leading-none no-underline transition-colors outline-none select-none hover:bg-muted hover:text-accent-foreground"
-      href={item.url}
-    >
-      <div className="text-foreground">{item.icon}</div>
-      <div>
-        <div className="text-sm font-semibold">{item.title}</div>
-        {item.description && (
-          <p className="text-sm leading-snug text-muted-foreground">
-            {item.description}
-          </p>
-        )}
-      </div>
+    <Link href={link.url} className={menuLinkClass} style={{ color: "#323E48" }}>
+      {link.title}
     </Link>
   );
 };
