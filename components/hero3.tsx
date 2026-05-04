@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { HeroTextOverlay } from "@/components/hero-text-overlay";
 
 type HomeHeroVideo = {
@@ -13,46 +13,16 @@ type HomeHeroVideo = {
   vignette?: boolean;
 };
 
-const HERO_VIDEOS: HomeHeroVideo[] = [
-  { id: 1, src: "/hero-stopmotion-videos/stopmotion1.mp4", textStartAt: 4.85 },
-  { id: 2, src: "/hero-stopmotion-videos/stopmotion2.mp4", textStartAt: 3.88 },
-  { id: 3, src: "/hero-stopmotion-videos/stopmotion3.mp4", textStartAt: 8.65 },
-  {
-    id: 4,
-    src: "/hero-stopmotion-clean-background-webp/frame-001.webp",
-    kind: "frames",
-    frameCount: 72,
-    frameRate: 8,
-    textStartAt: 8.65,
-  },
-  {
-    id: 5,
-    src: "/hero-stopmotion-clean-background-expanded-backup/frame-001.webp",
-    kind: "frames",
-    frameCount: 72,
-    frameRate: 8,
-    textStartAt: 8.65,
-  },
-  {
-    id: 6,
-    src: "/hero-stopmotion-transparent/frame-001.webp",
-    kind: "frames",
-    frameCount: 72,
-    frameRate: 8,
-    textStartAt: 8.65,
-  },
-  {
-    id: 7,
-    src: "/hero-stopmotion-transparent/frame-001.webp",
-    kind: "frames",
-    frameCount: 72,
-    frameRate: 8,
-    textStartAt: 8.65,
-    vignette: true,
-  },
-];
-const DEFAULT_HERO_VERSION_ID = 7;
-const TITLE_HOLD_MS = 3000;
+const DEFAULT_HERO_ITEM: HomeHeroVideo = {
+  id: 7,
+  src: "/hero-stopmotion-transparent/frame-001.webp",
+  kind: "frames",
+  frameCount: 72,
+  frameRate: 8,
+  textStartAt: 8.65,
+  vignette: true,
+};
+const TITLE_HOLD_MS = 4200;
 
 function clamp(value: number, min = 0, max = 1) {
   return Math.min(Math.max(value, min), max);
@@ -83,50 +53,45 @@ function getFrameIndex(item: HomeHeroVideo, elapsedMs: number) {
   return Math.min(Math.floor(elapsedMs / frameDurationMs), frameCount - 1);
 }
 
-function getDefaultHeroItem(items: HomeHeroVideo[]) {
-  return (
-    items.find((item) => item.id === DEFAULT_HERO_VERSION_ID) ||
-    items[0] ||
-    HERO_VIDEOS.find((item) => item.id === DEFAULT_HERO_VERSION_ID) ||
-    HERO_VIDEOS[0]
-  );
-}
-
 type Hero3Props = {
   lineOne?: string;
   lineTwo?: string;
   videos?: HomeHeroVideo[];
 };
 
-export function Hero3({ lineOne, lineTwo, videos = HERO_VIDEOS }: Hero3Props) {
-  const heroItems = useMemo(() => {
-    const items = videos.length ? videos : HERO_VIDEOS;
-    const missingFallbackItems = HERO_VIDEOS.filter(
-      (fallbackItem) =>
-        fallbackItem.id >= 4 &&
-        !items.some((item) => item.id === fallbackItem.id)
-    );
-
-    return missingFallbackItems.length ? [...items, ...missingFallbackItems] : items;
-  }, [videos]);
+export function Hero3({ lineOne, lineTwo, videos = [DEFAULT_HERO_ITEM] }: Hero3Props) {
+  const heroItem =
+    videos.find((item) => item.id === DEFAULT_HERO_ITEM.id) ||
+    videos[0] ||
+    DEFAULT_HERO_ITEM;
   const videoRef = useRef<HTMLVideoElement>(null);
   const rafRef = useRef<number>(0);
   const pendingProgressRef = useRef(0);
   const holdStartedAtRef = useRef<number | null>(null);
   const frameStartedAtRef = useRef<number | null>(null);
   const previousFrameRef = useRef(-1);
-  const activeVideoRef = useRef(getDefaultHeroItem(heroItems));
-  const [activeVideo, setActiveVideo] = useState(getDefaultHeroItem(heroItems));
+  const heroItemRef = useRef(heroItem);
   const [frameIndex, setFrameIndex] = useState(0);
   const [textProgress, setTextProgress] = useState(0);
 
   useEffect(() => {
-    activeVideoRef.current = activeVideo;
-  }, [activeVideo]);
+    heroItemRef.current = heroItem;
+
+    if (!isFrameSequence(heroItem)) return;
+
+    const sequenceDurationMs = getSequenceDuration(heroItem) * 1000;
+    const now = performance.now();
+    pendingProgressRef.current = 0;
+    frameStartedAtRef.current = now;
+    holdStartedAtRef.current = null;
+    previousFrameRef.current = -1;
+    setFrameIndex(getFrameIndex(heroItem, pendingProgressRef.current * sequenceDurationMs));
+    setTextProgress(0);
+  }, [heroItem]);
 
   useEffect(() => {
     const animate = () => {
-      const activeItem = activeVideoRef.current;
+      const activeItem = heroItemRef.current;
       const video = videoRef.current;
 
       if (isFrameSequence(activeItem)) {
@@ -176,7 +141,7 @@ export function Hero3({ lineOne, lineTwo, videos = HERO_VIDEOS }: Hero3Props) {
           holdStartedAt === null
             ? video.currentTime
             : video.duration + holdElapsedMs / 1000;
-        const textStartAt = activeVideoRef.current.textStartAt;
+        const textStartAt = heroItemRef.current.textStartAt;
         const textEndAt = video.duration + TITLE_HOLD_MS / 1000;
 
         setTextProgress(
@@ -198,37 +163,6 @@ export function Hero3({ lineOne, lineTwo, videos = HERO_VIDEOS }: Hero3Props) {
     return () => cancelAnimationFrame(rafRef.current);
   }, []);
 
-  useEffect(() => {
-    const video = videoRef.current;
-
-    heroItems.forEach((heroVideo) => {
-      if (heroVideo.src === activeVideo.src) return;
-      if (isFrameSequence(heroVideo)) {
-        Array.from({ length: heroVideo.frameCount || 1 }).forEach((_, index) => {
-          const img = new Image();
-          img.src = getFrameSrc(heroVideo, index);
-        });
-        return;
-      }
-
-      if (!video) return;
-      const preloadVideo = document.createElement("video");
-      preloadVideo.src = heroVideo.src;
-      preloadVideo.preload = "auto";
-    });
-  }, [activeVideo.src, heroItems]);
-
-  useEffect(() => {
-    if (!isFrameSequence(activeVideo)) return;
-
-    const sequenceDurationMs = getSequenceDuration(activeVideo) * 1000;
-    const now = performance.now();
-    frameStartedAtRef.current = now - pendingProgressRef.current * sequenceDurationMs;
-    holdStartedAtRef.current = null;
-    previousFrameRef.current = -1;
-    setFrameIndex(getFrameIndex(activeVideo, pendingProgressRef.current * sequenceDurationMs));
-  }, [activeVideo]);
-
   function handleLoadedMetadata() {
     const video = videoRef.current;
     if (!video) return;
@@ -245,39 +179,15 @@ export function Hero3({ lineOne, lineTwo, videos = HERO_VIDEOS }: Hero3Props) {
     holdStartedAtRef.current = performance.now();
   }
 
-  function selectVideo(video: HomeHeroVideo) {
-    if (video.id === activeVideoRef.current.id) return;
-
-    const currentVideo = videoRef.current;
-    const currentItem = activeVideoRef.current;
-
-    if (isFrameSequence(currentItem) && frameStartedAtRef.current !== null) {
-      const elapsedMs = performance.now() - frameStartedAtRef.current;
-      pendingProgressRef.current = clamp(
-        elapsedMs / (getSequenceDuration(currentItem) * 1000)
-      );
-    } else if (
-      currentVideo &&
-      Number.isFinite(currentVideo.duration) &&
-      currentVideo.duration > 0
-    ) {
-      pendingProgressRef.current = clamp(
-        currentVideo.currentTime / currentVideo.duration
-      );
-    }
-
-    setActiveVideo(video);
-  }
-
   return (
     <section
       className="relative h-[clamp(320px,62svh,520px)] w-full overflow-hidden md:h-[100svh]"
       style={{ backgroundColor: "#00A1E1" }}
     >
-      {isFrameSequence(activeVideo) ? (
+      {isFrameSequence(heroItem) ? (
         <img
-          key={activeVideo.src}
-          src={getFrameSrc(activeVideo, frameIndex)}
+          key={heroItem.src}
+          src={getFrameSrc(heroItem, frameIndex)}
           alt=""
           aria-hidden="true"
           loading="eager"
@@ -288,8 +198,8 @@ export function Hero3({ lineOne, lineTwo, videos = HERO_VIDEOS }: Hero3Props) {
       ) : (
         <video
           ref={videoRef}
-          key={activeVideo.src}
-          src={activeVideo.src}
+          key={heroItem.src}
+          src={heroItem.src}
           autoPlay
           muted
           playsInline
@@ -301,7 +211,7 @@ export function Hero3({ lineOne, lineTwo, videos = HERO_VIDEOS }: Hero3Props) {
       )}
 
       {/* Vignette overlay — brand blue darkening at edges */}
-      {activeVideo.vignette && (
+      {heroItem.vignette && (
         <div
           className="pointer-events-none absolute inset-0 z-[1]"
           style={{
@@ -312,32 +222,6 @@ export function Hero3({ lineOne, lineTwo, videos = HERO_VIDEOS }: Hero3Props) {
       )}
 
       <HeroTextOverlay progress={textProgress} lineOne={lineOne} lineTwo={lineTwo} />
-
-      <div
-        className="absolute bottom-6 left-6 z-20 flex gap-2 md:bottom-8 md:left-10"
-        aria-label="Preview hero animation versions"
-      >
-        {heroItems.map((video) => {
-          const isActive = video.id === activeVideo.id;
-
-          return (
-            <button
-              key={video.id}
-              type="button"
-              onClick={() => selectVideo(video)}
-              aria-pressed={isActive}
-              aria-label={`Preview stop motion version ${video.id}`}
-              className={[
-                "flex h-10 w-10 items-center justify-center rounded-full border text-sm font-medium text-white transition",
-                "border-white/80 bg-transparent hover:bg-white/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80",
-                isActive ? "bg-white/20" : "",
-              ].join(" ")}
-            >
-              {video.id}
-            </button>
-          );
-        })}
-      </div>
     </section>
   );
 }

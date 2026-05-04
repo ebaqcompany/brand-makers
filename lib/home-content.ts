@@ -82,33 +82,6 @@ export const HOME_FALLBACK: HomePageContent = {
   heroLineOne: "We Make Your",
   heroLineTwo: "Brand Look Good.",
   heroVideos: [
-    { id: 1, src: "/hero-stopmotion-videos/stopmotion1.mp4", textStartAt: 4.85 },
-    { id: 2, src: "/hero-stopmotion-videos/stopmotion2.mp4", textStartAt: 3.88 },
-    { id: 3, src: "/hero-stopmotion-videos/stopmotion3.mp4", textStartAt: 8.65 },
-    {
-      id: 4,
-      src: "/hero-stopmotion-clean-background-webp/frame-001.webp",
-      kind: "frames",
-      frameCount: 72,
-      frameRate: 8,
-      textStartAt: 8.65,
-    },
-    {
-      id: 5,
-      src: "/hero-stopmotion-clean-background-expanded-backup/frame-001.webp",
-      kind: "frames",
-      frameCount: 72,
-      frameRate: 8,
-      textStartAt: 8.65,
-    },
-    {
-      id: 6,
-      src: "/hero-stopmotion-transparent/frame-001.webp",
-      kind: "frames",
-      frameCount: 72,
-      frameRate: 8,
-      textStartAt: 8.65,
-    },
     {
       id: 7,
       src: "/hero-stopmotion-transparent/frame-001.webp",
