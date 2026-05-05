@@ -25,6 +25,11 @@ export interface HomeHeroVideo {
   kind?: "video" | "frames";
   frameCount?: number;
   frameRate?: number;
+  fallbackFrames?: {
+    src: string;
+    frameCount: number;
+    frameRate: number;
+  };
   vignette?: boolean;
 }
 
@@ -84,11 +89,14 @@ export const HOME_FALLBACK: HomePageContent = {
   heroVideos: [
     {
       id: 7,
-      src: "/hero-stopmotion-transparent/frame-001.webp",
-      kind: "frames",
-      frameCount: 72,
-      frameRate: 8,
+      src: "/hero-stopmotion-transparent.webm",
+      kind: "video",
       textStartAt: 8.65,
+      fallbackFrames: {
+        src: "/hero-stopmotion-transparent/frame-001.webp",
+        frameCount: 72,
+        frameRate: 8,
+      },
       vignette: true,
     },
   ],
