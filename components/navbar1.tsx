@@ -85,17 +85,19 @@ const Navbar1 = ({
           </Link>
 
           <div className="flex items-center gap-3">
-            <BmButton
-              href={auth.signup.url}
-              className="navbar-cta-button hidden md:inline-flex"
-              style={{
-                backgroundColor: "transparent",
-                border: "1px solid #00A1E1",
-                color: "#00A1E1",
-              }}
-            >
-              {auth.signup.title}
-            </BmButton>
+            <div className="hidden md:block">
+              <BmButton
+                href={auth.signup.url}
+                className="navbar-cta-button"
+                style={{
+                  backgroundColor: "transparent",
+                  border: "1px solid #00A1E1",
+                  color: "#00A1E1",
+                }}
+              >
+                {auth.signup.title}
+              </BmButton>
+            </div>
 
             <Sheet>
               <SheetTrigger render={<Button variant="ghost" size="icon" className="border-0 bg-transparent hover:bg-transparent" />}>
