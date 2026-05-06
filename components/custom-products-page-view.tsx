@@ -1,4 +1,5 @@
 import { CtaSection } from "@/components/cta-section";
+import { PaddlesStopMotion } from "@/components/paddles-stopmotion";
 import { SiteShell } from "@/components/site-shell";
 import type { CustomProductsContent } from "@/lib/custom-products-content";
 
@@ -9,6 +10,21 @@ const GREY = "#F0F0F0";
 interface CustomProductsPageViewProps {
   content: CustomProductsContent;
   editableAttributes?: Record<string, string | undefined>;
+}
+
+function renderBalancedHeroHeading(heading: string) {
+  const words = heading.trim().split(/\s+/);
+
+  if (words.length === 4) {
+    return (
+      <>
+        <span className="block">{words.slice(0, 2).join(" ")}</span>
+        <span className="block">{words.slice(2).join(" ")}</span>
+      </>
+    );
+  }
+
+  return heading;
 }
 
 export function CustomProductsPageView({
@@ -22,25 +38,34 @@ export function CustomProductsPageView({
         className="relative overflow-hidden py-20"
         style={{ backgroundColor: GREY }}
       >
-        <div className="relative z-10 max-w-[1200px] mx-auto px-6">
-          <p
-            className="mb-4 text-xs font-medium uppercase tracking-[2px]"
-            style={{ color: BLUE }}
+        <div className="relative z-10 mx-auto grid max-w-[1200px] items-center gap-10 px-6 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,0.65fr)] lg:gap-8">
+          <div className="min-w-0">
+            <p
+              className="mb-4 text-xs font-medium uppercase tracking-[2px]"
+              style={{ color: BLUE }}
+            >
+              {content.heroEyebrow}
+            </p>
+            <h1
+              className="text-[clamp(40px,6vw,74px)] font-normal leading-[1.05] tracking-[-4px]"
+              style={{ color: DARK, maxWidth: 690 }}
+            >
+              {renderBalancedHeroHeading(content.heroHeading)}
+            </h1>
+            <p
+              className="mt-6 max-w-xl text-lg leading-relaxed"
+              style={{ color: "rgba(50,62,72,0.7)" }}
+            >
+              {content.heroBody}
+            </p>
+          </div>
+
+          <div
+            className="mx-auto w-full min-w-0 max-w-[460px] lg:mx-0 lg:justify-self-end"
+            aria-hidden="true"
           >
-            {content.heroEyebrow}
-          </p>
-          <h1
-            className="text-[clamp(40px,7vw,80px)] font-normal leading-[1.05] tracking-[-4px]"
-            style={{ color: DARK, maxWidth: 600 }}
-          >
-            {content.heroHeading}
-          </h1>
-          <p
-            className="mt-6 max-w-xl text-lg leading-relaxed"
-            style={{ color: "rgba(50,62,72,0.7)" }}
-          >
-            {content.heroBody}
-          </p>
+            <PaddlesStopMotion />
+          </div>
         </div>
       </section>
 
