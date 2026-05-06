@@ -142,8 +142,58 @@ function renderCell(value: CellValue) {
 export function CompanyStoresSection() {
 
   return (
-    <section style={{ background: "#FFFFFF" }} className="py-8 md:py-12">
-      <table className="w-full" style={{ borderCollapse: "separate", borderSpacing: 0 }}>
+    <section style={{ background: "#FFFFFF" }} className="overflow-x-hidden py-8 md:py-12">
+      <div className="space-y-4 px-6 lg:hidden">
+        {STORE_OPTIONS.map((store, storeIndex) => (
+          <article
+            key={store.name}
+            className="overflow-hidden rounded-lg border border-gray-200 bg-white"
+          >
+            <header className="border-b border-gray-200 p-5">
+              <div
+                className="mb-1 text-[10px] font-medium uppercase"
+                style={{ letterSpacing: "0.12em", color: "#6b7280" }}
+              >
+                Option {storeIndex + 1}
+              </div>
+              <h2 className="text-xl font-extrabold leading-tight" style={{ color: DARK }}>
+                {store.name}
+              </h2>
+              <a
+                href={store.sampleHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-4 inline-flex items-center justify-center rounded-full px-3 py-1.5 text-[10px] font-bold uppercase no-underline transition-colors hover:bg-gray-100 hover:text-[#323E48]"
+                style={{
+                  border: "1px solid #CBD5E1",
+                  color: "#6B7280",
+                  letterSpacing: "0.12em",
+                }}
+              >
+                Open demo
+              </a>
+            </header>
+
+            <dl>
+              {ROWS.map((row, rowIndex) => (
+                <div
+                  key={row.label}
+                  className="grid gap-2 border-b border-gray-200 p-5 last:border-b-0"
+                  style={{ background: rowIndex % 2 === 0 ? "#F8F8F8" : "#ffffff" }}
+                >
+                  <dt className="text-sm font-bold" style={{ color: "#374151" }}>
+                    {row.label}
+                  </dt>
+                  <dd>{renderCell(row.values[storeIndex])}</dd>
+                </div>
+              ))}
+            </dl>
+          </article>
+        ))}
+      </div>
+
+      <div className="hidden w-full overflow-x-auto lg:block">
+      <table className="w-full min-w-[1120px]" style={{ borderCollapse: "separate", borderSpacing: 0 }}>
         <thead>
           <tr>
             {/* Corner cell — sticky */}
@@ -244,6 +294,7 @@ export function CompanyStoresSection() {
           })}
         </tbody>
       </table>
+      </div>
     </section>
   );
 }

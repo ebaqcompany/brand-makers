@@ -108,7 +108,7 @@ export function HeroTextOverlay({
               letterSpacing: "0.18em",
             }}
           >
-            See how we do it
+            See how we do it.
           </span>
           <svg
             aria-hidden="true"
