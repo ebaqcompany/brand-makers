@@ -48,7 +48,7 @@ export function HeroTextOverlay({
       : 0;
 
   return (
-    <div className="absolute inset-0 pointer-events-none">
+    <div className="pointer-events-none absolute inset-0 z-[2]">
       <div
         className="absolute left-1/2 top-1/2 w-[min(calc(100vw-48px),980px)] text-center"
         style={{

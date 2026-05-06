@@ -91,7 +91,7 @@ export const HOME_FALLBACK: HomePageContent = {
       frameRate: 8,
       poster: "/hero-stopmotion-flat-poster.webp",
       textStartAt: 10.15,
-      vignette: false,
+      vignette: true,
     },
   ],
   servicesEyebrow: "Our Services",

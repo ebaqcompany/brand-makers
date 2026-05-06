@@ -22,7 +22,7 @@ const DEFAULT_HERO_ITEM: HomeHeroVideo = {
   frameRate: 8,
   poster: "/hero-stopmotion-flat-poster.webp",
   textStartAt: 10.15,
-  vignette: false,
+  vignette: true,
 };
 const INITIAL_SEQUENCE_HOLD_MS = 1500;
 const TITLE_HOLD_MS = 4200;
@@ -223,7 +223,7 @@ export function Hero3({ lineOne, lineTwo, videos = [DEFAULT_HERO_ITEM] }: Hero3P
         </video>
       )}
 
-      {/* Vignette overlay is intentionally disabled for the flat-background MP4; set vignette to true to restore it. */}
+      {/* CSS vignette sits above the flat-background MP4 and below the animated hero text. */}
       {heroItem.vignette && (
         <div
           className="pointer-events-none absolute inset-0 z-[1]"
