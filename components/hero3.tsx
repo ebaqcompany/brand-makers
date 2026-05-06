@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { HeroTextOverlay } from "@/components/hero-text-overlay";
 
 type HomeHeroVideo = {
@@ -11,21 +11,28 @@ type HomeHeroVideo = {
   frameCount?: number;
   frameRate?: number;
   poster?: string;
+  mobileSrc?: string;
+  mobilePoster?: string;
   vignette?: boolean;
 };
 
 const DEFAULT_HERO_ITEM: HomeHeroVideo = {
   id: 7,
-  src: "/hero-stopmotion-flat.mp4",
-  kind: "video",
+  src: "/hero-stopmotion-transparent/frame-001.webp",
+  kind: "frames",
   frameCount: 74,
   frameRate: 8,
+  mobileSrc: "/hero-stopmotion-flat.mp4",
   poster: "/hero-stopmotion-flat-poster.webp",
+  mobilePoster: "/hero-stopmotion-flat-poster.webp",
   textStartAt: 10.15,
   vignette: true,
 };
+const BRAND_HERO_BACKGROUND = "#00A1E1";
+const VIDEO_HERO_BACKGROUND = "#00AAE5";
 const INITIAL_SEQUENCE_HOLD_MS = 1500;
 const TITLE_HOLD_MS = 4200;
+const MOBILE_VIDEO_QUERY = "(max-width: 767px)";
 
 function clamp(value: number, min = 0, max = 1) {
   return Math.min(Math.max(value, min), max);
@@ -74,28 +81,51 @@ export function Hero3({ lineOne, lineTwo, videos = [DEFAULT_HERO_ITEM] }: Hero3P
   const holdStartedAtRef = useRef<number | null>(null);
   const frameStartedAtRef = useRef<number | null>(null);
   const previousFrameRef = useRef(-1);
-  const heroItemRef = useRef(heroItem);
+  const [useMobileVideo, setUseMobileVideo] = useState(false);
+  const activeHeroItem = useMemo<HomeHeroVideo>(() => {
+    if (!useMobileVideo || !heroItem.mobileSrc) {
+      return heroItem;
+    }
+
+    return {
+      ...heroItem,
+      src: heroItem.mobileSrc,
+      kind: "video",
+      poster: heroItem.mobilePoster || heroItem.poster,
+    };
+  }, [heroItem, useMobileVideo]);
+  const heroItemRef = useRef(activeHeroItem);
   const [frameIndex, setFrameIndex] = useState(0);
   const [textProgress, setTextProgress] = useState(0);
 
   useEffect(() => {
-    heroItemRef.current = heroItem;
+    const mediaQuery = window.matchMedia(MOBILE_VIDEO_QUERY);
+    const handleChange = () => setUseMobileVideo(mediaQuery.matches);
+
+    handleChange();
+    mediaQuery.addEventListener("change", handleChange);
+
+    return () => mediaQuery.removeEventListener("change", handleChange);
+  }, []);
+
+  useEffect(() => {
+    heroItemRef.current = activeHeroItem;
     pendingProgressRef.current = 0;
     holdStartedAtRef.current = null;
     previousFrameRef.current = -1;
     setTextProgress(0);
 
-    if (!isFrameSequence(heroItem)) {
+    if (!isFrameSequence(activeHeroItem)) {
       frameStartedAtRef.current = null;
       setFrameIndex(0);
       return;
     }
 
-    const sequenceDurationMs = getSequenceDuration(heroItem) * 1000;
+    const sequenceDurationMs = getSequenceDuration(activeHeroItem) * 1000;
     const now = performance.now();
     frameStartedAtRef.current = now + INITIAL_SEQUENCE_HOLD_MS;
-    setFrameIndex(getFrameIndex(heroItem, pendingProgressRef.current * sequenceDurationMs));
-  }, [heroItem]);
+    setFrameIndex(getFrameIndex(activeHeroItem, pendingProgressRef.current * sequenceDurationMs));
+  }, [activeHeroItem]);
 
   useEffect(() => {
     const animate = () => {
@@ -191,12 +221,16 @@ export function Hero3({ lineOne, lineTwo, videos = [DEFAULT_HERO_ITEM] }: Hero3P
   return (
     <section
       className="relative h-[clamp(320px,62svh,520px)] w-full overflow-hidden md:h-[100svh]"
-      style={{ backgroundColor: "#00A1E1" }}
+      style={{
+        backgroundColor: isFrameSequence(activeHeroItem)
+          ? BRAND_HERO_BACKGROUND
+          : VIDEO_HERO_BACKGROUND,
+      }}
     >
-      {isFrameSequence(heroItem) ? (
+      {isFrameSequence(activeHeroItem) ? (
         <img
-          key={heroItem.src}
-          src={getFrameSrc(heroItem, frameIndex)}
+          key={activeHeroItem.src}
+          src={getFrameSrc(activeHeroItem, frameIndex)}
           alt=""
           aria-hidden="true"
           loading="eager"
@@ -207,13 +241,13 @@ export function Hero3({ lineOne, lineTwo, videos = [DEFAULT_HERO_ITEM] }: Hero3P
       ) : (
         <video
           ref={videoRef}
-          key={heroItem.src}
-          src={heroItem.src}
+          key={activeHeroItem.src}
+          src={activeHeroItem.src}
           autoPlay
           muted
           playsInline
           preload="auto"
-          poster={heroItem.poster}
+          poster={activeHeroItem.poster}
           onLoadedMetadata={handleLoadedMetadata}
           onEnded={handleEnded}
           aria-hidden="true"
@@ -224,7 +258,7 @@ export function Hero3({ lineOne, lineTwo, videos = [DEFAULT_HERO_ITEM] }: Hero3P
       )}
 
       {/* CSS vignette sits above the flat-background MP4 and below the animated hero text. */}
-      {heroItem.vignette && (
+      {activeHeroItem.vignette && (
         <div
           className="pointer-events-none absolute inset-0 z-[1]"
           style={{

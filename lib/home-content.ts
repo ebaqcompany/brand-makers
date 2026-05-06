@@ -26,6 +26,8 @@ export interface HomeHeroVideo {
   frameCount?: number;
   frameRate?: number;
   poster?: string;
+  mobileSrc?: string;
+  mobilePoster?: string;
   vignette?: boolean;
 }
 
@@ -85,11 +87,13 @@ export const HOME_FALLBACK: HomePageContent = {
   heroVideos: [
     {
       id: 7,
-      src: "/hero-stopmotion-flat.mp4",
-      kind: "video",
+      src: "/hero-stopmotion-transparent/frame-001.webp",
+      kind: "frames",
       frameCount: 74,
       frameRate: 8,
+      mobileSrc: "/hero-stopmotion-flat.mp4",
       poster: "/hero-stopmotion-flat-poster.webp",
+      mobilePoster: "/hero-stopmotion-flat-poster.webp",
       textStartAt: 10.15,
       vignette: true,
     },
