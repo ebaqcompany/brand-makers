@@ -34,6 +34,8 @@ const BRAND_HERO_BACKGROUND = "#00A1E1";
 const FALLBACK_VIDEO_BACKGROUND = "#00A0E0";
 const INITIAL_SEQUENCE_HOLD_MS = 1500;
 const TITLE_HOLD_MS = 4200;
+const WEBP_SUPPORT_TEST_IMAGE =
+  "data:image/webp;base64,UklGRiIAAABXRUJQVlA4IBYAAAAwAQCdASoBAAEADsD+JaQAA3AAAAAA";
 
 function clamp(value: number, min = 0, max = 1) {
   return Math.min(Math.max(value, min), max);
@@ -55,37 +57,47 @@ function getFrameSources(item: HomeHeroVideo) {
 }
 
 function preloadFrame(src: string) {
-  return new Promise<boolean>((resolve) => {
+  return new Promise<void>((resolve) => {
     const img = new Image();
     let settled = false;
-    const finish = (wasLoaded: boolean) => {
+    const finish = () => {
       if (settled) return;
       settled = true;
-      resolve(wasLoaded);
+      resolve();
     };
 
     img.decoding = "sync";
     img.onload = () => {
       if (typeof img.decode === "function") {
         img.decode()
-          .then(() => finish(true))
-          .catch(() => finish(false));
+          .then(finish)
+          .catch(finish);
       } else {
-        finish(true);
+        finish();
       }
     };
-    img.onerror = () => finish(false);
+    img.onerror = finish;
     img.src = src;
 
     if (img.complete) {
       if (typeof img.decode === "function") {
         img.decode()
-          .then(() => finish(true))
-          .catch(() => finish(false));
+          .then(finish)
+          .catch(finish);
       } else {
-        finish(img.naturalWidth > 0);
+        finish();
       }
     }
+  });
+}
+
+function supportsWebP() {
+  return new Promise<boolean>((resolve) => {
+    const img = new Image();
+
+    img.onload = () => resolve(img.width === 1 && img.height === 1);
+    img.onerror = () => resolve(false);
+    img.src = WEBP_SUPPORT_TEST_IMAGE;
   });
 }
 
@@ -146,7 +158,18 @@ export function Hero3({ lineOne, lineTwo, videos = [DEFAULT_HERO_ITEM] }: Hero3P
   const [textProgress, setTextProgress] = useState(0);
 
   useEffect(() => {
+    let isCancelled = false;
+
     setUseVideoFallback(false);
+
+    supportsWebP().then((isSupported) => {
+      if (isCancelled || isSupported) return;
+      setUseVideoFallback(Boolean(heroItem.fallbackSrc || heroItem.mobileSrc));
+    });
+
+    return () => {
+      isCancelled = true;
+    };
   }, [heroItem]);
 
   useEffect(() => {
@@ -170,16 +193,8 @@ export function Hero3({ lineOne, lineTwo, videos = [DEFAULT_HERO_ITEM] }: Hero3P
 
     let isCancelled = false;
 
-    Promise.all(getFrameSources(activeHeroItem).map(preloadFrame)).then((loadedFrames) => {
+    Promise.all(getFrameSources(activeHeroItem).map(preloadFrame)).then(() => {
       if (isCancelled) return;
-
-      if (
-        loadedFrames.some((wasLoaded) => !wasLoaded) &&
-        (activeHeroItem.fallbackSrc || activeHeroItem.mobileSrc)
-      ) {
-        setUseVideoFallback(true);
-        return;
-      }
 
       framesReadyRef.current = true;
       frameStartedAtRef.current = performance.now() + INITIAL_SEQUENCE_HOLD_MS;
