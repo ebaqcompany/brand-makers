@@ -47,6 +47,43 @@ function getFrameSrc(item: HomeHeroVideo, index: number) {
   return `${prefix}${String(index + 1).padStart(3, "0")}.webp`;
 }
 
+function getFrameSources(item: HomeHeroVideo) {
+  return Array.from({ length: item.frameCount || 1 }, (_, index) =>
+    getFrameSrc(item, index)
+  );
+}
+
+function preloadFrame(src: string) {
+  return new Promise<void>((resolve) => {
+    const img = new Image();
+    let settled = false;
+    const finish = () => {
+      if (settled) return;
+      settled = true;
+      resolve();
+    };
+
+    img.decoding = "sync";
+    img.onload = () => {
+      if (typeof img.decode === "function") {
+        img.decode().then(finish).catch(finish);
+      } else {
+        finish();
+      }
+    };
+    img.onerror = finish;
+    img.src = src;
+
+    if (img.complete) {
+      if (typeof img.decode === "function") {
+        img.decode().then(finish).catch(finish);
+      } else {
+        finish();
+      }
+    }
+  });
+}
+
 function getSequenceDuration(item: HomeHeroVideo, videoDuration = 0) {
   if (isFrameSequence(item)) {
     return (item.frameCount || 1) / (item.frameRate || 8);
@@ -79,6 +116,7 @@ export function Hero3({ lineOne, lineTwo, videos = [DEFAULT_HERO_ITEM] }: Hero3P
   const rafRef = useRef<number>(0);
   const pendingProgressRef = useRef(0);
   const holdStartedAtRef = useRef<number | null>(null);
+  const framesReadyRef = useRef(false);
   const frameStartedAtRef = useRef<number | null>(null);
   const previousFrameRef = useRef(-1);
   const [useMobileVideo, setUseMobileVideo] = useState(false);
@@ -113,18 +151,34 @@ export function Hero3({ lineOne, lineTwo, videos = [DEFAULT_HERO_ITEM] }: Hero3P
     pendingProgressRef.current = 0;
     holdStartedAtRef.current = null;
     previousFrameRef.current = -1;
+    framesReadyRef.current = false;
     setTextProgress(0);
 
     if (!isFrameSequence(activeHeroItem)) {
+      framesReadyRef.current = true;
       frameStartedAtRef.current = null;
       setFrameIndex(0);
       return;
     }
 
     const sequenceDurationMs = getSequenceDuration(activeHeroItem) * 1000;
-    const now = performance.now();
-    frameStartedAtRef.current = now + INITIAL_SEQUENCE_HOLD_MS;
+    frameStartedAtRef.current = null;
     setFrameIndex(getFrameIndex(activeHeroItem, pendingProgressRef.current * sequenceDurationMs));
+
+    let isCancelled = false;
+
+    Promise.all(getFrameSources(activeHeroItem).map(preloadFrame)).then(() => {
+      if (isCancelled) return;
+
+      framesReadyRef.current = true;
+      frameStartedAtRef.current = performance.now() + INITIAL_SEQUENCE_HOLD_MS;
+      previousFrameRef.current = -1;
+      setFrameIndex(0);
+    });
+
+    return () => {
+      isCancelled = true;
+    };
   }, [activeHeroItem]);
 
   useEffect(() => {
@@ -134,6 +188,12 @@ export function Hero3({ lineOne, lineTwo, videos = [DEFAULT_HERO_ITEM] }: Hero3P
 
       if (isFrameSequence(activeItem)) {
         const now = performance.now();
+        if (!framesReadyRef.current) {
+          setTextProgress(0);
+          rafRef.current = requestAnimationFrame(animate);
+          return;
+        }
+
         if (frameStartedAtRef.current === null) {
           frameStartedAtRef.current = now - pendingProgressRef.current * getSequenceDuration(activeItem) * 1000;
         }
