@@ -11,6 +11,8 @@ type HomeHeroVideo = {
   frameCount?: number;
   frameRate?: number;
   poster?: string;
+  fallbackSrc?: string;
+  fallbackPoster?: string;
   mobileSrc?: string;
   mobilePoster?: string;
   vignette?: boolean;
@@ -22,17 +24,16 @@ const DEFAULT_HERO_ITEM: HomeHeroVideo = {
   kind: "frames",
   frameCount: 74,
   frameRate: 8,
-  mobileSrc: "/hero-stopmotion-flat.mp4",
+  fallbackSrc: "/hero-stopmotion-flat.mp4",
   poster: "/hero-stopmotion-flat-poster.webp",
-  mobilePoster: "/hero-stopmotion-flat-poster.webp",
+  fallbackPoster: "/hero-stopmotion-flat-poster.webp",
   textStartAt: 10.15,
   vignette: true,
 };
 const BRAND_HERO_BACKGROUND = "#00A1E1";
-const VIDEO_HERO_BACKGROUND = "#00AAE5";
+const FALLBACK_VIDEO_BACKGROUND = "#00A0E0";
 const INITIAL_SEQUENCE_HOLD_MS = 1500;
 const TITLE_HOLD_MS = 4200;
-const MOBILE_VIDEO_QUERY = "(max-width: 767px)";
 
 function clamp(value: number, min = 0, max = 1) {
   return Math.min(Math.max(value, min), max);
@@ -54,31 +55,35 @@ function getFrameSources(item: HomeHeroVideo) {
 }
 
 function preloadFrame(src: string) {
-  return new Promise<void>((resolve) => {
+  return new Promise<boolean>((resolve) => {
     const img = new Image();
     let settled = false;
-    const finish = () => {
+    const finish = (wasLoaded: boolean) => {
       if (settled) return;
       settled = true;
-      resolve();
+      resolve(wasLoaded);
     };
 
     img.decoding = "sync";
     img.onload = () => {
       if (typeof img.decode === "function") {
-        img.decode().then(finish).catch(finish);
+        img.decode()
+          .then(() => finish(true))
+          .catch(() => finish(false));
       } else {
-        finish();
+        finish(true);
       }
     };
-    img.onerror = finish;
+    img.onerror = () => finish(false);
     img.src = src;
 
     if (img.complete) {
       if (typeof img.decode === "function") {
-        img.decode().then(finish).catch(finish);
+        img.decode()
+          .then(() => finish(true))
+          .catch(() => finish(false));
       } else {
-        finish();
+        finish(img.naturalWidth > 0);
       }
     }
   });
@@ -119,32 +124,30 @@ export function Hero3({ lineOne, lineTwo, videos = [DEFAULT_HERO_ITEM] }: Hero3P
   const framesReadyRef = useRef(false);
   const frameStartedAtRef = useRef<number | null>(null);
   const previousFrameRef = useRef(-1);
-  const [useMobileVideo, setUseMobileVideo] = useState(false);
+  const [useVideoFallback, setUseVideoFallback] = useState(false);
   const activeHeroItem = useMemo<HomeHeroVideo>(() => {
-    if (!useMobileVideo || !heroItem.mobileSrc) {
+    const fallbackSrc = heroItem.fallbackSrc || heroItem.mobileSrc;
+    const fallbackPoster =
+      heroItem.fallbackPoster || heroItem.mobilePoster || heroItem.poster;
+
+    if (!useVideoFallback || !fallbackSrc) {
       return heroItem;
     }
 
     return {
       ...heroItem,
-      src: heroItem.mobileSrc,
+      src: fallbackSrc,
       kind: "video",
-      poster: heroItem.mobilePoster || heroItem.poster,
+      poster: fallbackPoster,
     };
-  }, [heroItem, useMobileVideo]);
+  }, [heroItem, useVideoFallback]);
   const heroItemRef = useRef(activeHeroItem);
   const [frameIndex, setFrameIndex] = useState(0);
   const [textProgress, setTextProgress] = useState(0);
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia(MOBILE_VIDEO_QUERY);
-    const handleChange = () => setUseMobileVideo(mediaQuery.matches);
-
-    handleChange();
-    mediaQuery.addEventListener("change", handleChange);
-
-    return () => mediaQuery.removeEventListener("change", handleChange);
-  }, []);
+    setUseVideoFallback(false);
+  }, [heroItem]);
 
   useEffect(() => {
     heroItemRef.current = activeHeroItem;
@@ -167,8 +170,16 @@ export function Hero3({ lineOne, lineTwo, videos = [DEFAULT_HERO_ITEM] }: Hero3P
 
     let isCancelled = false;
 
-    Promise.all(getFrameSources(activeHeroItem).map(preloadFrame)).then(() => {
+    Promise.all(getFrameSources(activeHeroItem).map(preloadFrame)).then((loadedFrames) => {
       if (isCancelled) return;
+
+      if (
+        loadedFrames.some((wasLoaded) => !wasLoaded) &&
+        (activeHeroItem.fallbackSrc || activeHeroItem.mobileSrc)
+      ) {
+        setUseVideoFallback(true);
+        return;
+      }
 
       framesReadyRef.current = true;
       frameStartedAtRef.current = performance.now() + INITIAL_SEQUENCE_HOLD_MS;
@@ -284,7 +295,7 @@ export function Hero3({ lineOne, lineTwo, videos = [DEFAULT_HERO_ITEM] }: Hero3P
       style={{
         backgroundColor: isFrameSequence(activeHeroItem)
           ? BRAND_HERO_BACKGROUND
-          : VIDEO_HERO_BACKGROUND,
+          : FALLBACK_VIDEO_BACKGROUND,
       }}
     >
       {isFrameSequence(activeHeroItem) ? (
@@ -296,7 +307,7 @@ export function Hero3({ lineOne, lineTwo, videos = [DEFAULT_HERO_ITEM] }: Hero3P
           loading="eager"
           decoding="sync"
           draggable={false}
-          className="absolute inset-0 h-full w-full object-contain object-center"
+          className="absolute inset-0 h-full w-full scale-[1.14] object-contain object-center md:scale-100"
         />
       ) : (
         <video
@@ -311,7 +322,7 @@ export function Hero3({ lineOne, lineTwo, videos = [DEFAULT_HERO_ITEM] }: Hero3P
           onLoadedMetadata={handleLoadedMetadata}
           onEnded={handleEnded}
           aria-hidden="true"
-          className="absolute inset-0 h-full w-full object-contain object-center"
+          className="absolute inset-0 h-full w-full scale-[1.14] object-contain object-center md:scale-100"
         >
           Your browser does not support the video tag.
         </video>
