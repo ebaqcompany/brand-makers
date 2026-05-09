@@ -17,8 +17,8 @@ export default function CompanyStoresPage() {
   return (
     <SiteShell>
       {/* Hero — compact */}
-      <section className="overflow-x-hidden pt-16 pb-2 md:pt-20 md:pb-4" style={{ backgroundColor: "#FFFFFF" }}>
-        <div className="mx-auto grid w-full max-w-[1200px] min-w-0 items-center gap-10 px-6 lg:grid-cols-2 lg:gap-14">
+      <section className="overflow-x-hidden pt-10 pb-0 md:pt-12 lg:pt-14" style={{ backgroundColor: "#FFFFFF" }}>
+        <div className="mx-auto grid w-full max-w-[1200px] min-w-0 items-center gap-8 px-6 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:gap-8">
           <div className="min-w-0 max-w-[560px]" style={{ maxWidth: "min(560px, calc(100vw - 48px))" }}>
             <p className="mb-4 text-xs font-medium uppercase tracking-[2px]" style={{ color: BLUE }}>
               Company Stores
@@ -38,14 +38,16 @@ export default function CompanyStoresPage() {
 
           <div
             className="mx-auto min-w-0 lg:mx-0 lg:justify-self-end"
-            style={{ width: "100%", maxWidth: "min(520px, calc(100vw - 48px))" }}
+            style={{ width: "100%", maxWidth: "min(560px, calc(100vw - 48px))" }}
           >
             <Image
               src="/company-stores/laptop.jpeg"
               alt="Laptop showing a Brand Makers company store"
-              width={442}
-              height={302}
+              width={884}
+              height={604}
               priority
+              quality={95}
+              sizes="(max-width: 1023px) calc(100vw - 48px), 560px"
               className="h-auto w-full max-w-full"
               style={{ display: "block", width: "100%", height: "auto" }}
             />

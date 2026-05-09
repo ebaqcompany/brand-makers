@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 
-const FRAME_COUNT = 23;
+const FRAME_COUNT = 3;
 const FRAME_RATE = 4;
 const FRAME_DURATION_MS = 1000 / FRAME_RATE;
 const FRAMES = Array.from(

@@ -34,6 +34,7 @@ const STORE_OPTIONS = [
 ];
 
 const LANE_COLORS = ["#F8F8F8", "#ffffff", "#F8F8F8", "#ffffff"];
+const TABLE_STICKY_TOP = 65;
 
 const ROWS: Row[] = [
   {
@@ -142,7 +143,7 @@ function renderCell(value: CellValue) {
 export function CompanyStoresSection() {
 
   return (
-    <section style={{ background: "#FFFFFF" }} className="overflow-x-hidden py-8 md:py-12">
+    <section style={{ background: "#FFFFFF" }} className="overflow-visible pt-0 pb-8 md:pb-12">
       <div className="space-y-4 px-6 lg:hidden">
         {STORE_OPTIONS.map((store, storeIndex) => (
           <article
@@ -192,15 +193,18 @@ export function CompanyStoresSection() {
         ))}
       </div>
 
-      <div className="hidden w-full overflow-x-auto lg:block">
+      <div className="hidden w-full overflow-x-auto overflow-y-visible lg:block">
       <table className="w-full min-w-[1120px]" style={{ borderCollapse: "separate", borderSpacing: 0 }}>
-        <thead>
+        <thead
+          className="sticky z-[20]"
+          style={{ top: TABLE_STICKY_TOP }}
+        >
           <tr>
             {/* Corner cell — sticky */}
             <th
-              className="sticky top-[70px] left-0 z-[20]"
+              className="sticky left-0 z-[25]"
               style={{
-                padding: "24px 18px 24px 0",
+                padding: "18px 18px 18px 0",
                 paddingLeft: "max(24px, calc((100vw - 1200px) / 2 + 24px))",
                 background: "#ffffff",
                 boxShadow: "0 8px 16px -4px rgba(0,0,0,0.06)",
@@ -211,9 +215,9 @@ export function CompanyStoresSection() {
             {STORE_OPTIONS.map((store, i) => (
               <th
                 key={store.name}
-                className="sticky top-[70px] z-[15] text-left align-bottom"
+                className="text-left align-bottom"
                 style={{
-                  padding: "24px 18px",
+                  padding: "18px 18px",
                   background: "#ffffff",
                   boxShadow: "0 8px 16px -4px rgba(0,0,0,0.06)",
                   ...(i === STORE_OPTIONS.length - 1 ? { paddingRight: "max(24px, calc((100vw - 1200px) / 2 + 24px))" } : {}),
@@ -252,6 +256,7 @@ export function CompanyStoresSection() {
         <tbody>
           {ROWS.map((row, ri) => {
             const isLast = ri === ROWS.length - 1;
+            const isFirst = ri === 0;
             return (
               <tr
                 key={row.label}
@@ -261,7 +266,7 @@ export function CompanyStoresSection() {
                 <th
                   className="text-left align-top"
                   style={{
-                    padding: "14px 18px 14px 0",
+                    padding: `${isFirst ? 112 : 14}px 18px 14px 0`,
                     paddingLeft: "max(24px, calc((100vw - 1200px) / 2 + 24px))",
                     fontSize: 14,
                     fontWeight: 700,
@@ -278,7 +283,7 @@ export function CompanyStoresSection() {
                     key={vi}
                     className="align-top"
                     style={{
-                      padding: "14px 18px",
+                      padding: `${isFirst ? 112 : 14}px 18px 14px`,
                       fontSize: 14,
                       lineHeight: 1.55,
                       background: LANE_COLORS[vi],

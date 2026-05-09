@@ -50,14 +50,23 @@ const Footer2 = () => {
           <ul className="grid grid-flow-row grid-cols-[max-content] justify-center gap-y-4 text-sm md:grid-flow-col md:gap-x-6 md:gap-y-0">
             {footerUtilityLinks.map((link) => (
               <li key={link.title}>
-                <a
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-white/40 underline underline-offset-2 transition-colors hover:text-white/70"
-                >
-                  {link.title}
-                </a>
+                {link.external ? (
+                  <a
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-white/40 underline underline-offset-2 transition-colors hover:text-white/70"
+                  >
+                    {link.title}
+                  </a>
+                ) : (
+                  <Link
+                    href={link.url}
+                    className="text-white/40 underline underline-offset-2 transition-colors hover:text-white/70"
+                  >
+                    {link.title}
+                  </Link>
+                )}
               </li>
             ))}
           </ul>

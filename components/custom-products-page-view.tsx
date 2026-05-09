@@ -27,6 +27,18 @@ function renderBalancedHeroHeading(heading: string) {
   return heading;
 }
 
+function preventLastWordWidow(text: string) {
+  const lastSpaceIndex = text.trim().lastIndexOf(" ");
+
+  if (lastSpaceIndex === -1) {
+    return text;
+  }
+
+  return `${text.trim().slice(0, lastSpaceIndex)}\u00A0${text
+    .trim()
+    .slice(lastSpaceIndex + 1)}`;
+}
+
 export function CustomProductsPageView({
   content,
   editableAttributes,
@@ -38,7 +50,7 @@ export function CustomProductsPageView({
         className="relative overflow-hidden py-20"
         style={{ backgroundColor: GREY }}
       >
-        <div className="relative z-10 mx-auto grid max-w-[1200px] items-center gap-10 px-6 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,0.65fr)] lg:gap-8">
+        <div className="relative z-10 mx-auto grid max-w-[1200px] items-center gap-10 px-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-6">
           <div className="min-w-0">
             <p
               className="mb-4 text-xs font-medium uppercase tracking-[2px]"
@@ -53,15 +65,15 @@ export function CustomProductsPageView({
               {renderBalancedHeroHeading(content.heroHeading)}
             </h1>
             <p
-              className="mt-6 max-w-xl text-lg leading-relaxed"
+              className="mt-6 max-w-[500px] text-lg leading-relaxed [text-wrap:pretty]"
               style={{ color: "rgba(50,62,72,0.7)" }}
             >
-              {content.heroBody}
+              {preventLastWordWidow(content.heroBody)}
             </p>
           </div>
 
           <div
-            className="mx-auto w-full min-w-0 max-w-[460px] lg:mx-0 lg:justify-self-end"
+            className="mx-auto w-full min-w-0 max-w-[700px] lg:mx-0 lg:justify-self-end"
             aria-hidden="true"
           >
             <PaddlesStopMotion />

@@ -27,7 +27,7 @@ const DEFAULT_HERO_ITEM: HomeHeroVideo = {
   fallbackSrc: "/hero-stopmotion-flat.mp4",
   poster: "/hero-stopmotion-flat-poster.webp",
   fallbackPoster: "/hero-stopmotion-flat-poster.webp",
-  textStartAt: 10.15,
+  textStartAt: 8.75,
   vignette: true,
 };
 const BRAND_HERO_BACKGROUND = "#00A1E1";

@@ -96,7 +96,7 @@ export const HOME_FALLBACK: HomePageContent = {
       fallbackSrc: "/hero-stopmotion-flat.mp4",
       poster: "/hero-stopmotion-flat-poster.webp",
       fallbackPoster: "/hero-stopmotion-flat-poster.webp",
-      textStartAt: 10.15,
+      textStartAt: 8.75,
       vignette: true,
     },
   ],

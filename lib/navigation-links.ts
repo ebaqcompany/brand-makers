@@ -20,13 +20,11 @@ export const mainNavLinks: SiteLink[] = [
 export const footerUtilityLinks: SiteLink[] = [
   {
     title: "Terms and Conditions",
-    url: "https://brandmakers.com/wp-content/uploads/2025/11/Brand-Makers-Terms-and-Conditions.pdf",
-    external: true,
+    url: "/termsandconditions",
   },
   {
     title: "Client Application",
-    url: "https://brandmakersbox.typeform.com/3minuteintake",
-    external: true,
+    url: "/client-application",
   },
   {
     title: "Log In",
