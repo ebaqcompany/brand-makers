@@ -1,3 +1,5 @@
+import { CompanyStoreDemoLink } from "@/components/company-store-demo-link";
+
 const DARK = "#323E48";
 
 type CellValue =
@@ -125,13 +127,13 @@ function renderCell(value: CellValue) {
     return <span style={{ color: "rgba(50,62,72,0.25)" }}>—</span>;
   if (typeof value === "object" && "href" in value) {
     return (
-      <a
+      <CompanyStoreDemoLink
         href={value.href}
         className="text-sm font-bold underline"
         style={{ color: DARK }}
       >
         {value.label}
-      </a>
+      </CompanyStoreDemoLink>
     );
   }
   return <span className="text-sm" style={{ color: "rgba(50,62,72,0.75)" }}>{value as string}</span>;
@@ -157,7 +159,7 @@ export function CompanyStoresSection() {
               <h2 className="text-xl font-extrabold leading-tight" style={{ color: DARK }}>
                 {store.name}
               </h2>
-              <a
+              <CompanyStoreDemoLink
                 href={store.sampleHref}
                 className="mt-4 inline-flex items-center justify-center rounded-full px-3 py-1.5 text-[10px] font-bold uppercase no-underline transition-colors hover:bg-gray-100 hover:text-[#323E48]"
                 style={{
@@ -167,7 +169,7 @@ export function CompanyStoresSection() {
                 }}
               >
                 Open demo
-              </a>
+              </CompanyStoreDemoLink>
             </header>
 
             <dl>
@@ -229,7 +231,7 @@ export function CompanyStoresSection() {
                 >
                   {store.name}
                 </div>
-                <a
+                <CompanyStoreDemoLink
                   href={store.sampleHref}
                   className="mt-4 inline-flex items-center justify-center rounded-full px-3 py-1.5 text-[10px] font-bold uppercase no-underline transition-colors hover:bg-gray-100 hover:text-[#323E48]"
                   style={{
@@ -239,7 +241,7 @@ export function CompanyStoresSection() {
                   }}
                 >
                   Open demo
-                </a>
+                </CompanyStoreDemoLink>
               </th>
             ))}
           </tr>
