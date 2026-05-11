@@ -1,4 +1,3 @@
-const BLUE = "#00A1E1";
 const DARK = "#323E48";
 
 type CellValue =
@@ -128,8 +127,6 @@ function renderCell(value: CellValue) {
     return (
       <a
         href={value.href}
-        target="_blank"
-        rel="noopener noreferrer"
         className="text-sm font-bold underline"
         style={{ color: DARK }}
       >
@@ -162,8 +159,6 @@ export function CompanyStoresSection() {
               </h2>
               <a
                 href={store.sampleHref}
-                target="_blank"
-                rel="noopener noreferrer"
                 className="mt-4 inline-flex items-center justify-center rounded-full px-3 py-1.5 text-[10px] font-bold uppercase no-underline transition-colors hover:bg-gray-100 hover:text-[#323E48]"
                 style={{
                   border: "1px solid #CBD5E1",
@@ -193,17 +188,15 @@ export function CompanyStoresSection() {
         ))}
       </div>
 
-      <div className="hidden w-full overflow-x-auto overflow-y-visible lg:block">
+      <div className="hidden w-full overflow-visible lg:block">
       <table className="w-full min-w-[1120px]" style={{ borderCollapse: "separate", borderSpacing: 0 }}>
-        <thead
-          className="sticky z-[20]"
-          style={{ top: TABLE_STICKY_TOP }}
-        >
+        <thead>
           <tr>
             {/* Corner cell — sticky */}
             <th
-              className="sticky left-0 z-[25]"
+              className="sticky left-0 z-[30]"
               style={{
+                top: TABLE_STICKY_TOP,
                 padding: "18px 18px 18px 0",
                 paddingLeft: "max(24px, calc((100vw - 1200px) / 2 + 24px))",
                 background: "#ffffff",
@@ -215,8 +208,9 @@ export function CompanyStoresSection() {
             {STORE_OPTIONS.map((store, i) => (
               <th
                 key={store.name}
-                className="text-left align-bottom"
+                className="sticky z-[20] text-left align-bottom"
                 style={{
+                  top: TABLE_STICKY_TOP,
                   padding: "18px 18px",
                   background: "#ffffff",
                   boxShadow: "0 8px 16px -4px rgba(0,0,0,0.06)",
@@ -237,8 +231,6 @@ export function CompanyStoresSection() {
                 </div>
                 <a
                   href={store.sampleHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
                   className="mt-4 inline-flex items-center justify-center rounded-full px-3 py-1.5 text-[10px] font-bold uppercase no-underline transition-colors hover:bg-gray-100 hover:text-[#323E48]"
                   style={{
                     border: "1px solid #CBD5E1",

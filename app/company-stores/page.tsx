@@ -41,10 +41,10 @@ export default function CompanyStoresPage() {
             style={{ width: "100%", maxWidth: "min(560px, calc(100vw - 48px))" }}
           >
             <Image
-              src="/company-stores/laptop.jpeg"
+              src="/company-stores/macbook-store-original-screenshot.png"
               alt="Laptop showing a Brand Makers company store"
-              width={884}
-              height={604}
+              width={1586}
+              height={992}
               priority
               quality={95}
               sizes="(max-width: 1023px) calc(100vw - 48px), 560px"
