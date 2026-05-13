@@ -33,9 +33,14 @@ const DEFAULT_HERO_ITEM: HomeHeroVideo = {
 const BRAND_HERO_BACKGROUND = "#00A1E1";
 const FALLBACK_VIDEO_BACKGROUND = "#00A0E0";
 const INITIAL_SEQUENCE_HOLD_MS = 500;
+const REVERSE_INTRO_FRAME_NUMBERS = [
+  51, 50, 49, 48, 47, 46, 45, 40, 35, 30, 25, 20, 15, 10, 5, 1,
+];
 const TITLE_HOLD_MS = 4200;
 const WEBP_SUPPORT_TEST_IMAGE =
   "data:image/webp;base64,UklGRiIAAABXRUJQVlA4IBYAAAAwAQCdASoBAAEADsD+JaQAA3AAAAAA";
+
+type FramePlaybackMode = "forward-loop" | "reverse-intro";
 
 function clamp(value: number, min = 0, max = 1) {
   return Math.min(Math.max(value, min), max);
@@ -54,6 +59,24 @@ function getFrameSources(item: HomeHeroVideo) {
   return Array.from({ length: item.frameCount || 1 }, (_, index) =>
     getFrameSrc(item, index)
   );
+}
+
+function getFrameTimeline(item: HomeHeroVideo, playbackMode: FramePlaybackMode) {
+  const frameCount = item.frameCount || 1;
+
+  if (playbackMode !== "reverse-intro") {
+    return Array.from({ length: frameCount }, (_, index) => index);
+  }
+
+  const reversedIntro = REVERSE_INTRO_FRAME_NUMBERS.filter(
+    (frameNumber) => frameNumber <= frameCount
+  ).map((frameNumber) => frameNumber - 1);
+  const forwardSequence = Array.from(
+    { length: frameCount },
+    (_, index) => index
+  );
+
+  return [...reversedIntro, ...forwardSequence];
 }
 
 function preloadFrame(src: string) {
@@ -101,21 +124,68 @@ function supportsWebP() {
   });
 }
 
-function getSequenceDuration(item: HomeHeroVideo, videoDuration = 0) {
+function getSequenceDuration(
+  item: HomeHeroVideo,
+  videoDuration = 0,
+  frameTimelineLength = item.frameCount || 1
+) {
   if (isFrameSequence(item)) {
-    return (item.frameCount || 1) / (item.frameRate || 8);
+    return frameTimelineLength / (item.frameRate || 8);
   }
 
   return Number.isFinite(videoDuration) ? videoDuration : 0;
 }
 
-function getFrameIndex(item: HomeHeroVideo, elapsedMs: number) {
-  const frameCount = item.frameCount || 1;
+function getTimelineIndex(
+  item: HomeHeroVideo,
+  elapsedMs: number,
+  frameTimelineLength: number
+) {
   const frameRate = item.frameRate || 8;
   const frameDurationMs = 1000 / frameRate;
   const safeElapsedMs = Math.max(elapsedMs, 0);
 
-  return Math.min(Math.floor(safeElapsedMs / frameDurationMs), frameCount - 1);
+  return Math.min(
+    Math.floor(safeElapsedMs / frameDurationMs),
+    frameTimelineLength - 1
+  );
+}
+
+function getReverseIntroDuration(item: HomeHeroVideo) {
+  const frameCount = item.frameCount || 1;
+  const introFrameCount = REVERSE_INTRO_FRAME_NUMBERS.filter(
+    (frameNumber) => frameNumber <= frameCount
+  ).length;
+
+  return introFrameCount / (item.frameRate || 8);
+}
+
+function getForwardSequenceDuration(item: HomeHeroVideo) {
+  return (item.frameCount || 1) / (item.frameRate || 8);
+}
+
+function getForwardTimelineSeconds(
+  item: HomeHeroVideo,
+  playbackMode: FramePlaybackMode,
+  elapsedMs: number,
+  holdElapsedMs: number,
+  holdStartedAt: number | null
+) {
+  const forwardDuration = getForwardSequenceDuration(item);
+
+  if (holdStartedAt !== null) {
+    return forwardDuration + holdElapsedMs / 1000;
+  }
+
+  if (playbackMode !== "reverse-intro") {
+    return Math.min(elapsedMs / 1000, forwardDuration);
+  }
+
+  const introDurationMs = getReverseIntroDuration(item) * 1000;
+  return Math.min(
+    Math.max(elapsedMs - introDurationMs, 0) / 1000,
+    forwardDuration
+  );
 }
 
 type Hero3Props = {
@@ -124,7 +194,16 @@ type Hero3Props = {
   videos?: HomeHeroVideo[];
 };
 
-export function Hero3({ lineOne, lineTwo, videos = [DEFAULT_HERO_ITEM] }: Hero3Props) {
+type Hero3BaseProps = Hero3Props & {
+  playbackMode: FramePlaybackMode;
+};
+
+function Hero3Base({
+  lineOne,
+  lineTwo,
+  videos = [DEFAULT_HERO_ITEM],
+  playbackMode,
+}: Hero3BaseProps) {
   const heroItem =
     videos.find((item) => item.id === DEFAULT_HERO_ITEM.id) ||
     videos[0] ||
@@ -135,7 +214,9 @@ export function Hero3({ lineOne, lineTwo, videos = [DEFAULT_HERO_ITEM] }: Hero3P
   const holdStartedAtRef = useRef<number | null>(null);
   const framesReadyRef = useRef(false);
   const frameStartedAtRef = useRef<number | null>(null);
+  const frameTimelineRef = useRef<number[]>(getFrameTimeline(DEFAULT_HERO_ITEM, playbackMode));
   const previousFrameRef = useRef(-1);
+  const [textOverlayKey, setTextOverlayKey] = useState(0);
   const [useVideoFallback, setUseVideoFallback] = useState(false);
   const activeHeroItem = useMemo<HomeHeroVideo>(() => {
     const fallbackSrc = heroItem.fallbackSrc || heroItem.mobileSrc;
@@ -154,7 +235,7 @@ export function Hero3({ lineOne, lineTwo, videos = [DEFAULT_HERO_ITEM] }: Hero3P
     };
   }, [heroItem, useVideoFallback]);
   const heroItemRef = useRef(activeHeroItem);
-  const [frameIndex, setFrameIndex] = useState(0);
+  const [frameIndex, setFrameIndex] = useState(frameTimelineRef.current[0] || 0);
   const [textProgress, setTextProgress] = useState(0);
 
   useEffect(() => {
@@ -174,11 +255,13 @@ export function Hero3({ lineOne, lineTwo, videos = [DEFAULT_HERO_ITEM] }: Hero3P
 
   useEffect(() => {
     heroItemRef.current = activeHeroItem;
+    frameTimelineRef.current = getFrameTimeline(activeHeroItem, playbackMode);
     pendingProgressRef.current = 0;
     holdStartedAtRef.current = null;
     previousFrameRef.current = -1;
     framesReadyRef.current = false;
     setTextProgress(0);
+    setTextOverlayKey((key) => key + 1);
 
     if (!isFrameSequence(activeHeroItem)) {
       framesReadyRef.current = true;
@@ -187,9 +270,9 @@ export function Hero3({ lineOne, lineTwo, videos = [DEFAULT_HERO_ITEM] }: Hero3P
       return;
     }
 
-    const sequenceDurationMs = getSequenceDuration(activeHeroItem) * 1000;
+    const firstFrame = frameTimelineRef.current[0] || 0;
     frameStartedAtRef.current = null;
-    setFrameIndex(getFrameIndex(activeHeroItem, pendingProgressRef.current * sequenceDurationMs));
+    setFrameIndex(firstFrame);
 
     let isCancelled = false;
 
@@ -197,15 +280,17 @@ export function Hero3({ lineOne, lineTwo, videos = [DEFAULT_HERO_ITEM] }: Hero3P
       if (isCancelled) return;
 
       framesReadyRef.current = true;
-      frameStartedAtRef.current = performance.now() + INITIAL_SEQUENCE_HOLD_MS;
+      frameStartedAtRef.current =
+        performance.now() +
+        (playbackMode === "reverse-intro" ? 0 : INITIAL_SEQUENCE_HOLD_MS);
       previousFrameRef.current = -1;
-      setFrameIndex(0);
+      setFrameIndex(firstFrame);
     });
 
     return () => {
       isCancelled = true;
     };
-  }, [activeHeroItem]);
+  }, [activeHeroItem, playbackMode]);
 
   useEffect(() => {
     const animate = () => {
@@ -213,6 +298,7 @@ export function Hero3({ lineOne, lineTwo, videos = [DEFAULT_HERO_ITEM] }: Hero3P
       const video = videoRef.current;
 
       if (isFrameSequence(activeItem)) {
+        const frameTimeline = frameTimelineRef.current;
         const now = performance.now();
         if (!framesReadyRef.current) {
           setTextProgress(0);
@@ -221,21 +307,30 @@ export function Hero3({ lineOne, lineTwo, videos = [DEFAULT_HERO_ITEM] }: Hero3P
         }
 
         if (frameStartedAtRef.current === null) {
-          frameStartedAtRef.current = now - pendingProgressRef.current * getSequenceDuration(activeItem) * 1000;
+          frameStartedAtRef.current =
+            now -
+            pendingProgressRef.current *
+              getSequenceDuration(activeItem, 0, frameTimeline.length) *
+              1000;
         }
 
-        const sequenceDuration = getSequenceDuration(activeItem);
+        const sequenceDuration = getSequenceDuration(
+          activeItem,
+          0,
+          frameTimeline.length
+        );
         const sequenceDurationMs = sequenceDuration * 1000;
         const rawElapsedMs = now - frameStartedAtRef.current;
         const elapsedMs = Math.max(rawElapsedMs, 0);
         const holdStartedAt = holdStartedAtRef.current;
         const holdElapsedMs =
           holdStartedAt === null ? 0 : now - holdStartedAt;
-        const timelineSeconds =
-          holdStartedAt === null
-            ? Math.min(elapsedMs, sequenceDurationMs) / 1000
-            : sequenceDuration + holdElapsedMs / 1000;
-        const nextFrame = getFrameIndex(activeItem, Math.min(elapsedMs, sequenceDurationMs - 1));
+        const timelineIndex = getTimelineIndex(
+          activeItem,
+          Math.min(elapsedMs, sequenceDurationMs - 1),
+          frameTimeline.length
+        );
+        const nextFrame = frameTimeline[timelineIndex] || 0;
 
         if (nextFrame !== previousFrameRef.current) {
           previousFrameRef.current = nextFrame;
@@ -246,9 +341,18 @@ export function Hero3({ lineOne, lineTwo, videos = [DEFAULT_HERO_ITEM] }: Hero3P
           holdStartedAtRef.current = now;
         }
 
-        const textEndAt = sequenceDuration + TITLE_HOLD_MS / 1000;
+        const forwardTimelineSeconds = getForwardTimelineSeconds(
+          activeItem,
+          playbackMode,
+          elapsedMs,
+          holdElapsedMs,
+          holdStartedAt
+        );
+        const textStartAt = activeItem.textStartAt;
+        const textEndAt =
+          getForwardSequenceDuration(activeItem) + TITLE_HOLD_MS / 1000;
         setTextProgress(
-          clamp((timelineSeconds - activeItem.textStartAt) / (textEndAt - activeItem.textStartAt))
+          clamp((forwardTimelineSeconds - textStartAt) / (textEndAt - textStartAt))
         );
 
         if (holdStartedAt !== null && holdElapsedMs >= TITLE_HOLD_MS) {
@@ -256,7 +360,9 @@ export function Hero3({ lineOne, lineTwo, videos = [DEFAULT_HERO_ITEM] }: Hero3P
           pendingProgressRef.current = 0;
           frameStartedAtRef.current = now;
           previousFrameRef.current = -1;
-          setFrameIndex(0);
+          setTextProgress(0);
+          setTextOverlayKey((key) => key + 1);
+          setFrameIndex(frameTimeline[0] || 0);
         }
       } else if (video && Number.isFinite(video.duration) && video.duration > 0) {
         const holdStartedAt = holdStartedAtRef.current;
@@ -286,7 +392,7 @@ export function Hero3({ lineOne, lineTwo, videos = [DEFAULT_HERO_ITEM] }: Hero3P
 
     rafRef.current = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(rafRef.current);
-  }, []);
+  }, [playbackMode]);
 
   function handleLoadedMetadata() {
     const video = videoRef.current;
@@ -354,7 +460,20 @@ export function Hero3({ lineOne, lineTwo, videos = [DEFAULT_HERO_ITEM] }: Hero3P
         />
       )}
 
-      <HeroTextOverlay progress={textProgress} lineOne={lineOne} lineTwo={lineTwo} />
+      <HeroTextOverlay
+        key={textOverlayKey}
+        progress={textProgress}
+        lineOne={lineOne}
+        lineTwo={lineTwo}
+      />
     </section>
   );
+}
+
+export function Hero3(props: Hero3Props) {
+  return <Hero3Base {...props} playbackMode="forward-loop" />;
+}
+
+export function Hero3ReverseIntro(props: Hero3Props) {
+  return <Hero3Base {...props} playbackMode="reverse-intro" />;
 }
