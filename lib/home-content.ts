@@ -89,14 +89,14 @@ export const HOME_FALLBACK: HomePageContent = {
   heroVideos: [
     {
       id: 7,
-      src: "/hero-stopmotion-transparent/frame-001.webp",
+      src: "/hero-stopmotion-transparent-pro/frame-001.webp",
       kind: "frames",
-      frameCount: 74,
+      frameCount: 85,
       frameRate: 8,
       fallbackSrc: "/hero-stopmotion-flat.mp4",
       poster: "/hero-stopmotion-flat-poster.webp",
       fallbackPoster: "/hero-stopmotion-flat-poster.webp",
-      textStartAt: 8.75,
+      textStartAt: 10.125,
       vignette: true,
     },
   ],

@@ -1,7 +1,7 @@
 import { BmButton } from "@/components/bm-button";
 import { CtaSection } from "@/components/cta-section";
 import { ScrollNavbar } from "@/components/scroll-navbar";
-import { Hero3ReverseIntro } from "@/components/hero3";
+import { Hero3 } from "@/components/hero3";
 import { Footer2 } from "@/components/footer2";
 import { ServicesGridCustom } from "@/components/services-grid-custom";
 import type { HomeLinkCard, HomePageContent } from "@/lib/home-content";
@@ -38,7 +38,7 @@ export function HomePageView({ content }: { content: HomePageContent }) {
   return (
     <main className="flex w-full flex-col">
       <ScrollNavbar />
-      <Hero3ReverseIntro
+      <Hero3
         lineOne={content.heroLineOne}
         lineTwo={content.heroLineTwo}
         videos={content.heroVideos}
