@@ -35,6 +35,8 @@ const FALLBACK_VIDEO_BACKGROUND = "#00A0E0";
 const INITIAL_SEQUENCE_HOLD_MS = 0;
 const TITLE_HOLD_MS = 4200;
 const LOADER_CYCLE_MS = 3000;
+const SCROLL_NUDGE_TRIGGER_PROGRESS = 0.68;
+const SCROLL_NUDGE_DISTANCE = 64;
 const WEBP_SUPPORT_TEST_IMAGE =
   "data:image/webp;base64,UklGRiIAAABXRUJQVlA4IBYAAAAwAQCdASoBAAEADsD+JaQAA3AAAAAA";
 
@@ -117,6 +119,80 @@ function getFrameIndex(item: HomeHeroVideo, elapsedMs: number) {
   const safeElapsedMs = Math.max(elapsedMs, 0);
 
   return Math.min(Math.floor(safeElapsedMs / frameDurationMs), frameCount - 1);
+}
+
+function easeInOutCubic(value: number) {
+  const t = clamp(value);
+  return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+}
+
+function startHeroScrollNudge() {
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const startY = window.scrollY;
+  const maxScrollY =
+    document.documentElement.scrollHeight - window.innerHeight;
+
+  if (reduceMotion.matches || startY > 8 || maxScrollY < 48) {
+    return () => undefined;
+  }
+
+  let isCancelled = false;
+  let animationFrame = 0;
+  let segmentIndex = 0;
+  let segmentStartedAt = 0;
+  let segmentFromY = startY;
+
+  const distance = Math.min(SCROLL_NUDGE_DISTANCE, maxScrollY - startY);
+  const segments = [
+    { offset: distance, duration: 520 },
+    { offset: 0, duration: 620 },
+  ];
+
+  const cancel = () => {
+    isCancelled = true;
+    window.cancelAnimationFrame(animationFrame);
+    window.removeEventListener("wheel", cancel);
+    window.removeEventListener("touchstart", cancel);
+    window.removeEventListener("keydown", cancel);
+  };
+
+  const animate = (now: number) => {
+    if (isCancelled) return;
+
+    const segment = segments[segmentIndex];
+
+    if (!segmentStartedAt) {
+      segmentStartedAt = now;
+      segmentFromY = window.scrollY;
+    }
+
+    const progress = clamp((now - segmentStartedAt) / segment.duration);
+    const targetY = startY + segment.offset;
+    const nextY =
+      segmentFromY + (targetY - segmentFromY) * easeInOutCubic(progress);
+
+    window.scrollTo(0, nextY);
+
+    if (progress >= 1) {
+      segmentIndex += 1;
+      segmentStartedAt = 0;
+
+      if (segmentIndex >= segments.length) {
+        cancel();
+        window.scrollTo(0, startY);
+        return;
+      }
+    }
+
+    animationFrame = window.requestAnimationFrame(animate);
+  };
+
+  window.addEventListener("wheel", cancel, { passive: true });
+  window.addEventListener("touchstart", cancel, { passive: true });
+  window.addEventListener("keydown", cancel);
+  animationFrame = window.requestAnimationFrame(animate);
+
+  return cancel;
 }
 
 function HeroFrameLoader({ isVisible }: { isVisible: boolean }) {
@@ -320,6 +396,8 @@ export function Hero3({ lineOne, lineTwo, videos = [DEFAULT_HERO_ITEM] }: Hero3P
   const framesReadyRef = useRef(false);
   const frameStartedAtRef = useRef<number | null>(null);
   const previousFrameRef = useRef(-1);
+  const scrollNudgeTriggeredRef = useRef(false);
+  const scrollNudgeCancelRef = useRef<(() => void) | null>(null);
   const [useVideoFallback, setUseVideoFallback] = useState(false);
   const activeHeroItem = useMemo<HomeHeroVideo>(() => {
     const fallbackSrc = heroItem.fallbackSrc || heroItem.mobileSrc;
@@ -492,6 +570,25 @@ export function Hero3({ lineOne, lineTwo, videos = [DEFAULT_HERO_ITEM] }: Hero3P
 
     rafRef.current = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(rafRef.current);
+  }, []);
+
+  useEffect(() => {
+    if (
+      !framesReady ||
+      scrollNudgeTriggeredRef.current ||
+      textProgress < SCROLL_NUDGE_TRIGGER_PROGRESS
+    ) {
+      return;
+    }
+
+    scrollNudgeTriggeredRef.current = true;
+    scrollNudgeCancelRef.current = startHeroScrollNudge();
+  }, [framesReady, textProgress]);
+
+  useEffect(() => {
+    return () => {
+      scrollNudgeCancelRef.current?.();
+    };
   }, []);
 
   function handleLoadedMetadata() {
