@@ -32,7 +32,7 @@ const DEFAULT_HERO_ITEM: HomeHeroVideo = {
 };
 const BRAND_HERO_BACKGROUND = "#00A1E1";
 const FALLBACK_VIDEO_BACKGROUND = "#00A0E0";
-const INITIAL_SEQUENCE_HOLD_MS = 500;
+const INITIAL_SEQUENCE_HOLD_MS = 0;
 const TITLE_HOLD_MS = 4200;
 const LOADER_CYCLE_MS = 3000;
 const WEBP_SUPPORT_TEST_IMAGE =
@@ -119,7 +119,15 @@ function getFrameIndex(item: HomeHeroVideo, elapsedMs: number) {
   return Math.min(Math.floor(safeElapsedMs / frameDurationMs), frameCount - 1);
 }
 
-function HeroFrameLoader({ isVisible }: { isVisible: boolean }) {
+function HeroFrameLoader({
+  isVisible,
+  progress,
+}: {
+  isVisible: boolean;
+  progress: number;
+}) {
+  const percent = Math.round(clamp(progress) * 100);
+
   return (
     <div
       className={`pointer-events-none absolute inset-0 z-[3] flex items-center justify-center transition-opacity duration-300 ${
@@ -191,6 +199,7 @@ function HeroFrameLoader({ isVisible }: { isVisible: boolean }) {
           </g>
         </svg>
       </div>
+      <div className="preloader-percent">{percent}%</div>
       <style jsx>{`
         .brandmakers-preloader {
           aspect-ratio: 1;
@@ -208,6 +217,18 @@ function HeroFrameLoader({ isVisible }: { isVisible: boolean }) {
 
         .logo-shape {
           fill: #ffffff;
+        }
+
+        .preloader-percent {
+          bottom: 24px;
+          color: #ffffff;
+          font-size: clamp(52px, 9vw, 140px);
+          font-variant-numeric: tabular-nums;
+          font-weight: 400;
+          letter-spacing: 0;
+          line-height: 0.82;
+          position: absolute;
+          right: max(24px, calc((100vw - 1440px) / 2 + 24px));
         }
 
         .reveal-stroke {
@@ -340,6 +361,7 @@ export function Hero3({ lineOne, lineTwo, videos = [DEFAULT_HERO_ITEM] }: Hero3P
   const heroItemRef = useRef(activeHeroItem);
   const [frameIndex, setFrameIndex] = useState(0);
   const [framesReady, setFramesReady] = useState(false);
+  const [loadProgress, setLoadProgress] = useState(0);
   const [textProgress, setTextProgress] = useState(0);
 
   useEffect(() => {
@@ -364,11 +386,13 @@ export function Hero3({ lineOne, lineTwo, videos = [DEFAULT_HERO_ITEM] }: Hero3P
     previousFrameRef.current = -1;
     framesReadyRef.current = false;
     setFramesReady(false);
+    setLoadProgress(0);
     setTextProgress(0);
 
     if (!isFrameSequence(activeHeroItem)) {
       framesReadyRef.current = true;
       setFramesReady(true);
+      setLoadProgress(1);
       frameStartedAtRef.current = null;
       setFrameIndex(0);
       return;
@@ -382,6 +406,9 @@ export function Hero3({ lineOne, lineTwo, videos = [DEFAULT_HERO_ITEM] }: Hero3P
     let framesLoaded = false;
     let loaderCycleFinished = false;
     let loaderCycleTimer: number | null = null;
+    let loadedFrames = 0;
+    const frameSources = getFrameSources(activeHeroItem);
+    const frameTotal = frameSources.length || 1;
 
     const startSequence = () => {
       if (isCancelled || !framesLoaded || !loaderCycleFinished) return;
@@ -393,10 +420,19 @@ export function Hero3({ lineOne, lineTwo, videos = [DEFAULT_HERO_ITEM] }: Hero3P
       setFrameIndex(0);
     };
 
-    Promise.all(getFrameSources(activeHeroItem).map(preloadFrame)).then(() => {
+    Promise.all(
+      frameSources.map((src) =>
+        preloadFrame(src).then(() => {
+          if (isCancelled) return;
+          loadedFrames += 1;
+          setLoadProgress(loadedFrames / frameTotal);
+        })
+      )
+    ).then(() => {
       if (isCancelled) return;
 
       framesLoaded = true;
+      setLoadProgress(1);
       startSequence();
     });
 
@@ -519,7 +555,7 @@ export function Hero3({ lineOne, lineTwo, videos = [DEFAULT_HERO_ITEM] }: Hero3P
           : FALLBACK_VIDEO_BACKGROUND,
       }}
     >
-      {isFrameSequence(activeHeroItem) ? (
+      {isFrameSequence(activeHeroItem) && framesReady ? (
         <img
           key={activeHeroItem.src}
           src={getFrameSrc(activeHeroItem, frameIndex)}
@@ -530,7 +566,7 @@ export function Hero3({ lineOne, lineTwo, videos = [DEFAULT_HERO_ITEM] }: Hero3P
           draggable={false}
           className="absolute inset-0 h-full w-full scale-[1.14] object-contain object-center md:scale-100"
         />
-      ) : (
+      ) : !isFrameSequence(activeHeroItem) ? (
         <video
           ref={videoRef}
           key={activeHeroItem.src}
@@ -547,7 +583,7 @@ export function Hero3({ lineOne, lineTwo, videos = [DEFAULT_HERO_ITEM] }: Hero3P
         >
           Your browser does not support the video tag.
         </video>
-      )}
+      ) : null}
 
       {/* CSS vignette sits above the hero background and below the loader/text. */}
       {activeHeroItem.vignette && (
@@ -560,7 +596,10 @@ export function Hero3({ lineOne, lineTwo, videos = [DEFAULT_HERO_ITEM] }: Hero3P
         />
       )}
 
-      <HeroFrameLoader isVisible={isFrameSequence(activeHeroItem) && !framesReady} />
+      <HeroFrameLoader
+        isVisible={isFrameSequence(activeHeroItem) && !framesReady}
+        progress={loadProgress}
+      />
 
       {framesReady && (
         <HeroTextOverlay progress={textProgress} lineOne={lineOne} lineTwo={lineTwo} />
