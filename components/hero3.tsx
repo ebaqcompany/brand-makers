@@ -34,6 +34,7 @@ const BRAND_HERO_BACKGROUND = "#00A1E1";
 const FALLBACK_VIDEO_BACKGROUND = "#00A0E0";
 const INITIAL_SEQUENCE_HOLD_MS = 500;
 const TITLE_HOLD_MS = 4200;
+const LOADER_CYCLE_MS = 3000;
 const WEBP_SUPPORT_TEST_IMAGE =
   "data:image/webp;base64,UklGRiIAAABXRUJQVlA4IBYAAAAwAQCdASoBAAEADsD+JaQAA3AAAAAA";
 
@@ -118,6 +119,189 @@ function getFrameIndex(item: HomeHeroVideo, elapsedMs: number) {
   return Math.min(Math.floor(safeElapsedMs / frameDurationMs), frameCount - 1);
 }
 
+function HeroFrameLoader({ isVisible }: { isVisible: boolean }) {
+  return (
+    <div
+      className={`pointer-events-none absolute inset-0 z-[3] flex items-center justify-center transition-opacity duration-300 ${
+        isVisible ? "opacity-100" : "opacity-0"
+      }`}
+      aria-hidden="true"
+    >
+      <div className="brandmakers-preloader">
+        <svg
+          viewBox="0 0 159.3 158.6"
+          role="img"
+          aria-hidden="true"
+        >
+          <defs>
+            <mask id="hero-top-reveal-mask" maskUnits="userSpaceOnUse">
+              <rect width="159.3" height="158.6" fill="#000000" />
+              <path
+                className="reveal-stroke top-reveal"
+                pathLength="1"
+                d="M6.9,22.3c69.9,0,55.5,0,89.8,0c47.2,0,49.4,57,0,57H48.9"
+              />
+            </mask>
+
+            <mask id="hero-middle-reveal-mask" maskUnits="userSpaceOnUse">
+              <rect width="159.3" height="158.6" fill="#000000" />
+              <path
+                className="reveal-stroke middle-reveal"
+                pathLength="1"
+                d="M96.7,79.3c49.4,0,47.2,57,0,57c-34.3,0-47.8,0-47.8,0"
+              />
+            </mask>
+
+            <mask id="hero-stem-reveal-mask" maskUnits="userSpaceOnUse">
+              <rect width="159.3" height="158.6" fill="#000000" />
+              <line
+                className="reveal-stroke stem-reveal"
+                pathLength="1"
+                x1="24.1"
+                y1="152.3"
+                x2="24.1"
+                y2="46.7"
+              />
+            </mask>
+          </defs>
+
+          <g mask="url(#hero-top-reveal-mask)">
+            <path
+              className="logo-shape"
+              d="M6.9 38.3C6.9 20.63 21.23 6.3 38.9 6.3H96.7C128.95 6.3 146.1 25.1 146.1 50.8C146.1 76.5 128.85 95.3 96.7 95.3H80.7V63.3H96.7C117.35 63.3 117.35 38.3 96.7 38.3H6.9Z"
+            />
+            <path
+              className="logo-shape"
+              d="M48.9 63.3H100.8V95.3H48.9Z"
+            />
+          </g>
+
+          <g mask="url(#hero-middle-reveal-mask)">
+            <path
+              className="logo-shape"
+              d="M48.9 152.3V120.3H96.7C117.35 120.3 117.35 95.3 96.7 95.3H48.9V63.3H100.8C132.9 63.3 146.1 84.8 146.1 108.8C146.1 133.7 128.95 152.3 96.7 152.3H48.9Z"
+            />
+          </g>
+
+          <g mask="url(#hero-stem-reveal-mask)">
+            <path
+              className="logo-shape"
+              d="M7.1 46.7H41.1V152.3H41.1C22.32 152.3 7.1 137.08 7.1 118.3V46.7Z"
+            />
+          </g>
+        </svg>
+      </div>
+      <style jsx>{`
+        .brandmakers-preloader {
+          aspect-ratio: 1;
+          width: min(24vw, 150px);
+          min-width: 88px;
+          animation: preloader-cycle-fade 3s linear infinite;
+        }
+
+        .brandmakers-preloader svg {
+          display: block;
+          height: 100%;
+          overflow: visible;
+          width: 100%;
+        }
+
+        .logo-shape {
+          fill: #ffffff;
+        }
+
+        .reveal-stroke {
+          fill: none;
+          opacity: 0;
+          stroke: #ffffff;
+          stroke-dasharray: 1;
+          stroke-dashoffset: 1;
+          stroke-linecap: butt;
+          stroke-linejoin: round;
+          stroke-width: 78;
+        }
+
+        .top-reveal {
+          animation: draw-top 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        }
+
+        .middle-reveal {
+          animation: draw-middle 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        }
+
+        .stem-reveal {
+          animation: draw-stem 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        }
+
+        @keyframes draw-top {
+          0% {
+            opacity: 1;
+            stroke-dashoffset: 1;
+          }
+
+          34%,
+          92%,
+          100% {
+            opacity: 1;
+            stroke-dashoffset: 0;
+          }
+        }
+
+        @keyframes draw-middle {
+          0%,
+          33.9% {
+            opacity: 0;
+            stroke-dashoffset: 1;
+          }
+
+          34% {
+            opacity: 1;
+            stroke-dashoffset: 1;
+          }
+
+          68%,
+          92%,
+          100% {
+            opacity: 1;
+            stroke-dashoffset: 0;
+          }
+        }
+
+        @keyframes draw-stem {
+          0%,
+          67.9% {
+            opacity: 0;
+            stroke-dashoffset: 1;
+          }
+
+          68% {
+            opacity: 1;
+            stroke-dashoffset: 1;
+          }
+
+          90%,
+          92%,
+          100% {
+            opacity: 1;
+            stroke-dashoffset: 0;
+          }
+        }
+
+        @keyframes preloader-cycle-fade {
+          0%,
+          92% {
+            opacity: 1;
+          }
+
+          100% {
+            opacity: 0;
+          }
+        }
+      `}</style>
+    </div>
+  );
+}
+
 type Hero3Props = {
   lineOne?: string;
   lineTwo?: string;
@@ -155,6 +339,7 @@ export function Hero3({ lineOne, lineTwo, videos = [DEFAULT_HERO_ITEM] }: Hero3P
   }, [heroItem, useVideoFallback]);
   const heroItemRef = useRef(activeHeroItem);
   const [frameIndex, setFrameIndex] = useState(0);
+  const [framesReady, setFramesReady] = useState(false);
   const [textProgress, setTextProgress] = useState(0);
 
   useEffect(() => {
@@ -178,10 +363,12 @@ export function Hero3({ lineOne, lineTwo, videos = [DEFAULT_HERO_ITEM] }: Hero3P
     holdStartedAtRef.current = null;
     previousFrameRef.current = -1;
     framesReadyRef.current = false;
+    setFramesReady(false);
     setTextProgress(0);
 
     if (!isFrameSequence(activeHeroItem)) {
       framesReadyRef.current = true;
+      setFramesReady(true);
       frameStartedAtRef.current = null;
       setFrameIndex(0);
       return;
@@ -192,18 +379,37 @@ export function Hero3({ lineOne, lineTwo, videos = [DEFAULT_HERO_ITEM] }: Hero3P
     setFrameIndex(getFrameIndex(activeHeroItem, pendingProgressRef.current * sequenceDurationMs));
 
     let isCancelled = false;
+    let framesLoaded = false;
+    let loaderCycleFinished = false;
+    let loaderCycleTimer: number | null = null;
+
+    const startSequence = () => {
+      if (isCancelled || !framesLoaded || !loaderCycleFinished) return;
+
+      framesReadyRef.current = true;
+      setFramesReady(true);
+      frameStartedAtRef.current = performance.now() + INITIAL_SEQUENCE_HOLD_MS;
+      previousFrameRef.current = -1;
+      setFrameIndex(0);
+    };
 
     Promise.all(getFrameSources(activeHeroItem).map(preloadFrame)).then(() => {
       if (isCancelled) return;
 
-      framesReadyRef.current = true;
-      frameStartedAtRef.current = performance.now() + INITIAL_SEQUENCE_HOLD_MS;
-      previousFrameRef.current = -1;
-      setFrameIndex(0);
+      framesLoaded = true;
+      startSequence();
     });
+
+    loaderCycleTimer = window.setTimeout(() => {
+      loaderCycleFinished = true;
+      startSequence();
+    }, LOADER_CYCLE_MS);
 
     return () => {
       isCancelled = true;
+      if (loaderCycleTimer !== null) {
+        window.clearTimeout(loaderCycleTimer);
+      }
     };
   }, [activeHeroItem]);
 
@@ -343,7 +549,7 @@ export function Hero3({ lineOne, lineTwo, videos = [DEFAULT_HERO_ITEM] }: Hero3P
         </video>
       )}
 
-      {/* CSS vignette sits above the flat-background MP4 and below the animated hero text. */}
+      {/* CSS vignette sits above the hero background and below the loader/text. */}
       {activeHeroItem.vignette && (
         <div
           className="pointer-events-none absolute inset-0 z-[1]"
@@ -354,7 +560,11 @@ export function Hero3({ lineOne, lineTwo, videos = [DEFAULT_HERO_ITEM] }: Hero3P
         />
       )}
 
-      <HeroTextOverlay progress={textProgress} lineOne={lineOne} lineTwo={lineTwo} />
+      <HeroFrameLoader isVisible={isFrameSequence(activeHeroItem) && !framesReady} />
+
+      {framesReady && (
+        <HeroTextOverlay progress={textProgress} lineOne={lineOne} lineTwo={lineTwo} />
+      )}
     </section>
   );
 }
