@@ -22,7 +22,7 @@ const DEFAULT_HERO_ITEM: HomeHeroVideo = {
   id: 7,
   src: "/hero-stopmotion-transparent-pro/frame-001.webp",
   kind: "frames",
-  frameCount: 85,
+  frameCount: 88,
   frameRate: 8,
   fallbackSrc: "/hero-stopmotion-flat.mp4",
   poster: "/hero-stopmotion-flat-poster.webp",
