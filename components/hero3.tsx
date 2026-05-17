@@ -35,6 +35,7 @@ const FALLBACK_VIDEO_BACKGROUND = "#00A0E0";
 const INITIAL_SEQUENCE_HOLD_MS = 0;
 const TITLE_HOLD_MS = 4200;
 const LOADER_CYCLE_MS = 3000;
+const INITIAL_FRAME_PRELOAD_COUNT = 12;
 const SCROLL_NUDGE_TRIGGER_PROGRESS = 0.68;
 const SCROLL_NUDGE_DISTANCE = 64;
 const WEBP_SUPPORT_TEST_IMAGE =
@@ -457,12 +458,12 @@ export function Hero3({ lineOne, lineTwo, videos = [DEFAULT_HERO_ITEM] }: Hero3P
     setFrameIndex(getFrameIndex(activeHeroItem, pendingProgressRef.current * sequenceDurationMs));
 
     let isCancelled = false;
-    let framesLoaded = false;
+    let initialFramesLoaded = false;
     let loaderCycleFinished = false;
     let loaderCycleTimer: number | null = null;
 
     const startSequence = () => {
-      if (isCancelled || !framesLoaded || !loaderCycleFinished) return;
+      if (isCancelled || !initialFramesLoaded || !loaderCycleFinished) return;
 
       framesReadyRef.current = true;
       setFramesReady(true);
@@ -471,11 +472,21 @@ export function Hero3({ lineOne, lineTwo, videos = [DEFAULT_HERO_ITEM] }: Hero3P
       setFrameIndex(0);
     };
 
-    Promise.all(getFrameSources(activeHeroItem).map(preloadFrame)).then(() => {
+    const frameSources = getFrameSources(activeHeroItem);
+    const initialFrameSources = frameSources.slice(
+      0,
+      Math.min(INITIAL_FRAME_PRELOAD_COUNT, frameSources.length)
+    );
+
+    Promise.all(initialFrameSources.map(preloadFrame)).then(() => {
       if (isCancelled) return;
 
-      framesLoaded = true;
+      initialFramesLoaded = true;
       startSequence();
+
+      frameSources
+        .slice(initialFrameSources.length)
+        .forEach((src) => preloadFrame(src));
     });
 
     loaderCycleTimer = window.setTimeout(() => {
