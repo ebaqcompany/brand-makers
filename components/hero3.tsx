@@ -34,7 +34,7 @@ const BRAND_HERO_BACKGROUND = "#00A1E1";
 const FALLBACK_VIDEO_BACKGROUND = "#00A0E0";
 const INITIAL_SEQUENCE_HOLD_MS = 0;
 const TITLE_HOLD_MS = 4200;
-const LOADER_CYCLE_MS = 3000;
+const LOADER_CYCLE_MS = 2000;
 const INITIAL_FRAME_PRELOAD_COUNT = 12;
 const SCROLL_NUDGE_TRIGGER_PROGRESS = 0.68;
 const SCROLL_NUDGE_DISTANCE = 64;
@@ -273,7 +273,7 @@ function HeroFrameLoader({ isVisible }: { isVisible: boolean }) {
           aspect-ratio: 1;
           width: min(24vw, 150px);
           min-width: 88px;
-          animation: preloader-cycle-fade 3s linear infinite;
+          animation: preloader-cycle-fade 2s linear infinite;
         }
 
         .brandmakers-preloader svg {
@@ -299,15 +299,15 @@ function HeroFrameLoader({ isVisible }: { isVisible: boolean }) {
         }
 
         .top-reveal {
-          animation: draw-top 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+          animation: draw-top 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
         }
 
         .middle-reveal {
-          animation: draw-middle 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+          animation: draw-middle 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
         }
 
         .stem-reveal {
-          animation: draw-stem 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+          animation: draw-stem 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
         }
 
         @keyframes draw-top {
