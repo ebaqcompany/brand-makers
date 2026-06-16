@@ -1,7 +1,6 @@
 "use client";
 
-import type { Metadata } from "next";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useState } from "react";
 import { BiEnvelope, BiMap, BiPhone, BiShareAlt } from "react-icons/bi";
 import { BiLogoFacebookCircle, BiLogoInstagram, BiLogoLinkedinSquare } from "react-icons/bi";
 import { SiteShell } from "@/components/site-shell";
@@ -34,6 +33,10 @@ const HELP_OPTIONS = [
   "Creative Services",
   "Something Else",
 ];
+
+function getFormValue(formData: FormData, name: string) {
+  return (formData.get(name) as string | null)?.trim() || "";
+}
 
 const contacts = [
   {
@@ -76,7 +79,6 @@ export default function LetsConnectPage() {
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
   const [error, setError] = useState("");
-  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const addFiles = useCallback((incoming: FileList | null) => {
     if (!incoming) return;
@@ -91,30 +93,46 @@ export default function LetsConnectPage() {
     event.preventDefault();
     setError("");
 
+    const formData = new FormData(event.currentTarget);
+    const submittedFirstName = getFormValue(formData, "firstName");
+    const submittedLastName = getFormValue(formData, "lastName");
+    const submittedPhone = getFormValue(formData, "phone");
+    const submittedEmail = getFormValue(formData, "email");
+    const submittedCompany = getFormValue(formData, "company");
+    const submittedHeardAbout = getFormValue(formData, "heardAbout");
+    const submittedMessage = getFormValue(formData, "message");
+
     // Client-side validation
     const missing: string[] = [];
-    if (!firstName.trim()) missing.push("First Name");
-    if (!lastName.trim()) missing.push("Last Name");
-    if (!email.trim()) missing.push("Email");
-    if (!message.trim()) missing.push("Tell us about your project");
+    if (!submittedFirstName) missing.push("First Name");
+    if (!submittedLastName) missing.push("Last Name");
+    if (!submittedEmail) missing.push("Email");
+    if (!submittedMessage) missing.push("Tell us about your project");
 
     if (missing.length > 0) {
       setError(`Please fill in: ${missing.join(", ")}`);
       return;
     }
 
+    setFirstName(submittedFirstName);
+    setLastName(submittedLastName);
+    setPhone(submittedPhone);
+    setEmail(submittedEmail);
+    setCompany(submittedCompany);
+    setHeardAbout(submittedHeardAbout);
+    setMessage(submittedMessage);
     setSending(true);
 
     try {
       const body = new FormData();
-      body.append("firstName", firstName.trim());
-      body.append("lastName", lastName.trim());
-      body.append("phone", phone.trim());
-      body.append("email", email.trim());
-      body.append("company", company.trim());
+      body.append("firstName", submittedFirstName);
+      body.append("lastName", submittedLastName);
+      body.append("phone", submittedPhone);
+      body.append("email", submittedEmail);
+      body.append("company", submittedCompany);
       body.append("helpWith", helpWith);
-      body.append("heardAbout", heardAbout.trim());
-      body.append("message", message.trim());
+      body.append("heardAbout", submittedHeardAbout);
+      body.append("message", submittedMessage);
       files.forEach((f) => body.append("files", f));
 
       const res = await fetch("/api/contact", { method: "POST", body });
@@ -154,7 +172,7 @@ export default function LetsConnectPage() {
           {/* Two-column layout */}
           <div className="grid grid-cols-1 gap-x-12 gap-y-10 md:grid-cols-[1fr_1fr]">
             {/* Left: form */}
-            <form className="grid grid-cols-1 gap-4" onSubmit={handleSubmit}>
+            <form className="grid grid-cols-1 gap-4" onSubmit={handleSubmit} autoComplete="on">
               {/* First Name + Last Name row */}
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                 <div className="grid w-full items-center">
@@ -164,7 +182,7 @@ export default function LetsConnectPage() {
                   <Input
                     type="text"
                     id="first-name"
-                    name="given-name"
+                    name="firstName"
                     autoComplete="given-name"
                     required
                     placeholder="First Name"
@@ -180,7 +198,7 @@ export default function LetsConnectPage() {
                   <Input
                     type="text"
                     id="last-name"
-                    name="family-name"
+                    name="lastName"
                     autoComplete="family-name"
                     required
                     placeholder="Last Name"
@@ -200,7 +218,7 @@ export default function LetsConnectPage() {
                   <Input
                     type="tel"
                     id="phone"
-                    name="tel"
+                    name="phone"
                     autoComplete="tel"
                     placeholder="Phone"
                     value={phone}
@@ -234,7 +252,7 @@ export default function LetsConnectPage() {
                 <Input
                   type="text"
                   id="company"
-                  name="organization"
+                  name="company"
                   autoComplete="organization"
                   placeholder="Company"
                   value={company}
@@ -270,6 +288,7 @@ export default function LetsConnectPage() {
                 <Input
                   type="text"
                   id="heard-about"
+                  name="heardAbout"
                   placeholder="e.g. Google, referral, social media..."
                   value={heardAbout}
                   onChange={(e) => setHeardAbout(e.target.value)}
@@ -284,6 +303,7 @@ export default function LetsConnectPage() {
                 </Label>
                 <Textarea
                   id="message"
+                  name="message"
                   required
                   placeholder="Type your message..."
                   className={`${INPUT_CLASS} min-h-[90px] py-3`}
@@ -294,26 +314,22 @@ export default function LetsConnectPage() {
 
               {/* Upload File — drag & drop zone */}
               <div className="grid w-full items-center">
-                <Label htmlFor="file-upload" className="mb-2 text-sm font-medium" style={{ color: DARK }}>
+                <p className="mb-2 text-sm font-medium" style={{ color: DARK }}>
                   Upload File
-                </Label>
+                </p>
                 <input
                   id="file-upload"
-                  ref={fileInputRef}
                   type="file"
                   multiple
                   accept="*/*"
-                  className="sr-only"
-                  tabIndex={-1}
-                  aria-hidden="true"
+                  className="peer sr-only"
                   onChange={(e) => {
                     addFiles(e.target.files);
                     e.target.value = "";
                   }}
                 />
-                <button
-                  type="button"
-                  onClick={() => fileInputRef.current?.click()}
+                <label
+                  htmlFor="file-upload"
                   onDragOver={(e) => {
                     e.preventDefault();
                     setDragging(true);
@@ -324,7 +340,7 @@ export default function LetsConnectPage() {
                     setDragging(false);
                     addFiles(e.dataTransfer.files);
                   }}
-                  className={`flex min-h-[70px] flex-col items-center justify-center gap-1.5 rounded-lg border-2 border-dashed bg-white px-4 py-4 text-center transition-colors ${
+                  className={`flex min-h-[70px] cursor-pointer flex-col items-center justify-center gap-1.5 rounded-lg border-2 border-dashed bg-white px-4 py-4 text-center transition-colors peer-focus-visible:border-[#00A1E1] peer-focus-visible:ring-3 peer-focus-visible:ring-[#00A1E1]/25 ${
                     dragging
                       ? "border-[#00A1E1] bg-[#00A1E1]/5"
                       : "border-gray-300 hover:border-[#00A1E1]"
@@ -352,7 +368,7 @@ export default function LetsConnectPage() {
                   <span className="text-xs" style={{ color: "rgba(50,62,72,0.5)" }}>
                     PDF, AI, EPS, SVG, PNG, JPEG, ZIP, and more
                   </span>
-                </button>
+                </label>
 
                 {/* File list */}
                 {files.length > 0 && (
