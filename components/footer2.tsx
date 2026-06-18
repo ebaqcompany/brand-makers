@@ -2,6 +2,7 @@ import Link from "next/link";
 import { footerUtilityLinks, mainNavLinks } from "@/lib/navigation-links";
 
 const DARK = "#323E48";
+const footerMainNavLinks = mainNavLinks.filter((link) => link.url !== "/lets-connect");
 
 const Footer2 = () => {
   return (
@@ -17,7 +18,7 @@ const Footer2 = () => {
             />
           </Link>
           <ul className="w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-y-4 text-center">
-            {mainNavLinks.map((link) => (
+            {footerMainNavLinks.map((link) => (
               <li key={link.title}>
                 {link.external ? (
                   <a
