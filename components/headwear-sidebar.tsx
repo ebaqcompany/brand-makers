@@ -6,14 +6,12 @@ const BLUE = "#00A1E1";
 
 const NAV_ITEMS = [
   { label: "Customizable Areas", id: "customizable-areas" },
-  { label: "Cap Styles", id: "cap-styles" },
-  { label: "Closure Styles", id: "closure-styles" },
+  { label: "Popular Hat Styles", id: "popular-hat-styles" },
   { label: "Decoration Options", id: "decoration-options" },
+  { label: "Closure Options", id: "closure-options" },
   { label: "Accent Options", id: "accent-options" },
-  { label: "Fabric Colors", id: "fabric-color" },
-  { label: "Mesh Colors", id: "mesh-color" },
-  { label: "Logo Placements", id: "logo-placement" },
-  { label: "Size Chart", id: "size-chart" },
+  { label: "Popular Fabric Options", id: "popular-fabric-options" },
+  { label: "Popular Fabric Colors", id: "fabric-color" },
 ];
 
 export function HeadwearSidebar() {

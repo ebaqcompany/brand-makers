@@ -2,55 +2,99 @@ import type { Metadata } from "next";
 import { SiteShell } from "@/components/site-shell";
 import { BmButton } from "@/components/bm-button";
 import { HeadwearSidebar } from "@/components/headwear-sidebar";
+import { ImageLightbox } from "@/components/image-lightbox";
 
 export const metadata: Metadata = {
   title: "Custom Headwear — Brand Makers",
   description:
-    "Fully custom headwear designed to perfection. Cap styles, closure options, decoration, fabric colours, logo placements and more.",
+    "Fully custom headwear designed to perfection. Customizable areas, popular hat styles, decoration, closures, accents, and fabric options.",
 };
 
 const BLUE = "#00A1E1";
 const DARK = "#323E48";
 const GREY = "#F0F0F0";
 
-const CAP_STYLES = [
-  "5panellasermeshhatinfo", "5paneltruckerhatinfo", "7panelclassichatinfo",
-  "7panellaserflatbillhatinfo", "7paneltruckerhatinfo", "beanieinfo",
-  "dadhatinfo", "flatbillfabrichatinfo", "flatbilltruckerhatinfo",
-  "flexcaphatinfo", "foamtruckerhatinfo", "lowprotruckerhatinfo",
-  "midprolasermeshhatinfo", "midprotrucker_bm601_infograph", "strawhatinfo",
-];
-
-const CLOSURE_STYLES = [
-  "closures_v2-01", "closures_v2-02", "closures_v2-03", "closures_v2-04",
-  "closures_v2-06", "closures_v2-07", "closures_v2-08",
+const POPULAR_HAT_STYLES = [
+  "BM-502_FishingTrucker.png",
+  "BM-503_CamoChainstitch.png",
+  "BM-503_BWCircle_PerfRope.png",
+  "BM-503_GreenFlatbill.png",
+  "BM-503_MountainPatch_CorduroyBill.png",
+  "BM-575_BlueBeKind.png",
+  "BM-600_WoolTopoPatch.png",
+  "BM-606_Simplegray.png",
+  "BM-609_NavyRedChenille.png",
+  "BM-701_7panelblk.png",
 ];
 
 const DECORATION_OPTIONS = [
-  "3dpuffembroidery", "embroidery", "screenprint", "pvcpatch",
-  "raisedpvcpatch", "tpu-transfer", "mixedmedia",
-  "decorationtypes-01", "decorationtypes-03", "decorationtypes-06",
-  "decorationtypes-07", "decorationtypes-08", "decorationtypes-09",
-  "decorationtypes-12", "decorationtypes-15", "decorationtypes-18",
-  "decorationtypes-19", "decorationtypes-20", "decorationtypes-21",
-  "decorationtypes-30", "decorationtypes-31",
+  "3DPuff.png",
+  "BeveledPVC.png",
+  "ChenillePatch.png",
+  "ChannelStitch.png",
+  "Embroidery.png",
+  "DyeSublimated.png",
+  "DyeSubPatch.png",
+  "LeatherPatch.png",
+  "MixedMedia.png",
+  "PVCPatch.png",
+  "Screenprint.png",
+  "SiliconeTransfer.png",
+  "TackleTwill.png",
+  "WovenPatch.png",
 ];
 
-const ACCENTS = [
-  "hemtag", "pvcaccentpatch", "tpu-transferunderbill", "dyesublimatedinsidebill",
-  "decorationtypes-22", "decorationtypes-23", "decorationtypes-24",
-  "decorationtypes-25", "decorationtypes-26", "decorationtypes-27",
+const CLOSURE_OPTIONS = [
+  "ComfortStrapVelcro.png",
+  "LeatherMetalBuckle.png",
+  "MetalBuckle.png",
+  "MetalSlideBuckle.png",
+  "PlasticBuckle.png",
+  "StandardSnap.png",
+  "Velcro.png",
+  "VerticalSnap.png",
 ];
+
+const ACCENT_OPTIONS = [
+  "CustomTaping.png",
+  "CustomTags.png",
+  "DyeSubInsidePanel.png",
+  "TPUTransfer.png",
+  "UnderbillScreenprint.png",
+  "WovenHemTag.png",
+];
+
+const POPULAR_FABRIC_OPTIONS = [
+  "Corduroy.png",
+  "CottonCanvas.png",
+  "CottonTwill.png",
+  "Foam.png",
+  "LaserMesh.png",
+  "Mesh.png",
+  "Nylon.png",
+  "Polyester.png",
+  "Ripstop.png",
+  "Sublimated.png",
+  "WaxedCanvas.png",
+  "Wool.png",
+];
+
+function formatAlt(fileName: string) {
+  return fileName
+    .replace(/\.[^.]+$/, "")
+    .replace(/[-_]/g, " ")
+    .replace(/([a-z])([A-Z])/g, "$1 $2");
+}
 
 function ImageGrid({ images, basePath }: { images: string[]; basePath: string }) {
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
       {images.map((img) => (
         <div key={img} className="overflow-hidden rounded-xl">
-          <img
-            src={`${basePath}/${img}.jpg`}
-            alt={img.replace(/[-_]/g, " ")}
-            className="w-full h-auto"
+          <ImageLightbox
+            src={`${basePath}/${img}`}
+            alt={formatAlt(img)}
+            imgClassName="w-full h-auto"
             loading="lazy"
           />
         </div>
@@ -89,47 +133,41 @@ export default function CustomHeadwearPage() {
 
             <Section id="customizable-areas" caption="Overview" title="Customizable Areas">
               <div className="overflow-hidden rounded-2xl">
-                <img src="/headwear/Customizable Areas/customizableareas.jpg" alt="Customizable areas of a cap" className="w-full h-auto" />
+                <ImageLightbox
+                  src="/headwear/Customizable Areas/customizable-areas.png"
+                  alt="Customizable areas of a cap"
+                  imgClassName="w-full h-auto"
+                />
               </div>
             </Section>
 
-            <Section id="cap-styles" caption="Choose Your Style" title="Cap Styles">
-              <ImageGrid images={CAP_STYLES} basePath="/headwear/Cap Styles" />
-            </Section>
-
-            <Section id="closure-styles" caption="Back Details" title="Closure Styles">
-              <ImageGrid images={CLOSURE_STYLES} basePath="/headwear/Closure Styles" />
+            <Section id="popular-hat-styles" caption="Choose Your Style" title="Popular Hat Styles">
+              <ImageGrid images={POPULAR_HAT_STYLES} basePath="/headwear/Popular Hat Styles" />
             </Section>
 
             <Section id="decoration-options" caption="Make It Yours" title="Decoration Options">
               <ImageGrid images={DECORATION_OPTIONS} basePath="/headwear/Decoration Options" />
             </Section>
 
+            <Section id="closure-options" caption="Back Details" title="Closure Options">
+              <ImageGrid images={CLOSURE_OPTIONS} basePath="/headwear/Closure Options" />
+            </Section>
+
             <Section id="accent-options" caption="Finishing Touches" title="Accent Options">
-              <ImageGrid images={ACCENTS} basePath="/headwear/Accents" />
+              <ImageGrid images={ACCENT_OPTIONS} basePath="/headwear/Accent Options" />
             </Section>
 
-            <Section id="fabric-color" caption="Materials" title="Fabric Color Options">
-              <div className="overflow-hidden rounded-2xl">
-                <img src="/headwear/Fabric Options/fabric-options-2.jpg" alt="Fabric color swatches" className="w-full h-auto" />
-              </div>
+            <Section id="popular-fabric-options" caption="Materials" title="Popular Fabric Options">
+              <ImageGrid images={POPULAR_FABRIC_OPTIONS} basePath="/headwear/Popular Fabric Options" />
             </Section>
 
-            <Section id="mesh-color" caption="Materials" title="Mesh Color Options">
+            <Section id="fabric-color" caption="Materials" title="Popular Fabric Colors">
               <div className="overflow-hidden rounded-2xl">
-                <img src="/headwear/Mesh Options/mesh-options-2.jpg" alt="Mesh color swatches" className="w-full h-auto" />
-              </div>
-            </Section>
-
-            <Section id="logo-placement" caption="Branding" title="Logo Placements">
-              <div className="overflow-hidden rounded-2xl">
-                <img src="/headwear/Logo Placements/hat-decoration-locations.jpg" alt="Hat logo placement locations" className="w-full h-auto" />
-              </div>
-            </Section>
-
-            <Section id="size-chart" caption="Fit Guide" title="Size Chart">
-              <div className="overflow-hidden rounded-2xl">
-                <img src="/headwear/Size Chart/sizechart.jpg" alt="Headwear size chart" className="w-full h-auto" />
+                <ImageLightbox
+                  src="/headwear/Fabric Options/fabric-options-2.jpg"
+                  alt="Popular fabric color swatches"
+                  imgClassName="w-full h-auto"
+                />
               </div>
               <div className="mt-12 text-center">
                 <BmButton href="/lets-connect" variant="primary" size="md">

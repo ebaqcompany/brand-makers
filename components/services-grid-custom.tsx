@@ -15,9 +15,9 @@ const SERVICES: HomeServiceItem[] = [
   { label: "Kitting & Fulfillment", href: "/kitting-and-fulfillment",         icon: "bm_icons-kitting" },
   { label: "Custom Headwear",       href: "/custom-headwear",                 icon: "bm_icons-headwear" },
   { label: "Custom Merch",          href: "/custom-products",                 icon: "bm_icons-customproducts" },
-  { label: "On-Site Experiences",   href: "/on-site-experiences",             icon: "bm_icons-retailpartner_onsite" },
+  { label: "On-Site Activations",   href: "/on-site-experiences",             icon: "bm_icons-retailpartner_onsite" },
   { label: "Retail Brand Partners", href: "/about#retail-brand-partners",     icon: "bm_icons-retailpartner" },
-  { label: "Our Responsibility",    href: "/about#our-responsibility",        icon: "bm_icons-responsibility" },
+  { label: "Design Ideas",          href: "/design-ideas",                    icon: "bm_icons-designideas" },
 ];
 
 function AnimatedIcon({ src, revealed, iconIndex }: { src: string; revealed: boolean; iconIndex: number }) {

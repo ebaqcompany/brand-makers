@@ -29,7 +29,7 @@ const HELP_OPTIONS = [
   "Kitting & Fulfillment",
   "Custom Headwear",
   "Custom Merch",
-  "On-Site Experiences",
+  "On-Site Activations",
   "Creative Services",
   "Something Else",
 ];

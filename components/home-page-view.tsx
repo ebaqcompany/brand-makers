@@ -2,6 +2,7 @@ import { BmButton } from "@/components/bm-button";
 import { CtaSection } from "@/components/cta-section";
 import { ScrollNavbar } from "@/components/scroll-navbar";
 import { Hero3 } from "@/components/hero3";
+import { ImageLightbox } from "@/components/image-lightbox";
 import { Footer2 } from "@/components/footer2";
 import { ServicesGridCustom } from "@/components/services-grid-custom";
 import type { HomeLinkCard, HomePageContent } from "@/lib/home-content";
@@ -108,10 +109,10 @@ export function HomePageView({ content }: { content: HomePageContent }) {
             <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
               {content.customMerchImages.slice(0, 8).map((image, i) => (
                 <div key={`${image.src}-${i}`} className="aspect-square overflow-hidden rounded-xl">
-                  <img
+                  <ImageLightbox
                     src={image.src}
                     alt={image.alt}
-                    className="h-full w-full object-cover"
+                    imgClassName="h-full w-full object-cover"
                     loading="lazy"
                   />
                 </div>

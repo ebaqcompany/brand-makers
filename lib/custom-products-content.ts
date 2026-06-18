@@ -20,13 +20,16 @@ export interface CustomProductsContent {
 }
 
 const MERCH_COUNT = 49;
+const EXCLUDED_MERCH_IMAGE_NUMBERS = [21];
 const FEATURED_MERCH_IMAGE_NUMBERS = [
   29, 2, 11, 25, 46, 43, 45, 37, 48, 26, 49, 40, 47, 17, 38, 19, 7,
 ];
 const MERCH_IMAGE_ORDER = [
   ...FEATURED_MERCH_IMAGE_NUMBERS,
   ...Array.from({ length: MERCH_COUNT }, (_, i) => i + 1).filter(
-    (number) => !FEATURED_MERCH_IMAGE_NUMBERS.includes(number),
+    (number) =>
+      !FEATURED_MERCH_IMAGE_NUMBERS.includes(number) &&
+      !EXCLUDED_MERCH_IMAGE_NUMBERS.includes(number),
   ),
 ];
 

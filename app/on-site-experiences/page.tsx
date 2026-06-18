@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { SiteShell } from "@/components/site-shell";
-import { BmButton } from "@/components/bm-button";
 import { ExperiencesTimeline } from "@/components/experiences-timeline";
 import { CtaSection } from "@/components/cta-section";
+import { ImageLightbox } from "@/components/image-lightbox";
 import { MarqueeRow } from "@/components/marquee-row";
 import { CASE_STUDIES } from "@/lib/case-studies";
 
 export const metadata: Metadata = {
-  title: "On-Site Experiences — Brand Makers",
+  title: "On-Site Activations — Brand Makers",
   description:
     "Our on-site branding activations allow guests to create branded merchandise in real time — transforming ordinary giveaways into unforgettable brand moments.",
 };
@@ -39,9 +39,9 @@ const EXPERIENCES = [
     image: "/experiences/experiences/vinylplotting.jpg",
   },
   {
-    title: "Engraving",
+    title: "Laser Engraving",
     description: "Laser engraving on drinkware, pens, keychains, and more. A premium, permanent decoration method.",
-    image: "/experiences/experiences/engraving.jpg",
+    image: "/experiences/experiences/laser-engraving.png",
   },
   {
     title: "Screen Printing",
@@ -82,7 +82,7 @@ export default function OnSiteExperiencesPage() {
       <section className="py-20 md:py-[80px]" style={{ backgroundColor: DARK }}>
         <div className="max-w-[1200px] mx-auto px-6 text-center">
           <p className="mb-6 text-xs font-medium uppercase tracking-[2px]" style={{ color: BLUE }}>
-            On-Site Experiences
+            On-Site Activations
           </p>
           <img
             src="/experiences/hatbar-white.png"
@@ -154,10 +154,10 @@ export default function OnSiteExperiencesPage() {
                 style={{ backgroundColor: "#FFFFFF" }}
               >
                 <div className="overflow-hidden" style={{ aspectRatio: "4/3" }}>
-                  <img
+                  <ImageLightbox
                     src={exp.image}
                     alt={exp.title}
-                    className="h-full w-full object-cover"
+                    imgClassName="h-full w-full object-cover"
                     loading="lazy"
                   />
                 </div>
@@ -194,10 +194,10 @@ export default function OnSiteExperiencesPage() {
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
             {Array.from({ length: OUR_WORK_COUNT }).map((_, i) => (
               <div key={i} className="aspect-square overflow-hidden rounded-xl">
-                <img
+                <ImageLightbox
                   src={`/experiences/our-work/work-${String(i + 1).padStart(2, "0")}.jpg`}
                   alt={`On-site activation ${i + 1}`}
-                  className="h-full w-full object-cover"
+                  imgClassName="h-full w-full object-cover"
                   loading="lazy"
                 />
               </div>
@@ -292,7 +292,13 @@ export default function OnSiteExperiencesPage() {
               className="mx-2 w-[180px] shrink-0 overflow-hidden rounded-2xl"
               style={{ backgroundColor: GREY }}
             >
-              <img src={item.image} alt={item.label} className="w-full h-auto block" draggable={false} loading="lazy" />
+              <ImageLightbox
+                src={item.image}
+                alt={item.label}
+                imgClassName="w-full h-auto block"
+                draggable={false}
+                loading="lazy"
+              />
               <p className="py-3 text-center text-sm font-medium tracking-[-0.5px]" style={{ color: DARK }}>
                 {item.label}
               </p>
@@ -308,7 +314,13 @@ export default function OnSiteExperiencesPage() {
               className="mx-2 w-[180px] shrink-0 overflow-hidden rounded-2xl"
               style={{ backgroundColor: GREY }}
             >
-              <img src={item.image} alt={item.label} className="w-full h-auto block" draggable={false} loading="lazy" />
+              <ImageLightbox
+                src={item.image}
+                alt={item.label}
+                imgClassName="w-full h-auto block"
+                draggable={false}
+                loading="lazy"
+              />
               <p className="py-3 text-center text-sm font-medium tracking-[-0.5px]" style={{ color: DARK }}>
                 {item.label}
               </p>

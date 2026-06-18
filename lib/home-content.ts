@@ -9,15 +9,6 @@ export interface CtaSectionContent {
   secondaryHref: string;
 }
 
-const DEFAULT_CTA_CONTENT: CtaSectionContent = {
-  heading: "Let's Work Together",
-  body: "Ready to elevate your brand? Tell us about your project and we'll make it happen.",
-  primaryLabel: "Let's Connect",
-  primaryHref: "/lets-connect",
-  secondaryLabel: "View Catalog",
-  secondaryHref: "https://catalog.brandmakers.com/",
-};
-
 export interface HomeHeroVideo {
   id: number;
   src: string;
@@ -83,7 +74,7 @@ export interface HomePageContent {
 export const HOME_FALLBACK: HomePageContent = {
   seoTitle: "Brand Makers",
   seoDescription:
-    "Brand Makers creates custom merch, company stores, kitting, fulfillment, headwear, and on-site brand experiences.",
+    "Brand Makers creates custom merch, company stores, kitting, fulfillment, headwear, and on-site brand activations.",
   heroLineOne: "We Make Your",
   heroLineTwo: "Brand Look Good.",
   heroVideos: [
@@ -108,9 +99,9 @@ export const HOME_FALLBACK: HomePageContent = {
     { label: "Kitting & Fulfillment", href: "/kitting-and-fulfillment", icon: "bm_icons-kitting" },
     { label: "Custom Headwear", href: "/custom-headwear", icon: "bm_icons-headwear" },
     { label: "Custom Merch", href: "/custom-products", icon: "bm_icons-customproducts" },
-    { label: "On-Site Experiences", href: "/on-site-experiences", icon: "bm_icons-retailpartner_onsite" },
+    { label: "On-Site Activations", href: "/on-site-experiences", icon: "bm_icons-retailpartner_onsite" },
     { label: "Retail Brand Partners", href: "/about#retail-brand-partners", icon: "bm_icons-retailpartner" },
-    { label: "Our Responsibility", href: "/about#our-responsibility", icon: "bm_icons-responsibility" },
+    { label: "Design Ideas", href: "/design-ideas", icon: "bm_icons-designideas" },
   ],
   searchEyebrow: "Search for Merch",
   searchHeading: "Find Your Perfect Swag",
@@ -139,7 +130,7 @@ export const HOME_FALLBACK: HomePageContent = {
   customMerchImages: CUSTOM_MERCH_FEATURED_IMAGES.slice(0, 8),
   customMerchCtaLabel: "See Custom Merch",
   customMerchCtaHref: "/custom-products",
-  onsiteEyebrow: "On-Site Experiences",
+  onsiteEyebrow: "On-Site Activations",
   onsiteHeading: "Merch That Moves People",
   onsiteBody:
     "Our on-site branding activations allow guests to create branded merchandise in real time — transforming ordinary giveaways into unforgettable brand moments.",
@@ -147,7 +138,14 @@ export const HOME_FALLBACK: HomePageContent = {
     src: `/experiences/clips/clip-${String(i + 1).padStart(2, "0")}.mp4`,
     alt: `On-site experience clip ${i + 1}`,
   })),
-  onsiteCtaLabel: "Explore Experiences",
+  onsiteCtaLabel: "Explore Activations",
   onsiteCtaHref: "/on-site-experiences",
-  cta: DEFAULT_CTA_CONTENT,
+  cta: {
+    heading: "Design Ideas",
+    body: "Get inspired by custom and stock design ideas from our creative team.",
+    primaryLabel: "Explore Design Ideas",
+    primaryHref: "/design-ideas",
+    secondaryLabel: "Custom Design Ideas",
+    secondaryHref: "https://drive.google.com/drive/folders/1IlauPiS_vmY2muAYr8HEkCyhR7m6OT2x?usp=sharing",
+  },
 };

@@ -1,4 +1,5 @@
 import { CtaSection } from "@/components/cta-section";
+import { ImageLightbox } from "@/components/image-lightbox";
 import { PaddlesStopMotion } from "@/components/paddles-stopmotion";
 import { SiteShell } from "@/components/site-shell";
 import type { CustomProductsContent } from "@/lib/custom-products-content";
@@ -96,10 +97,10 @@ export function CustomProductsPageView({
                 key={`${image.src}-${i}`}
                 className="aspect-square overflow-hidden rounded-xl border border-gray-200"
               >
-                <img
+                <ImageLightbox
                   src={image.src}
                   alt={image.alt}
-                  className="h-full w-full object-cover"
+                  imgClassName="h-full w-full object-cover"
                   loading="lazy"
                 />
               </div>

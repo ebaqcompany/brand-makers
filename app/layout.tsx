@@ -12,7 +12,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Brand Makers — We Make Your Brand Look Good.",
   description:
-    "Brand Makers is your full-service promotional products partner. Custom headwear, company stores, kitting & fulfillment, on-site experiences, and more.",
+    "Brand Makers is your full-service promotional products partner. Custom headwear, company stores, kitting & fulfillment, on-site activations, and more.",
   icons: {
     icon: [
       {
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Brand Makers — We Make Your Brand Look Good.",
     description:
-      "Full-service promotional products, custom headwear, company stores, kitting & fulfillment, and on-site experiences.",
+      "Full-service promotional products, custom headwear, company stores, kitting & fulfillment, and on-site activations.",
     siteName: "Brand Makers",
     type: "website",
   },
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Brand Makers — We Make Your Brand Look Good.",
     description:
-      "Full-service promotional products, custom headwear, company stores, kitting & fulfillment, and on-site experiences.",
+      "Full-service promotional products, custom headwear, company stores, kitting & fulfillment, and on-site activations.",
   },
 };
 
