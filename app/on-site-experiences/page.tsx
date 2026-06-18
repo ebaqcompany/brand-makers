@@ -284,49 +284,53 @@ export default function OnSiteExperiencesPage() {
           </h2>
         </div>
 
-        {/* Row 1 — scrolls left, draggable */}
-        <MarqueeRow duration={40} direction="left" className="mb-4">
-          {[...ITEMS_TO_DECORATE.slice(0, 10), ...ITEMS_TO_DECORATE.slice(0, 10)].map((item, i) => (
-            <div
-              key={`r1-${i}`}
-              className="mx-2 w-[180px] shrink-0 overflow-hidden rounded-2xl"
-              style={{ backgroundColor: GREY }}
-            >
-              <ImageLightbox
-                src={item.image}
-                alt={item.label}
-                imgClassName="w-full h-auto block"
-                draggable={false}
-                loading="lazy"
-              />
-              <p className="py-3 text-center text-sm font-medium tracking-[-0.5px]" style={{ color: DARK }}>
-                {item.label}
-              </p>
-            </div>
-          ))}
-        </MarqueeRow>
+        <div className="mx-auto max-w-[1440px] overflow-hidden px-6">
+          {/* Row 1 — scrolls left, draggable */}
+          <MarqueeRow duration={40} direction="left" className="mb-5">
+            {[...ITEMS_TO_DECORATE.slice(0, 10), ...ITEMS_TO_DECORATE.slice(0, 10)].map((item, i) => (
+              <div
+                key={`r1-${i}`}
+                className="mx-2 w-[200px] shrink-0 overflow-hidden rounded-2xl"
+                style={{ backgroundColor: GREY }}
+              >
+                <ImageLightbox
+                  src={item.image}
+                  alt={item.label}
+                  className="flex h-[150px] items-center justify-center bg-white p-5"
+                  imgClassName="max-h-full max-w-full object-contain"
+                  draggable={false}
+                  loading="lazy"
+                />
+                <p className="py-3 text-center text-sm font-medium tracking-[-0.5px]" style={{ color: DARK }}>
+                  {item.label}
+                </p>
+              </div>
+            ))}
+          </MarqueeRow>
 
-        {/* Row 2 — scrolls right, draggable */}
-        <MarqueeRow duration={40} direction="right">
-          {[...ITEMS_TO_DECORATE.slice(10), ...ITEMS_TO_DECORATE.slice(10)].map((item, i) => (
-            <div
-              key={`r2-${i}`}
-              className="mx-2 w-[180px] shrink-0 overflow-hidden rounded-2xl"
-              style={{ backgroundColor: GREY }}
-            >
-              <ImageLightbox
-                src={item.image}
-                alt={item.label}
-                imgClassName="w-full h-auto block"
-                draggable={false}
-                loading="lazy"
-              />
-              <p className="py-3 text-center text-sm font-medium tracking-[-0.5px]" style={{ color: DARK }}>
-                {item.label}
-              </p>
-            </div>
-          ))}
-        </MarqueeRow>
+          {/* Row 2 — scrolls right, draggable */}
+          <MarqueeRow duration={40} direction="right">
+            {[...ITEMS_TO_DECORATE.slice(10), ...ITEMS_TO_DECORATE.slice(10)].map((item, i) => (
+              <div
+                key={`r2-${i}`}
+                className="mx-2 w-[200px] shrink-0 overflow-hidden rounded-2xl"
+                style={{ backgroundColor: GREY }}
+              >
+                <ImageLightbox
+                  src={item.image}
+                  alt={item.label}
+                  className="flex h-[150px] items-center justify-center bg-white p-5"
+                  imgClassName="max-h-full max-w-full object-contain"
+                  draggable={false}
+                  loading="lazy"
+                />
+                <p className="py-3 text-center text-sm font-medium tracking-[-0.5px]" style={{ color: DARK }}>
+                  {item.label}
+                </p>
+              </div>
+            ))}
+          </MarqueeRow>
+        </div>
       </section>
 
       {/* ── CTA ── */}
